@@ -1,0 +1,54 @@
+﻿using Application.Common.Interfaces.CQRSInterfaces;
+using Application.Common.Interfaces.Presistance;
+using Domain.Models;
+using Domain.Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Application.CQRS.Command.AssignementAnswers
+{
+	public class DeleteAssignementAnswerHandler : ICommandHandler<DeleteAssignementAnswerCommand, int>
+	{
+
+		private readonly IUnitOfwork unitOfwork;
+
+		public DeleteAssignementAnswerHandler(IUnitOfwork unitOfwork)
+		{
+			this.unitOfwork = unitOfwork;
+		}
+
+		public async Task<Result<int>> Handle(DeleteAssignementAnswerCommand request, CancellationToken cancellationToken)
+		{
+			try
+			{
+				AssignmentAnswer assignementanswer = await unitOfwork.AssignementAnswerRepository.GetByIdAsync(request.Id);
+				if (assignementanswer is null)
+					Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "No assignementanswer has this Id")) ;
+
+				if (assignementanswer is not null && (
+                     (assignementanswer.StudentId!=request.AssignementAnswerDto.StudentId) ||
+					 (assignementanswer.AssignmentId)!=(request.AssignementAnswerDto.AssignementId) )
+					) 
+				{
+					return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "Data of the assignementanswer is not the same in database"));
+				}
+
+				bool IsDeleted = await unitOfwork.AssignementAnswerRepository.DeleteAsync(request.Id);
+
+				if (IsDeleted) 
+				{
+					int NumOfTasks = await unitOfwork.SaveChangesAsync();
+					return Result.Success<int>(request.Id);
+				}
+				return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "Unable To Delete")) ;
+			}
+			catch(Exception ex) 
+			{
+				return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: ex.Message.ToString()));
+			}
+		}
+	}
+}
