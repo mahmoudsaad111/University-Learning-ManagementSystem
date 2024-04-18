@@ -67,7 +67,7 @@ namespace Api.Controllers
 
 
 
-		[HttpPost]
+		[HttpPut]
 		[Route("UpdateInstructor")]
 		public async Task<ActionResult> UpdateInstructor([FromBody] InstructorUpdateDto instructorUpdatedDto)
 		{
@@ -111,15 +111,15 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpDelete]
 		[Route("DeleteInstructor")]
-		public async Task<ActionResult> DeleteStudent([FromBody] UserDeleteDto userDelteDto)
+		public async Task<ActionResult> DeleteStudent([FromHeader] string Email)
 		{
 			if (!ModelState.IsValid)
 				return BadRequest("Enter falid email");
 			try
 			{
-				User userDelte = await userManager.FindByEmailAsync(userDelteDto.Email);
+				User userDelte = await userManager.FindByEmailAsync(Email);
 				if (userDelte is null)
 					return BadRequest("No Instructor has this email");
 				IdentityResult resultOfDelete = await userManager.DeleteAsync(userDelte);

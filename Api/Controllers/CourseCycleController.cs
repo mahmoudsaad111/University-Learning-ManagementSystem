@@ -60,7 +60,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateCourseCycle")]
         public async Task<ActionResult> UpdateCourseCycle([FromHeader] int Id, [FromBody] CourseCycleDto courseCycleDto)
         {
@@ -78,9 +78,9 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteCourseCycle")]
-        public async Task<ActionResult> DeleteCourseCycle([FromHeader] int Id, [FromBody] CourseCycleDto courseCycleDto)
+        public async Task<ActionResult> DeleteCourseCycle([FromHeader] int Id )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

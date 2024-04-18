@@ -58,7 +58,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateAcadimicYear")]
         public async Task<ActionResult> UpdateAcadimicYear([FromHeader] int Id, [FromBody] AcadimicYearDto AcadimicYearDto)
         {
@@ -76,7 +76,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteAcadimicYear")]
         public async Task<ActionResult> DeleteAcadimicYear([FromHeader] int Id)
         {

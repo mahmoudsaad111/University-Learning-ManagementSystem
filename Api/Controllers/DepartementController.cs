@@ -81,7 +81,7 @@ namespace Api.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateDepartement")]
         public async Task<ActionResult> UpdateDepartement([FromHeader] int Id, [FromBody] DepartementDto departementDto)
         {
@@ -99,9 +99,9 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteDepartement")]
-        public async Task<ActionResult> DeleteDepartement([FromHeader] int Id, [FromBody] DepartementDto departementDto)
+        public async Task<ActionResult> DeleteDepartement([FromHeader] int Id )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -38,7 +38,7 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdatePostReply")]
         public async Task<ActionResult> UpdatePostReply([FromHeader] int Id, [FromBody] PostReplyDto postReplyDto)
         {
@@ -56,9 +56,9 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeletePostReply")]
-        public async Task<ActionResult> DeletePostReply([FromHeader] int Id, [FromBody] PostReplyDto postReplyDto)
+        public async Task<ActionResult> DeletePostReply([FromHeader] int Id )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

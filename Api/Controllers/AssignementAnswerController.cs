@@ -59,7 +59,7 @@ namespace Api.Controllers
             }
         }
         */
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateAssignementAnswer")]
         public async Task<ActionResult> UpdateAssignementAnswer([FromHeader] int Id, [FromBody] AssignementAnswerDto assignementAnswerDto)
         {
@@ -77,9 +77,9 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteAssignementAnswer")]
-        public async Task<ActionResult> DeleteAssignementAnswer([FromHeader] int Id, [FromBody] AssignementAnswerDto assignementAnswerDto)
+        public async Task<ActionResult> DeleteAssignementAnswer([FromHeader] int Id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

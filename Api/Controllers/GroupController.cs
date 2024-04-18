@@ -39,7 +39,7 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPut]
 		[Route("UpdateGroup")]
 		public async Task<ActionResult> UpdateGroup([FromHeader] int Id, [FromBody] GroupDto groupDto)
 		{
@@ -57,9 +57,9 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpDelete]
 		[Route("DeleteGroup")]
-		public async Task<ActionResult> DeleteGroup([FromHeader] int Id, [FromBody] GroupDto groupDto)
+		public async Task<ActionResult> DeleteGroup([FromHeader] int Id )
 		{
 			if (!ModelState.IsValid)
 				return BadRequest(ModelState);

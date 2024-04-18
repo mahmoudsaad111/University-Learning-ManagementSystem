@@ -42,8 +42,8 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetFaculties")]
-        public async Task<ActionResult> GetALlFaculties()
+        [Route("GetAllCourseCategories")]
+        public async Task<ActionResult> GetAllCourseCategories()
         {
              var result = await mediator.Send(new GetAllCourseCategoriesQuery());
              if (result.IsSuccess)
@@ -51,7 +51,7 @@ namespace Api.Controllers
              return BadRequest(result.Error);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("UpdateCourseCategory")]
         public async Task<ActionResult> UpdateCourseCategory([FromHeader] int Id, [FromBody] CourseCategoryDto courseCategoryDto)
         {
@@ -62,9 +62,9 @@ namespace Api.Controllers
             return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);      
         }
 
-        [HttpPost]
+        [HttpDelete]
         [Route("DeleteCourseCategory")]
-        public async Task<ActionResult> DeleteCourseCategory([FromHeader] int Id, [FromBody] CourseCategoryDto courseCategoryDto)
+        public async Task<ActionResult> DeleteCourseCategory([FromHeader] int Id )
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
