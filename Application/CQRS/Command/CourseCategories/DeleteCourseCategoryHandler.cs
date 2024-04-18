@@ -29,13 +29,13 @@ namespace Application.CQRS.Command.CourseCategories
                 if (courseCategory == null)
                     Result.Failure<int>(new Error(code: "Delete CourseCategory", message: "No courseCategory has this Id"));
 
-                if ((courseCategory.DepartementId != request.CourseCategoryDto.DepartementId) ||
-                     (courseCategory.Name != request.CourseCategoryDto.Name) ||
-                     (courseCategory.Description != request.CourseCategoryDto.Description)
-                    )
-                {
-                    return Result.Failure<int>(new Error(code: "Delete CourseCategory", message: "Data of the courseCategory is not the same in database"));
-                }
+                //if ((courseCategory.DepartementId != request.CourseCategoryDto.DepartementId) ||
+                //     (courseCategory.Name != request.CourseCategoryDto.Name) ||
+                //     (courseCategory.Description != request.CourseCategoryDto.Description)
+                //    )
+                //{
+                //    return Result.Failure<int>(new Error(code: "Delete CourseCategory", message: "Data of the courseCategory is not the same in database"));
+                //}
 
                 bool IsDeleted = await unitOfwork.CourseCategoryRepository.DeleteAsync(request.Id);
 

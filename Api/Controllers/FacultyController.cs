@@ -59,7 +59,26 @@ namespace Api.Controllers
 			}
 		}
 
-		[HttpPost]
+
+        [HttpGet]
+        [Route("GetFacultiesLessInfo")]
+        public async Task<ActionResult> GetFacultiesLessInfo()
+        {
+            try
+            {
+                var result = await mediator.Send(new GetLessInfoAllFacultiesQuery());
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpPost]
 		[Route("UpdateFaculty")]
 		public async Task<ActionResult> UpdateFaculty([FromHeader] int Id, [FromBody] FacultyDto facultyDto)
 		{
@@ -87,7 +106,7 @@ namespace Api.Controllers
 				return BadRequest("Enter valid ID");
 			try
 			{
-				Result<int> resultOfDeleted = await mediator.Send(new DeleteFacultyCommand { Id = Id, FacultyDto = facultyDto });
+				Result<int> resultOfDeleted = await mediator.Send(new DeleteFacultyCommand { Id = Id });
 				return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
 			}
 			catch

@@ -28,14 +28,14 @@ namespace Application.CQRS.Command.CourseCycles
 				if (courseCycle == null)
 					return Result.Failure<int>(new Error(code: "Delete CourseCycle", message: "No courseCycle has this Id")) ;
 
-				if ((courseCycle.CourseId != request.CourseCycleDto.CourseId) ||
-					 (courseCycle.GroupId != request.CourseCycleDto.GroupId) ||
-					 (courseCycle.ProfessorId != request.CourseCycleDto.ProfessorId) ||
-					 (courseCycle.Title!=request.CourseCycleDto.Title) 
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete CourseCycle", message: "Data of the courseCycle is not the same in database"));
-				}
+				//if ((courseCycle.CourseId != request.CourseCycleDto.CourseId) ||
+				//	 (courseCycle.GroupId != request.CourseCycleDto.GroupId) ||
+				//	 (courseCycle.ProfessorId != request.CourseCycleDto.ProfessorId) ||
+				//	 (courseCycle.Title!=request.CourseCycleDto.Title) 
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete CourseCycle", message: "Data of the courseCycle is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.CourseCycleRepository.DeleteAsync(request.Id);
 

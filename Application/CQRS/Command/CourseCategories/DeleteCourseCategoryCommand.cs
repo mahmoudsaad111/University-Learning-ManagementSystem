@@ -13,6 +13,6 @@ namespace Application.CQRS.Command.CourseCategories
     public class DeleteCourseCategoryCommand :ICommand<int>
     {
         public int Id { get; set; }
-        public CourseCategoryDto CourseCategoryDto { get; set; }
+       // public CourseCategoryDto CourseCategoryDto { get; set; }
     }
 }

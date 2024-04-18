@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto;
 using Domain.Models;
 using Domain.Shared;
 using Infrastructure.Common;
@@ -33,6 +34,18 @@ namespace Infrastructure.Repositories
                 return Result.Failure<Faculty>(new Error (code : "GetFacultyHasThisDepartementAsync", message: ex.Message.ToString()));
             }
 
+        }
+
+        public async Task<IEnumerable<NameIdDto>> GetLessInfoFaculties()
+        {
+
+                return  await _appDbContext.Faculties.AsNoTracking().Select(f =>
+                    new NameIdDto
+                    {
+                        Name = f.Name,
+                        Id = f.FacultyId
+                    }
+                ).ToListAsync();      
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Application.CQRS.Query.AcadimicYears
         {
             try
             {
-                var acadimicYears = await unitOfwork.AcadimicYearRepository.FindAllAsyncInclude();
+                var acadimicYears = await unitOfwork.AcadimicYearRepository.GetAllAcadimicYearsOfDepartement(request.DepartementId) ;
                 return Result.Create<IEnumerable<AcadimicYear>>(acadimicYears);
             }
             catch (Exception ex)

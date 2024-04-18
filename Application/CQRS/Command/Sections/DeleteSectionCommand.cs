@@ -7,6 +7,6 @@ namespace Application.CQRS.Command.Sections
 	public class DeleteSectionCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public SectionDto SectionDto { get; set; }
+		//public SectionDto SectionDto { get; set; }
 	}
 }

@@ -7,6 +7,6 @@ namespace Application.CQRS.Command.Groups
 	public class DeleteGroupCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public GroupDto GroupDto { get; set; }
+	//	public GroupDto GroupDto { get; set; }
 	}
 }

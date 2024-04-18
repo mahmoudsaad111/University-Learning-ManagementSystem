@@ -24,14 +24,14 @@ namespace Application.CQRS.Command.PostReplies
 				if (postReply == null)
 					return Result.Failure<int>(new Error(code: "Delete PostReply", message: "No postReply has this Id")) ;
 
-				if (  
-					 (postReply.Content != request.PostReplyDto.Content) ||
-					 (postReply.ReplierId != request.PostReplyDto.ReplierId) ||
-					 (postReply.PostId!=request.PostReplyDto.PostId)
-				   ) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete PostReply", message: "Data of the postReply is not the same in database"));
-				}
+				//if (  
+				//	 (postReply.Content != request.PostReplyDto.Content) ||
+				//	 (postReply.ReplierId != request.PostReplyDto.ReplierId) ||
+				//	 (postReply.PostId!=request.PostReplyDto.PostId)
+				//   ) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete PostReply", message: "Data of the postReply is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.PostReplyRepository.DeleteAsync(request.Id);
 

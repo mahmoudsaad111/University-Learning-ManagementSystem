@@ -67,7 +67,7 @@ namespace Api.Controllers
 				return BadRequest("Enter valid ID");
 			try
 			{
-				Result<int> resultOfDeleted = await mediator.Send(new DeleteGroupCommand { Id = Id, GroupDto = groupDto });
+				Result<int> resultOfDeleted = await mediator.Send(new DeleteGroupCommand { Id = Id });
 				return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
 			}
 			catch

@@ -52,11 +52,9 @@ namespace Api
                 app.UseSwaggerUI();
             }
             app.UseStaticFiles();
-
-            app.UseCors();
+            app.UseCors(option => option.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()) ;
             app.UseRouting();
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

@@ -28,13 +28,13 @@ namespace Application.CQRS.Command.Assignements
 				if (assignement == null)
 					Result.Failure<int>(new Error(code: "Delete Assignement", message: "No assignement has this Id")) ;
 
-				if (
-					 (assignement.FullMark != request.AssignementDto.FullMark) ||
-					 (assignement.Name!=request.AssignementDto.Name) 
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Assignement", message: "Data of the assignement is not the same in database"));
-				}
+				//if (
+				//	 (assignement.FullMark != request.AssignementDto.FullMark) ||
+				//	 (assignement.Name!=request.AssignementDto.Name) 
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Assignement", message: "Data of the assignement is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.AssignementRepository.DeleteAsync(request.Id);
 

@@ -8,7 +8,7 @@ namespace Contract.Dto.Courses
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public int TotalMark { get; set; }
-		public int AcadimicYear { get; set; }
+		public int AcadimicYearId { get; set; }
 		public int CourseCategoryId { get; set; }
 		public int DepartementId { get; set; }     
 
@@ -20,7 +20,7 @@ namespace Contract.Dto.Courses
 				Description = Description,
 				TotalMark = TotalMark,
 				CourseCategoryId = CourseCategoryId==0?1:CourseCategoryId,
-				AcadimicYearId=AcadimicYear
+				AcadimicYearId=AcadimicYearId
 			};				
 		}
 	}

@@ -68,7 +68,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             try
             {
-                Result<CourseCycle> resultOfUpdated = await mediator.Send(new UpdateCourseCycleCommand { Id = Id, CourseCycleDto = courseCycleDto });
+                Result<CourseCycle> resultOfUpdated = await mediator.Send(new UpdateCourseCycleCommand { Id = Id });
 
                 return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);
             }
@@ -88,7 +88,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCycleCommand { Id = Id, CourseCycleDto = courseCycleDto });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCycleCommand { Id = Id });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("invalid data");
             }
             catch

@@ -62,6 +62,25 @@ namespace Api.Controllers
             }
         }
 
+        
+         [HttpGet]
+        [Route("GetDepartementsOfFaculty")]
+        public async Task<ActionResult> GetDepartementsOfFaculty([FromHeader] int FacultyId)
+        {
+            try
+            {
+                var result = await mediator.Send(new GetDepartementBelongsToFacultyQuery { FacultyId= FacultyId});
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
         [HttpPost]
         [Route("UpdateDepartement")]
         public async Task<ActionResult> UpdateDepartement([FromHeader] int Id, [FromBody] DepartementDto departementDto)
@@ -90,7 +109,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteDepartementCommand { Id = Id, DepartementDto = departementDto });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteDepartementCommand { Id = Id });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

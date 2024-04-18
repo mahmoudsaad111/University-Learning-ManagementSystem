@@ -26,15 +26,7 @@ namespace Application.CQRS.Command.AssignementAnswers
 			{
 				AssignmentAnswer assignementanswer = await unitOfwork.AssignementAnswerRepository.GetByIdAsync(request.Id);
 				if (assignementanswer is null)
-					Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "No assignementanswer has this Id")) ;
-
-				if (assignementanswer is not null && (
-                     (assignementanswer.StudentId!=request.AssignementAnswerDto.StudentId) ||
-					 (assignementanswer.AssignmentId)!=(request.AssignementAnswerDto.AssignementId) )
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "Data of the assignementanswer is not the same in database"));
-				}
+					Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "No assignementanswer has this Id")) ;			 
 
 				bool IsDeleted = await unitOfwork.AssignementAnswerRepository.DeleteAsync(request.Id);
 

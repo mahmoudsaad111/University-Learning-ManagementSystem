@@ -28,13 +28,13 @@ namespace Application.CQRS.Command.Faculties
 				if (faculty == null)
 					Result.Failure<int>(new Error(code: "Delete Faculty", message: "No faculty has this Id")) ;
 
-				if ((faculty.NumOfYears != request.FacultyDto.NumOfYears) ||
-					 (faculty.ProfHeadName != request.FacultyDto.ProfHeadName) ||
-					 (faculty.StudentServiceNumber != request.FacultyDto.StudentServiceNumber)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Faculty", message: "Data of the faculty is not the same in database"));
-				}
+				//if ((faculty.NumOfYears != request.FacultyDto.NumOfYears) ||
+				//	 (faculty.ProfHeadName != request.FacultyDto.ProfHeadName) ||
+				//	 (faculty.StudentServiceNumber != request.FacultyDto.StudentServiceNumber)
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Faculty", message: "Data of the faculty is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.FacultyRepository.DeleteAsync(request.Id);
 

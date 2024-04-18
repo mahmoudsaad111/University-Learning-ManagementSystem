@@ -7,6 +7,6 @@ namespace Application.CQRS.Command.Courses
 	public class DeleteCourseCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public CourseDto CourseDto { get; set; }
+	//	public CourseDto CourseDto { get; set; }
 	}
 }

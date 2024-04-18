@@ -6,6 +6,6 @@ namespace Application.CQRS.Command.Lectures
     public class DeleteLectureCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public LectureDto LectureDto { get; set; }
+		//public LectureDto LectureDto { get; set; }
 	}
 }

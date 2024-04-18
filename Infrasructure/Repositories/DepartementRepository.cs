@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -22,6 +23,19 @@ namespace Infrastructure.Repositories
             var Departement= await _appDbContext.Departements.AsNoTracking().
                                             FirstOrDefaultAsync(d => d.AcadimicYears.Any(ay => ay.AcadimicYearId == acadimicyearId));
             return Departement;
+        }
+
+        public async Task<IEnumerable<NameIdDto>> GetLessInfoDepartementsBelongsToFaculty(int FacultyId)
+        {
+
+            return await _appDbContext.Departements.AsNoTracking().Where(d => d.FacultyId == FacultyId).Select(d =>
+                        new NameIdDto
+                        {
+                            Name = d.Name,
+                            Id = d.FacultyId
+                        }
+                ).ToListAsync();
+
         }
     }
 }

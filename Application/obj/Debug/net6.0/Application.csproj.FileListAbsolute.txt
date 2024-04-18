@@ -36,3 +36,4 @@ C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Application\bin\De
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Application\obj\Debug\net6.0\Applicat.44B5EDA2.Up2Date
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Application\obj\Debug\net6.0\Application.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Application\obj\Debug\net6.0\ref\Application.dll
+C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Application\obj\Debug\net6.0\Application.sourcelink.json

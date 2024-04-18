@@ -71,7 +71,7 @@ namespace Api.Controllers
             if (Id == 0)
                 return BadRequest("Enter valid ID");
          
-            Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCategoryCommand { Id = Id, CourseCategoryDto = courseCategoryDto });
+            Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCategoryCommand { Id = Id });
             return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
         }
     }

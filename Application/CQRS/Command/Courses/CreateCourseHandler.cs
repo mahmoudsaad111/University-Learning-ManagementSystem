@@ -26,12 +26,6 @@ namespace Application.CQRS.Command.Courses
         {
             try
             {
-
-                Result<int>result = await unitOfwork.AcadimicYearRepository.GetAcadimicYearIdByDepIdAndYearNum(request.CourseDto.DepartementId, request.CourseDto.AcadimicYear);
-                if(result.IsFailure)
-                    return Result.Failure<Course>(new Error(code: "Create Course", message: "not valid data"));
-
-                request.CourseDto.AcadimicYear = result.Value; 
                 Course course = await unitOfwork.CourseRepository.CreateAsync(request.CourseDto.GetCourse());
                 if (course is null)
                     return Result.Failure<Course>(new Error(code: "Create Course", message: "not valid data"));

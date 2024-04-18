@@ -24,16 +24,16 @@ namespace Application.CQRS.Command.Posts
 				if (post == null)
 					return Result.Failure<int>(new Error(code: "Delete Post", message: "No post has this Id")) ;
 
-				if ((post.PublisherId != request.PostDto.PublisherId) ||
-					 (post.IsProfessor != request.PostDto.IsProfessor) ||
-					 (post.CourseCycleId != request.PostDto.CourseCycleId) ||
-					 (post.Content!=request.PostDto.Content) ||
-					 (post.SectionId!=request.PostDto.SectionId) ||
-					 (post.CreatedBy!=request.PostDto.CreatedBy)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Post", message: "Data of the post is not the same in database"));
-				}
+				//if ((post.PublisherId != request.PostDto.PublisherId) ||
+				//	 (post.IsProfessor != request.PostDto.IsProfessor) ||
+				//	 (post.CourseCycleId != request.PostDto.CourseCycleId) ||
+				//	 (post.Content!=request.PostDto.Content) ||
+				//	 (post.SectionId!=request.PostDto.SectionId) ||
+				//	 (post.CreatedBy!=request.PostDto.CreatedBy)
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Post", message: "Data of the post is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.PostRepository.DeleteAsync(request.Id);
 

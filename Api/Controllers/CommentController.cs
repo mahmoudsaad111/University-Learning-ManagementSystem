@@ -66,7 +66,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             try
             {
-                Result<Comment> resultOfUpdated = await mediator.Send(new UpdateCommentCommand { Id = Id, CommentDto = commentDto });
+                Result<Comment> resultOfUpdated = await mediator.Send(new UpdateCommentCommand { Id = Id,CommentDto=commentDto });
 
                 return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);
             }
@@ -86,7 +86,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteCommentCommand { Id = Id, CommentDto = commentDto });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteCommentCommand { Id = Id });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Contract.Dto;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IDepartementRepository :IBaseRepository<Departement>
     {
         public Task<Departement> GetDepartementHasAcadimicYearId(int acadimicyearId);
-        
-             
+        public Task<IEnumerable<NameIdDto>> GetLessInfoDepartementsBelongsToFaculty(int FacultyId);          
     }
 }

@@ -24,15 +24,15 @@ namespace Application.CQRS.Command.Sections
 				if (section == null)
 					return Result.Failure<int>(new Error(code: "Delete Section", message: "No section has this Id")) ;
 
-				if ((section.CourseCycleId != request.SectionDto.CourseCycleId) ||
-					 (section.Description != request.SectionDto.Description) ||
-					 (section.InstructorId != request.SectionDto.InstructorId) ||
-					 (section.Name!=request.SectionDto.Name) 
+				//if ((section.CourseCycleId != request.SectionDto.CourseCycleId) ||
+				//	 (section.Description != request.SectionDto.Description) ||
+				//	 (section.InstructorId != request.SectionDto.InstructorId) ||
+				//	 (section.Name!=request.SectionDto.Name) 
 					 
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Section", message: "Data of the section is not the same in database"));
-				}
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Section", message: "Data of the section is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.SectionRepository.DeleteAsync(request.Id);
 

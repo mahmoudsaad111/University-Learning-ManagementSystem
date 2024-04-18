@@ -88,7 +88,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCommand { Id = Id, CourseDto = courseDto });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteCourseCommand { Id = Id });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

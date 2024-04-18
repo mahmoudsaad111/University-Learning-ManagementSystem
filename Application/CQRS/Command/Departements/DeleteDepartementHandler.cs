@@ -28,14 +28,14 @@ namespace Application.CQRS.Command.Departements
 				if (departement == null)
 					return Result.Failure<int>(new Error(code: "Delete Departement", message: "No departement has this Id")) ;
 
-				if ((departement.FacultyId != request.DepartementDto.FacultyId) ||
-					 (departement.ProfHeadName != request.DepartementDto.ProfHeadName) ||
-					 (departement.StudentServiceNumber != request.DepartementDto.StudentServiceNumber) ||
-					 (departement.Name!=request.DepartementDto.Name)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Departement", message: "Data of the departement is not the same in database"));
-				}
+				//if ((departement.FacultyId != request.DepartementDto.FacultyId) ||
+				//	 (departement.ProfHeadName != request.DepartementDto.ProfHeadName) ||
+				//	 (departement.StudentServiceNumber != request.DepartementDto.StudentServiceNumber) ||
+				//	 (departement.Name!=request.DepartementDto.Name)
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Departement", message: "Data of the departement is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.DepartementRepository.DeleteAsync(request.Id);
 

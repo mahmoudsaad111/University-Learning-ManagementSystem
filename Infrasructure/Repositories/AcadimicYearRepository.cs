@@ -5,7 +5,6 @@ using Infrastructure.Common;
 using InfraStructure;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Infrastructure.Repositories
 {
     public class AcadimicYearRepository : BaseRepository<AcadimicYear> , IAcadimicYearRepository
@@ -37,6 +36,11 @@ namespace Infrastructure.Repositories
             if (AcYear is null)
                 return Result.Failure<int>(new Error(code: "FindAcadimicYearId", message: "No Acadimic year"));
             return Result.Success<int>(AcYear.AcadimicYearId);
+        }
+
+        public async Task<IEnumerable<AcadimicYear>> GetAllAcadimicYearsOfDepartement(int DeptId)
+        {
+            return await _appDbContext.AcadimicYears.AsNoTracking().Where(ay => ay.DepartementId == DeptId).Select(ay => ay).ToListAsync();
         }
     }
 }

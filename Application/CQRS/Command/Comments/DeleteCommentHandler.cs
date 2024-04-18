@@ -24,13 +24,13 @@ namespace Application.CQRS.Command.Comments
 				if (comment == null)
 					return  Result.Failure<int>(new Error(code: "Delete Comment", message: "No Comment has this Id")) ;
 
-				if ((comment.LectureId != request.CommentDto.LectureId) ||
-					 (comment.UserId != request.CommentDto.UserId) ||					 
-					 (comment.Content!=request.CommentDto.Content)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Comment", message: "Data of the Comment is not the same in database"));
-				}
+				//if ((comment.LectureId != request.CommentDto.LectureId) ||
+				//	 (comment.UserId != request.CommentDto.UserId) ||					 
+				//	 (comment.Content!=request.CommentDto.Content)
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Comment", message: "Data of the Comment is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.CommentRepository.DeleteAsync(request.Id);
 

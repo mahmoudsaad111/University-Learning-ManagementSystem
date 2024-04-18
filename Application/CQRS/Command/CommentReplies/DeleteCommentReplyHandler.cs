@@ -23,13 +23,13 @@ namespace Application.CQRS.Command.CommentReplies
 				if (commentReply == null)
 					return Result.Failure<int>(new Error(code: "Delete CommentReply", message: "No CommentReply has this Id")) ;
 
-				if ((commentReply.CommentId != request.CommentReplyDto.CommentId) ||
-					 (commentReply.UserId != request.CommentReplyDto.UserId) ||
-					 (commentReply.Content != request.CommentReplyDto.Content) 					 
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete CommentReply", message: "Data of the CommentReply is not the same in database"));
-				}
+				//if ((commentReply.CommentId != request.CommentReplyDto.CommentId) ||
+				//	 (commentReply.UserId != request.CommentReplyDto.UserId) ||
+				//	 (commentReply.Content != request.CommentReplyDto.Content) 					 
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete CommentReply", message: "Data of the CommentReply is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.CommentReplyRepository.DeleteAsync(request.Id);
 

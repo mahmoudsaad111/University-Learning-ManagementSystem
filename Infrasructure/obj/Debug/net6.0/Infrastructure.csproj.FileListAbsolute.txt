@@ -40,3 +40,4 @@ C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Infrasructure\bin\
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Infrasructure\obj\Debug\net6.0\Infrastr.15EFFBFE.Up2Date
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Infrasructure\obj\Debug\net6.0\Infrastructure.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Infrasructure\obj\Debug\net6.0\ref\Infrastructure.dll
+C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Infrasructure\obj\Debug\net6.0\Infrastructure.sourcelink.json

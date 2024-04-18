@@ -22,12 +22,7 @@ namespace Application.CQRS.Command.Courses
 				if (course is null)
 					return Result.Failure<Course>(new Error(code: "Update Course", message: "No Course exist by this Id"));
 
-                Result<int> result = await unitOfwork.AcadimicYearRepository.GetAcadimicYearIdByDepIdAndYearNum(request.courseDto.DepartementId, request.courseDto.AcadimicYear);
-                if (result.IsFailure)
-                    return Result.Failure<Course>(new Error(code: "Create Course", message: "not valid data"));
-
-
-				course.AcadimicYearId = result.Value;
+				course.AcadimicYearId = request.courseDto.AcadimicYearId; 
 				course.Name = request.courseDto.Name;
 				course.CourseCategoryId = request.courseDto.CourseCategoryId;
 				course.Description = request.courseDto.Description;

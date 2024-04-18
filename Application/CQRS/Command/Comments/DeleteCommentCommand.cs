@@ -7,6 +7,6 @@ namespace Application.CQRS.Command.Comments
 	public class DeleteCommentCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public CommentDto CommentDto { get; set; }
+		//public CommentDto CommentDto { get; set; }
 	}
 }

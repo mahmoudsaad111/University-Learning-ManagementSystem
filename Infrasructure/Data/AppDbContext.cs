@@ -53,7 +53,7 @@ namespace InfraStructure
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(DbSettings.MonsterDataBase); 
+            optionsBuilder.UseSqlServer(DbSettings.ConnectionStrNewLabTop); 
             
         }
 

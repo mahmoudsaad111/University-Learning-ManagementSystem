@@ -6,5 +6,6 @@ namespace Application.CQRS.Query.AcadimicYears
 {
     public class GetAllAcadimicYearsQuery : IQuery<IEnumerable<AcadimicYear>>
     {
+        public int DepartementId { get ; set; } 
     }
 }

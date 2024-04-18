@@ -43,11 +43,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetAcadimicYears")]
-        public async Task<ActionResult> GetALlAcadimicYears()
+        public async Task<ActionResult> GetALlAcadimicYears([FromHeader] int DeptId)
         {
             try
             {
-                var result = await mediator.Send(new GetAllAcadimicYearsQuery());
+                var result = await mediator.Send(new GetAllAcadimicYearsQuery { DepartementId=DeptId });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);
@@ -78,7 +78,7 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("DeleteAcadimicYear")]
-        public async Task<ActionResult> DeleteAcadimicYear([FromHeader] int Id, [FromBody] AcadimicYearDto AcadimicYearDto)
+        public async Task<ActionResult> DeleteAcadimicYear([FromHeader] int Id)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -86,7 +86,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteAcadimicYearCommand { Id = Id, AcadimicYearDto = AcadimicYearDto });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteAcadimicYearCommand { Id = Id });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

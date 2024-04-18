@@ -13,6 +13,6 @@ namespace Application.CQRS.Command.Faculties
 	public class DeleteFacultyCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public FacultyDto FacultyDto { get; set; }
+		//public FacultyDto FacultyDto { get; set; }
 	}
 }

@@ -170,3 +170,4 @@ C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Api\obj\Debug\net6
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Api\obj\Debug\net6.0\Api.csproj.Up2Date
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Users\lenovo\Desktop\OnlineLearningModelSystemPlatform\Src\Api\obj\Debug\net6.0\Api.sourcelink.json

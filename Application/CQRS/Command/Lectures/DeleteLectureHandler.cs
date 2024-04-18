@@ -24,17 +24,17 @@ namespace Application.CQRS.Command.Lectures
 				if (lecture == null)
 					return Result.Failure<int>(new Error(code: "Delete Lecture", message: "No lecture has this Id")) ;
 
-				var GetLectureFromLectureDto = request.LectureDto.GetLecture();
+				//var GetLectureFromLectureDto = request.LectureDto.GetLecture();
 
-                if (
-					(lecture.CourseCycleId != GetLectureFromLectureDto.CourseCycleId) || 
-					 (lecture.SectionId != GetLectureFromLectureDto.SectionId) ||
-					 (lecture.Name != GetLectureFromLectureDto.Name) ||
-					 (lecture.HavingAssignment!=GetLectureFromLectureDto.HavingAssignment)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Lecture", message: "Data of the lecture is not the same in database"));
-				}
+    //            if (
+				//	(lecture.CourseCycleId != GetLectureFromLectureDto.CourseCycleId) || 
+				//	 (lecture.SectionId != GetLectureFromLectureDto.SectionId) ||
+				//	 (lecture.Name != GetLectureFromLectureDto.Name) ||
+				//	 (lecture.HavingAssignment!=GetLectureFromLectureDto.HavingAssignment)
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Lecture", message: "Data of the lecture is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.LectureRepository.DeleteAsync(request.Id);
 

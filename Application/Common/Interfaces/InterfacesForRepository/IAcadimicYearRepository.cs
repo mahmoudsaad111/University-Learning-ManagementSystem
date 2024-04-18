@@ -13,7 +13,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     {
         public Task<Result<int>> GetAcadimicYearIdByDepIdAndYearNum(int depId, int yearNum);
         public Task<AcadimicYear> GetAcadimicYearHasSpecificCourseIdAndGroupAsync(int courseId, int groupId);
-      //  public Task<AcadimicYear> GetAcadimicYearHasSpecificCourse(int courseId);
-       
+        //  public Task<AcadimicYear> GetAcadimicYearHasSpecificCourse(int courseId);
+        public Task<IEnumerable<AcadimicYear>> GetAllAcadimicYearsOfDepartement(int DeptId);
     }
 }

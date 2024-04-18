@@ -24,15 +24,15 @@ namespace Application.CQRS.Command.Groups
 				if (group == null)
 					return Result.Failure<int>(new Error(code: "Delete Group", message: "No Group has this Id")) ;
 
-				if (
-					 (group.StudentHeadName != request.GroupDto.StudentHeadName) ||
-					 (group.StudentHeadPhone != request.GroupDto.StudentHeadPhone) ||
-					 (group.Name!=request.GroupDto.Name) 
+				//if (
+				//	 (group.StudentHeadName != request.GroupDto.StudentHeadName) ||
+				//	 (group.StudentHeadPhone != request.GroupDto.StudentHeadPhone) ||
+				//	 (group.Name!=request.GroupDto.Name) 
 				
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete Group", message: "Data of the Group is not the same in database"));
-				}
+				//	) 
+				//{
+				//	return Result.Failure<int>(new Error(code: "Delete Group", message: "Data of the Group is not the same in database"));
+				//}
 
 				bool IsDeleted = await unitOfwork.GroupRepository.DeleteAsync(request.Id);
 

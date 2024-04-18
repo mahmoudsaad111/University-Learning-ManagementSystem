@@ -7,6 +7,6 @@ namespace Application.CQRS.Command.AcadimicYears
 	public class DeleteAcadimicYearCommand : ICommand<int>
 	{
 		public int Id { get; set; }	
-		public AcadimicYearDto AcadimicYearDto { get; set; }
+		 
 	}
 }

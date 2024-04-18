@@ -24,13 +24,6 @@ namespace Application.CQRS.Command.AcadimicYears
 				if (AcadimicYear == null)
 					return Result.Failure<int>(new Error(code: "Delete AcadimicYear", message: "No AcadimicYear has this Id")) ;
 
-				if ((AcadimicYear.DepartementId != request.AcadimicYearDto.DepartementId) ||					 
-					 (AcadimicYear.Year!=request.AcadimicYearDto.Year)
-					) 
-				{
-					return Result.Failure<int>(new Error(code: "Delete AcadimicYear", message: "Data of the AcadimicYear is not the same in database"));
-				}
-
 				bool IsDeleted = await unitOfwork.AcadimicYearRepository.DeleteAsync(request.Id);
 
 				if (IsDeleted) 
