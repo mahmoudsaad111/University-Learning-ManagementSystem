@@ -32,7 +32,7 @@ namespace Infrastructure.Repositories
                         new NameIdDto
                         {
                             Name = d.Name,
-                            Id = d.FacultyId
+                            Id = d.DepartementId
                         }
                 ).ToListAsync();
 
