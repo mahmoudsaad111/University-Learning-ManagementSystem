@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
 using Contract.Dto;
+using Contract.Dto.Departements;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -25,16 +26,10 @@ namespace Infrastructure.Repositories
             return Departement;
         }
 
-        public async Task<IEnumerable<NameIdDto>> GetLessInfoDepartementsBelongsToFaculty(int FacultyId)
+        public async Task<IEnumerable<Departement>> GetDepartementsBelongsToFaculty(int FacultyId)
         {
 
-            return await _appDbContext.Departements.AsNoTracking().Where(d => d.FacultyId == FacultyId).Select(d =>
-                        new NameIdDto
-                        {
-                            Name = d.Name,
-                            Id = d.DepartementId
-                        }
-                ).ToListAsync();
+            return await _appDbContext.Departements.AsNoTracking().Where(d => d.FacultyId == FacultyId).Select(d =>d ).ToListAsync();
 
         }
     }
