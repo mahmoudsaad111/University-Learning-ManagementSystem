@@ -23,7 +23,7 @@ namespace Infrastructure.Common
 		public IGroupRepository GroupRepository { get; private set; }
 		public ISectionRepository SectionRepository { get; private set; }
 		public ICourseRepository CourseRepository { get; private set; }
-        public IBaseRepository<CourseCategory> CourseCategoryRepository { get; private set; }
+        public ICourseCategoryRepository CourseCategoryRepository { get; private set; }
         public ICourseCycle CourseCycleRepository { get; private set; }
         public IBaseRepository<Lecture> LectureRepository { get; private set; }
         public IBaseRepository<Assignment> AssignementRepository {  get; private set; }    

@@ -16,7 +16,7 @@
 		public IGroupRepository  GroupRepository { get; }
 		public ISectionRepository SectionRepository { get; }
 		public ICourseRepository CourseRepository { get; }
-        public IBaseRepository<CourseCategory> CourseCategoryRepository { get; }
+        public ICourseCategoryRepository CourseCategoryRepository { get; }
         public ICourseCycle CourseCycleRepository { get; }  
         public IBaseRepository<Lecture> LectureRepository { get; }
         public ILectureResourceRepository LectureResourceRepository { get; }
