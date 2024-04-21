@@ -60,6 +60,24 @@ namespace Api.Controllers
             }
         }
 
+
+        [HttpGet]
+        [Route("GetCoursesOfAcadimicYear")]
+        public async Task<ActionResult> GetALlCoursesOfAcadimicYear([FromHeader] int AcadimicYear , [FromQuery] int CourseCategoryId)
+        {
+            try
+            {
+                var result = await mediator.Send(new GetAllCoursesOfAcadimicYearQuery { AcadimicYearId=AcadimicYear,CourseCategoryId=CourseCategoryId});
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPut]
         [Route("UpdateCourse")]
         public async Task<ActionResult> UpdateCourse([FromHeader] int Id, [FromBody] CourseDto courseDto)

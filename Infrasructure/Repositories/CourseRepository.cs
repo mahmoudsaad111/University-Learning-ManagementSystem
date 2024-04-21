@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.Courses;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -30,6 +31,34 @@ namespace Infrastructure.Repositories
             {
                 return null; 
             }
+        }
+
+        public async Task<IEnumerable<CourseLessInfoDto>> GetAllCoursesOfAcadimicYearAndCourseCategory(int AcadimicYearId, int? CourseCategoryId)
+        {
+            IEnumerable<CourseLessInfoDto> courseLessInfoDtos = null;
+            if (CourseCategoryId is not null) 
+            {
+                courseLessInfoDtos= await _appDbContext.Courses.AsNoTracking().Where(c => c.CourseCategoryId == CourseCategoryId && c.AcadimicYearId == AcadimicYearId).Select(Cl => new CourseLessInfoDto
+                {
+                    CourseId = Cl.CourseId,
+                    Name = Cl.Name,
+                    Description = Cl.Description,
+                    TotalMark = Cl.TotalMark
+                }).ToListAsync();                                    
+            }
+
+            else
+            {
+                courseLessInfoDtos = await _appDbContext.Courses.AsNoTracking().Where(c=>c.AcadimicYearId == AcadimicYearId).Select(Cl => new CourseLessInfoDto
+                {
+                    CourseId = Cl.CourseId,
+                    Name = Cl.Name,
+                    Description = Cl.Description,
+                    TotalMark = Cl.TotalMark
+                }).ToListAsync();
+            }
+
+            return courseLessInfoDtos;
         }
     }
 }

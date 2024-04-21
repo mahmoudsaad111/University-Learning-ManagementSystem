@@ -13,6 +13,8 @@ namespace Domain.Models
 
 		// navigation proprites
 		public int FacultyId { get; set; }
+
+		[JsonIgnore]
 		public virtual Faculty Faculty { get; set; }
 		public ICollection<AcadimicYear> AcadimicYears { get; set; }
 		public virtual ICollection<Student> Students { get; set; }
