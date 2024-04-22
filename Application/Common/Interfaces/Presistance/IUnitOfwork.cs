@@ -11,6 +11,7 @@
         public IBaseRepository<Student> StudentRepository { get; }
         public IBaseRepository<Professor> ProfessorRepository { get; }
         public IBaseRepository<Instructor> InstructorRepository { get; }
+        public IStudentSectionRepository StudentSectionRepository { get; }
         public IFacultyRepository FacultyRepository { get; }
         public IDepartementRepository  DepartementRepository { get; }
 		public IGroupRepository  GroupRepository { get; }

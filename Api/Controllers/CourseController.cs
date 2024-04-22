@@ -63,11 +63,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetCoursesOfAcadimicYear")]
-        public async Task<ActionResult> GetALlCoursesOfAcadimicYear([FromHeader] int AcadimicYear , [FromQuery] int CourseCategoryId)
+        public async Task<ActionResult> GetALlCoursesOfAcadimicYear([FromHeader] int AcadimicYearId , [FromQuery] int CourseCategoryId)
         {
             try
             {
-                var result = await mediator.Send(new GetAllCoursesOfAcadimicYearQuery { AcadimicYearId=AcadimicYear,CourseCategoryId=CourseCategoryId});
+                var result = await mediator.Send(new GetAllCoursesOfAcadimicYearQuery { AcadimicYearId=AcadimicYearId,CourseCategoryId=CourseCategoryId});
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);

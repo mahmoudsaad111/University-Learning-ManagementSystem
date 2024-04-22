@@ -12,5 +12,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 		public Task<IEnumerable<User>> GetAllStudentsAsync();
 		public Task<IEnumerable<User>> GetAllInstructorsAsync();
 		public Task<IEnumerable<User>> GetAllProfessorsAsync();
+		public Task<User> GetUserByUserName(string userName);
 	}
 }

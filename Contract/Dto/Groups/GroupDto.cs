@@ -13,7 +13,7 @@ namespace Contract.Dto.Groups
 		public string StudentHeadName { get; set; } = null!;
 		public string StudentHeadPhone { get; set; } = null!;
 		public short NumberOfStudent { get; set; }
-		public int AcadimicYear { get; set; }
+		public int AcadimicYearId { get; set; }
 		public int DepartementId { get; set; }
 		public Group GetGroup()
 		{
@@ -23,7 +23,7 @@ namespace Contract.Dto.Groups
 				StudentHeadName = StudentHeadName,
 				StudentHeadPhone = StudentHeadPhone,
 				NumberOfStudent = NumberOfStudent,
-				AcadimicYearId = AcadimicYear 
+				AcadimicYearId = AcadimicYearId 
 			};
 		}
 	}

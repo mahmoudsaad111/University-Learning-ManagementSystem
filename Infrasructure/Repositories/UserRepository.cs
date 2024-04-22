@@ -33,6 +33,10 @@ namespace Infrastructure.Repositories
 		{
 			return  await _appDbContext.Users.AsNoTracking().Where(user=>user.Student!=null).Include("Student").ToListAsync();
 		}
-		 
-	}
+
+        public async Task<User> GetUserByUserName(string userName)
+        {
+            return await _appDbContext.Users.FirstOrDefaultAsync(u=>u.UserName == userName);	
+        }
+    }
 }

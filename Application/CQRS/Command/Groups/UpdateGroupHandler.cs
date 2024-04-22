@@ -20,14 +20,7 @@ namespace Application.CQRS.Command.Groups
 				if (group is null)
 					return Result.Failure<Group>(new Error(code: "Update Group", message: "No group exist by this Id"));
 
-
-                Result<int> result = await unitOfwork.AcadimicYearRepository.GetAcadimicYearIdByDepIdAndYearNum(request.GroupDto.DepartementId, request.GroupDto.AcadimicYear);
-                if (result.IsFailure)
-                    return Result.Failure<Group>(new Error(code: "Group Course", message: "not valid data"));
-
-
-
-				group.AcadimicYearId = result.Value;
+				group.AcadimicYearId = request.GroupDto.AcadimicYearId;
 				group.Name = request.GroupDto.Name;
 				group.StudentHeadName = request.GroupDto.StudentHeadName;
 				group.StudentHeadPhone= request.GroupDto.StudentHeadPhone;

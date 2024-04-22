@@ -17,6 +17,22 @@ namespace Infrastructure.Repositories
 		{
 		}
 
+        public async Task<IEnumerable<int>> GetAllSectionsIdOfInstructore(int instructorId)
+        {
+            return await _appDbContext.Sections.AsNoTracking().Where(s => s.InstructorId == instructorId).Select(s => s.SectionId).ToListAsync();
+        }
+
+        public async Task<IEnumerable<int>> GetAllSectionsIdOfProfessor(int ProfesssorId)
+        {
+            return await (
+                            from P in _appDbContext.Professors
+                            join CC in _appDbContext.CourseCycles on P.ProfessorId equals CC.ProfessorId
+                            join S in _appDbContext.Sections on CC.CourseCycleId equals S.CourseCycleId
+                            select S.SectionId
+                            
+                          ).ToListAsync();                           
+        }
+
         public async Task<Section> GetSectionHasSpecificLectureUsingLectureIdAsync(int LectureId)
         {
                 var Section = await _appDbContext.Sections.FirstOrDefaultAsync(s => s.Lectures.Any(l => l.LectureId == LectureId));

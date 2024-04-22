@@ -17,7 +17,7 @@ namespace Infrastructure.Common
 		public IBaseRepository<Professor> ProfessorRepository { get; private set; }
 		public IBaseRepository<Instructor> InstructorRepository { get; private set; }
         public IFacultyRepository FacultyRepository { get; private  set; }
-
+        public IStudentSectionRepository StudentSectionRepository { get; private set; }
         public IDepartementRepository  DepartementRepository { get; private set; }
 
 		public IGroupRepository GroupRepository { get; private set; }
@@ -61,6 +61,7 @@ namespace Infrastructure.Common
             FileResourceRepository= new FileResourceRepository(_context);
             AssignementRepository =new AssignementRepository(_context);
             AssignementAnswerRepository=new AssignementAnswerRepository(_context);
+            StudentSectionRepository = new StudentSectionRepository(_context);
         }
 
 		public async Task<int> SaveChangesAsync()
