@@ -14,7 +14,7 @@ namespace Contract.Dto.UserUpdatedDto
 		[Required]
 		public double GPA { get; set; }
 		[Required]
-		public ushort AcadimicYear { get; set; }
+		public int AcadimicYearId { get; set; }
 		[Required]
 		public int GroupId { get; set; }
 		[Required]
@@ -25,7 +25,7 @@ namespace Contract.Dto.UserUpdatedDto
 			{
 				StudentId = Id,
 				GPA = GPA,
-				AcadimicYear = AcadimicYear,
+				AcadimicYearId = AcadimicYearId,
 				GroupId = GroupId == 0 ? 1 : GroupId,
 				DepartementId = DepartementId == 0 ? 1 : DepartementId
 			};

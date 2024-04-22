@@ -13,7 +13,6 @@ namespace Domain.Models
 		public int StudentId { get; set; }
 		 
 		public double GPA { get; set; }
-		public ushort AcadimicYear { get; set; }
 
 		//-- navigation properties
 		public User User { get; set; }	
@@ -22,7 +21,9 @@ namespace Domain.Models
 		public int DepartementId { get; set; }
 		public Departement Departement { get; set; }
 
-		public ICollection<StudentSection> StudentsInSection { get; set; }
+        public int AcadimicYearId { get; set; }
+		public AcadimicYear AcadimicYear { get; set; }	
+        public ICollection<StudentSection> StudentsInSection { get; set; }
 
 		public ICollection<AssignmentAnswer> AssignmentAnswers { get; set; }
 

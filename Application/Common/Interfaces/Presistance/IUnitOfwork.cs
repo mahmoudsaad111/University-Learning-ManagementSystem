@@ -8,9 +8,9 @@
     public interface IUnitOfwork : IDisposable
     {
         public IUserRepository UserRepository { get; }
-        public IBaseRepository<Student> StudentRepository { get; }
-        public IBaseRepository<Professor> ProfessorRepository { get; }
-        public IBaseRepository<Instructor> InstructorRepository { get; }
+        public IStudentRepository StudentRepository { get; }
+        public IProfessorRepository ProfessorRepository { get; }
+        public IInstructorRepository InstructorRepository { get; }
         public IStudentSectionRepository StudentSectionRepository { get; }
         public IFacultyRepository FacultyRepository { get; }
         public IDepartementRepository  DepartementRepository { get; }

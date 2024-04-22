@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Contract.Dto.ReturnedDtos;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 {
     public interface IStudentSectionRepository : IBaseRepository<StudentSection>
     {
-        public Task <IEnumerable<int>> GetAllSectionsIdofStudent(int StudentId);  
+        public Task<IEnumerable<int>> GetAllSectionsIdofStudent(int StudentId); 
     }
 }

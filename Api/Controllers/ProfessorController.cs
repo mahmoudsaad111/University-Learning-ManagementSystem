@@ -37,8 +37,9 @@ namespace Api.Controllers
 				User user = professorRegisterDto.GetUser();
 				if (User is null)
 					return BadRequest(professorRegisterDto);
-
-				IdentityResult result = await userManager.CreateAsync(user, professorRegisterDto.Password);
+                user.CreatedAt = DateTime.Now;
+                user.UpdatedAt = DateTime.Now;
+                IdentityResult result = await userManager.CreateAsync(user, professorRegisterDto.Password);
 				if (!result.Succeeded)
 					return BadRequest("This Email or user name are used before");
 
@@ -86,9 +87,10 @@ namespace Api.Controllers
 				OldUserInfo.BirthDay = professorUpdatedDto.BirthDay;
 				OldUserInfo.PhoneNumber = professorUpdatedDto.PhoneNumber;
 
-				#endregion TakeTheUnchangedProperitiesFromOldToNewUser
+                #endregion TakeTheUnchangedProperitiesFromOldToNewUser
 
-				IdentityResult resultOfUpdateUser = await userManager.UpdateAsync(OldUserInfo);
+                OldUserInfo.UpdatedAt = DateTime.Now;
+                IdentityResult resultOfUpdateUser = await userManager.UpdateAsync(OldUserInfo);
 
 				if (!resultOfUpdateUser.Succeeded)
 					return BadRequest("Unable to update Info");
@@ -141,5 +143,20 @@ namespace Api.Controllers
 				return NoContent();
 			}
 		}
-	}
+
+        [HttpGet]
+        [Route("GetAllProfessorsInDepartement")]
+        public async Task<ActionResult> GetAllProfessorsInDepartement([FromHeader] int DepartementId)
+        {
+            try
+            {
+                Result<IEnumerable<ReturnedProfessorDto>> resultOfQuery = await mediator.Send(new GetAllProfessorsOfDepartementQuery {DepartementId=DepartementId });
+                return resultOfQuery.IsSuccess ? Ok(resultOfQuery.Value) : BadRequest("Uable to load Professors");
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+    }
 }

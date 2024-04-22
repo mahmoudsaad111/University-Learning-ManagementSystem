@@ -37,6 +37,8 @@ namespace Api.Controllers
 				User user = studentRegisterDto.GetUser();
 				if (User is null)
 					return BadRequest(studentRegisterDto);
+				user.CreatedAt= DateTime.Now;
+				user.UpdatedAt= DateTime.Now;
 
 				IdentityResult result = await userManager.CreateAsync(user, studentRegisterDto.Password);
 				if (!result.Succeeded)
@@ -84,9 +86,9 @@ namespace Api.Controllers
 				OldUserInfo.BirthDay = studentUpdatedDto.BirthDay;
 				OldUserInfo.PhoneNumber = studentUpdatedDto.PhoneNumber;
 
-				#endregion TakeTheUnchangedProperitiesFromOldToNewUser
-
-				IdentityResult resultOfUpdateUser = await userManager.UpdateAsync(OldUserInfo);
+                #endregion TakeTheUnchangedProperitiesFromOldToNewUser
+                OldUserInfo.UpdatedAt = DateTime.Now;
+                IdentityResult resultOfUpdateUser = await userManager.UpdateAsync(OldUserInfo);
 
 				if (!resultOfUpdateUser.Succeeded)
 					return BadRequest("Unable to update Info");
@@ -139,7 +141,22 @@ namespace Api.Controllers
 				return NoContent() ;
 			}
 		}
-	}
+
+        [HttpGet]
+        [Route("GetAllStudentsInDepartementandAcadimicYear")]
+        public async Task<ActionResult> GetAllStudentsInDepartementandAcadimicYear([FromHeader] int AcadimicYearId)
+        {
+            try
+            {
+                Result<IEnumerable<ReturnedStudentDto>> resultOfQuery = await mediator.Send(new GetAllStudentsOfDepartementAndAcadimicYearQuery { AcadimicYearId=AcadimicYearId });
+                return resultOfQuery.IsSuccess ? Ok(resultOfQuery.Value) : BadRequest("Uable to load students");
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+    }
 }
 
 

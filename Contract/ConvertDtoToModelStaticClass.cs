@@ -22,7 +22,7 @@ namespace Contract
 				Address = user.Address,
 				Gender = user.Gender,
 				BirthDay = user.BirthDay,
-				AcadimicYear= user.Student.AcadimicYear,
+				AcadimicYearId=  user.Student.AcadimicYearId,
 				GPA= user.Student.GPA,
 				DepartementId=user.Student.DepartementId,
 				GroupId=user.Student.GroupId					 

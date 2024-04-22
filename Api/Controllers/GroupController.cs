@@ -92,5 +92,39 @@ namespace Api.Controllers
 				return StatusCode(StatusCodes.Status500InternalServerError);
 			}
 		}
-	}
+
+        [HttpGet]
+        [Route("GetGroupsOfDepartement")]
+        public async Task<ActionResult> GetALlGroupsOfDepartement([FromHeader] int DepartementId)
+        {
+            try
+            {
+				var result = await mediator.Send(new GetAllGroupsOfDepartementQuery { DepartementId = DepartementId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetGroupsOfAcadimicYear")]
+        public async Task<ActionResult> GetGroupsOfAcadimicYear([FromHeader] int AcadimicYearId)
+        {
+            try
+            {
+                var result = await mediator.Send(new GetAllGroupsOfAcadimicYearQuery { AcadimicYearId = AcadimicYearId });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+    }
 }

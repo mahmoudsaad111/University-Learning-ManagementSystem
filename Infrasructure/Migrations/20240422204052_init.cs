@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,7 +55,7 @@ namespace Infrastructure.Migrations
                     BirthDay = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Photo = table.Column<byte[]>(type: "image", nullable: true),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -379,13 +379,19 @@ namespace Infrastructure.Migrations
                 {
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     GPA = table.Column<double>(type: "float", nullable: false),
-                    AcadimicYear = table.Column<int>(type: "int", nullable: false),
                     GroupId = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    DepartementId = table.Column<int>(type: "int", nullable: false)
+                    DepartementId = table.Column<int>(type: "int", nullable: false),
+                    AcadimicYearId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_Students_AcadimicYears_AcadimicYearId",
+                        column: x => x.AcadimicYearId,
+                        principalTable: "AcadimicYears",
+                        principalColumn: "AcadimicYearId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Students_Departements_DepartementId",
                         column: x => x.DepartementId,
@@ -527,12 +533,10 @@ namespace Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ModelAnswerUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FullMark = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeadLine = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UrlOfResource = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SectionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -647,11 +651,8 @@ namespace Infrastructure.Migrations
                     AssignmentAnswer_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Mark = table.Column<int>(type: "int", nullable: false),
-                    DateOfAnswer = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StudentId = table.Column<int>(type: "int", nullable: false),
                     AssignmentId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -792,15 +793,15 @@ namespace Infrastructure.Migrations
                 {
                     FileResourceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileType = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     AssignmentAnswerId = table.Column<int>(type: "int", nullable: true),
                     AssignmentId = table.Column<int>(type: "int", nullable: true),
-                    LectureId = table.Column<int>(type: "int", nullable: true)
+                    LectureId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    FileType = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1089,6 +1090,11 @@ namespace Infrastructure.Migrations
                 table: "StudentNotes",
                 columns: new[] { "StudentId", "LectureId" },
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_AcadimicYearId",
+                table: "Students",
+                column: "AcadimicYearId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_DepartementId",

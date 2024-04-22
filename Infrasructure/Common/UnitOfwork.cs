@@ -13,9 +13,9 @@ namespace Infrastructure.Common
         private bool _disposed = false;
 		public IAppDbContext Context => _context;
 		public IUserRepository UserRepository { get; private set; }
-		public IBaseRepository<Student> StudentRepository { get; private set; }
-		public IBaseRepository<Professor> ProfessorRepository { get; private set; }
-		public IBaseRepository<Instructor> InstructorRepository { get; private set; }
+		public IStudentRepository StudentRepository { get; private set; }
+		public IProfessorRepository ProfessorRepository { get; private set; }
+		public IInstructorRepository InstructorRepository { get; private set; }
         public IFacultyRepository FacultyRepository { get; private  set; }
         public IStudentSectionRepository StudentSectionRepository { get; private set; }
         public IDepartementRepository  DepartementRepository { get; private set; }

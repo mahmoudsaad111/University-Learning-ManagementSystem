@@ -11,6 +11,8 @@ namespace Application.Config
         {
             builder.HasKey(a => a.AcadimicYearId);
 
+
+            builder.HasMany(AC => AC.Students).WithOne(S => S.AcadimicYear).HasForeignKey(S => S.AcadimicYearId).OnDelete(DeleteBehavior.Restrict) ;    
             builder.HasMany(a=>a.Courses).WithOne(c=>c.AcadimicYear).HasForeignKey(c=>c.AcadimicYearId).OnDelete(DeleteBehavior.NoAction);
             builder.HasMany(a => a.Groups).WithOne(g => g.AcadimicYear).HasForeignKey(g => g.AcadimicYearId).OnDelete(DeleteBehavior.NoAction);
         }

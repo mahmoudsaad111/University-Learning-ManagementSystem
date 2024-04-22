@@ -9,6 +9,7 @@ namespace Domain.Models
         public Departement Departement { get; set; }    
         public ICollection<Course> Courses { get; set; }
         public ICollection<Group> Groups { get; set; }
+        public ICollection<Student> Students { get; set; }
     }
 }
 

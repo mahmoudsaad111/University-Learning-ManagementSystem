@@ -23,6 +23,7 @@ namespace Application.CQRS.Command.Students
 		{
 			try
 			{
+				var user = request.StudentRegisterDto.GetStudent();
 				await unitOfwork.StudentRepository.CreateAsync(request.StudentRegisterDto.GetStudent());
 				int NumOfTasks = await unitOfwork.SaveChangesAsync();
 				return Result.Create<StudentRegisterDto>(request.StudentRegisterDto);

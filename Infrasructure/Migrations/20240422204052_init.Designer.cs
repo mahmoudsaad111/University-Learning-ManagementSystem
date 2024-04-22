@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240403154439_UpdatePhotPropertyInUserTableToStringWithNameImageUrl")]
-    partial class UpdatePhotPropertyInUserTableToStringWithNameImageUrl
+    [Migration("20240422204052_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -792,7 +792,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AcadimicYear")
+                    b.Property<int>("AcadimicYearId")
                         .HasColumnType("int");
 
                     b.Property<int>("DepartementId")
@@ -807,6 +807,8 @@ namespace Infrastructure.Migrations
                         .HasDefaultValue(0);
 
                     b.HasKey("StudentId");
+
+                    b.HasIndex("AcadimicYearId");
 
                     b.HasIndex("DepartementId");
 
@@ -1482,6 +1484,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Student", b =>
                 {
+                    b.HasOne("Domain.Models.AcadimicYear", "AcadimicYear")
+                        .WithMany("Students")
+                        .HasForeignKey("AcadimicYearId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Domain.Models.Departement", "Departement")
                         .WithMany("Students")
                         .HasForeignKey("DepartementId")
@@ -1499,6 +1507,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("Domain.Models.Student", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AcadimicYear");
 
                     b.Navigation("Departement");
 
@@ -1653,6 +1663,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Groups");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("Domain.Models.Assignment", b =>

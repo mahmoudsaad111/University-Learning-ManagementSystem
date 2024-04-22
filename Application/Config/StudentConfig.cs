@@ -15,7 +15,7 @@ namespace Application.Config
 
 			//Properties
 			builder.Property(s => s.GPA).IsRequired(true);
-			builder.Property(s => s.AcadimicYear).IsRequired(true);
+			builder.Property(s => s.AcadimicYearId).IsRequired(true);
 			builder.Property(s => s.GroupId).IsRequired(true).HasDefaultValue(0);
 			builder.Property(s => s.DepartementId).IsRequired(true);
 			

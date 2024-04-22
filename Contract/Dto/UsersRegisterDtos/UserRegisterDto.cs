@@ -24,8 +24,8 @@ namespace Contract.Dto.UsersRegisterDtos
         [EmailAddress]
         public string Email { get; set; }
         public DateTime BirthDay { get; set; } = DateTime.MinValue;
-        public DateTime? CreatedAt { get; set; } = DateTime.Now;
-        public DateTime? UpdatedAt { get; set; } = DateTime.Now;
+      //  public DateTime? CreatedAt { get; set; } = DateTime.Now;
+       // public DateTime? UpdatedAt { get; set; } = DateTime.Now;
 
         [Required]
         public string Password { get; set; }
@@ -44,8 +44,8 @@ namespace Contract.Dto.UsersRegisterDtos
                 Address = this.Address,
                 Gender = this.Gender,
                 BirthDay = this.BirthDay,
-                CreatedAt = this.CreatedAt,
-                UpdatedAt = this.UpdatedAt,
+               // CreatedAt = this.CreatedAt,
+               // UpdatedAt = this.UpdatedAt,
                 Email = this.Email,
                 UserName = this.UserName,
                 PhoneNumber=this.PhoneNumber
