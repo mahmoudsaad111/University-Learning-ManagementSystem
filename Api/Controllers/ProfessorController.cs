@@ -44,7 +44,6 @@ namespace Api.Controllers
 					return BadRequest("This Email or user name are used before");
 
 				professorRegisterDto.Id = user.Id;
-
 				try
 				{
 					var command = new CreateProfessorCommand() { ProfessorRegisterDto = professorRegisterDto };

@@ -25,7 +25,7 @@ namespace Application.Config
 			builder.Property(u => u.SecondName).IsRequired(true).HasMaxLength(15);
 			builder.Property(u => u.ThirdName).IsRequired(true).HasMaxLength(15);
 			builder.Property(u => u.FourthName).IsRequired(true).HasMaxLength(15);
-
+			builder.Property(u => u.ImageUrl).IsRequired(false).HasMaxLength(150) ;
 			//
 		//	builder.Property(u => u.Photo).IsRequired(false); 
 			//	builder.Property(u => u.FullName).
