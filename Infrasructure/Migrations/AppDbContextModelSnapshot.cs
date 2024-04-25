@@ -927,9 +927,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.HasIndex("StudentCourseCycleId");
-
-                    b.HasIndex("StudentSectionId", "SectionId")
+                    b.HasIndex("StudentCourseCycleId", "SectionId")
                         .IsUnique();
 
                     b.ToTable("StudentSections");
@@ -1618,6 +1616,43 @@ namespace Infrastructure.Migrations
                     b.Navigation("Section");
 
                     b.Navigation("StudentCourseCycle");
+                });
+
+            modelBuilder.Entity("Domain.Models.User", b =>
+                {
+                    b.OwnsMany("Domain.Models.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<int>("UserId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
+
+                            b1.Property<DateTime>("CreatedAt")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("ExpiresAt")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime?>("RevokedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("Token")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("UserId", "Id");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UserId");
+                        });
+
+                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

@@ -43,6 +43,8 @@ namespace Domain.Models
 		public ICollection<Comment>Comments { get; set; }
 
         public ICollection<CommentReply> CommentReplies { get; set; }
+        public ICollection<RefreshToken>? RefreshTokens { get; set; }
 
-	}
+
+    }
 }

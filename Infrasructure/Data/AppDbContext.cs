@@ -1,7 +1,7 @@
 ﻿using Application.Common.Interfaces.Presistance;
 using Application.Config;
 using Domain.Models;
-using LearningPlatformTest.infrastructure.DatabaseConfig;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
