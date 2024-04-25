@@ -24,10 +24,38 @@ namespace Application.CQRS.Command.Students
 			try
 			{
 				request.NewStudentInfo.Id = request.Id;
+				var OldInfoStudent = await unitOfwork.StudentRepository.GetByIdAsync(request.Id);
+				if (OldInfoStudent is null)
+				{
+                    return Result.Failure(new Error("UpdatedStudentById", "Nullable"));
+                }
+				
+			 
+		        if(OldInfoStudent.GroupId != request.NewStudentInfo.GroupId || OldInfoStudent.AcadimicYearId != request.NewStudentInfo.AcadimicYearId) 
+				{
+					try
+					{
+						bool Delete = await unitOfwork.StudentCourseCycleRepository.DeleteStudentFromHisCourseCylces(request.Id);
+
+						if (!Delete) throw new Exception();
+
+						bool Added = await unitOfwork.StudentCourseCycleRepository.AddStudentToHisCourseCycles(studentId: request.Id,
+																	 GroupId: request.NewStudentInfo.GroupId, AcadimicYearId: request.NewStudentInfo.AcadimicYearId) ;
+
+						if (!Added) throw new Exception();
+                      
+                    }
+					catch(Exception ex) 
+					{
+                        return Result.Failure(new Error("UpdatedStudentById", "Uanble to Update Student's Group of Courses "));
+                    }
+				}
+
+
 				bool IsUpdated = await unitOfwork.StudentRepository.UpdateAsync(request.NewStudentInfo.GetStudent());
 				if (IsUpdated)
 				{
-					int NumOfTasks = await unitOfwork.SaveChangesAsync();
+					//int NumOfTasks = await unitOfwork.SaveChangesAsync();
 					return Result.Success();
 				}
 				return Result.Failure(new Error ("UpdatedStudentById" , "Uanble to Update Student"));

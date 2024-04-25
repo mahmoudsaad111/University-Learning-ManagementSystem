@@ -37,6 +37,8 @@ namespace Infrastructure.Common
         public IBaseRepository<CommentReply> CommentReplyRepository { get;private set;} 
         public IAcadimicYearRepository AcadimicYearRepository { get;private set; }
         public IFileResourceRepository FileResourceRepository { get;private set; }
+
+        public IStudentCourseCycleRepository StudentCourseCycleRepository { get; }
         public UnitOfwork(AppDbContext context)
         {
             _context = context;
@@ -62,6 +64,8 @@ namespace Infrastructure.Common
             AssignementRepository =new AssignementRepository(_context);
             AssignementAnswerRepository=new AssignementAnswerRepository(_context);
             StudentSectionRepository = new StudentSectionRepository(_context);
+
+            StudentCourseCycleRepository = new StudentCourseCycleRepository(_context);
         }
 
 		public async Task<int> SaveChangesAsync()

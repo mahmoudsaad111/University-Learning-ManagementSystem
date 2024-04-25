@@ -52,5 +52,11 @@ namespace Infrastructure.Repositories
                 return Enumerable.Empty<ReturnedStudentDto>();
             }
         }
+
+        public async Task<int> GetStudentIdUsingUserName(string userName)
+        {
+
+            return await (from user in _appDbContext.Users where user.UserName == userName select user.Id).FirstOrDefaultAsync();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
 using Application.Common.Interfaces.Presistance;
+using Contract.Dto;
 using Contract.Dto.ReturnedDtos;
 using Domain.Models;
 using Infrastructure.Common;
@@ -48,6 +49,32 @@ namespace Infrastructure.Repositories
             {
                 return Enumerable.Empty<ReturnedProfessorDto>();
             }
+        }
+
+        public async Task<bool> CheckIfProfessorInSection(int ProfessorId, int SectionId)
+        {
+            int SectionIdFromQuery = await (
+                                                from p in _appDbContext.Professors
+                                                where p.ProfessorId == ProfessorId
+                                                join cc in _appDbContext.CourseCycles on p.ProfessorId equals cc.ProfessorId
+                                                join sec in _appDbContext.Sections on cc.CourseCycleId equals sec.CourseCycleId
+                                                where sec.SectionId == SectionId
+                                                select SectionId
+                       ).FirstAsync();
+
+            return (SectionIdFromQuery == SectionId);
+        }
+
+        public async Task<IEnumerable<NameIdDto>> GetLessInfoProfessorByDeptId(int DeptId)
+        {
+            return await (from prof in _appDbContext.Professors
+                          where prof.DepartementId == DeptId
+                          join user in _appDbContext.Users on prof.ProfessorId equals user.Id
+                          select new NameIdDto
+                          {
+                              Id = user.Id,
+                              Name = $"{user.FirstName} {user.SecondName}"
+                          }).ToListAsync();
         }
     }
 }

@@ -60,6 +60,45 @@ namespace Api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetCourseCyclesLessInfo")]
+        public async Task<ActionResult> GetCourseCyclesLessInfo([FromHeader] int CourseId, [FromHeader] int GroupId)
+        {
+            if (CourseId == 0 || GroupId == 0)
+                return BadRequest("Invalid Id");
+            try
+            {
+                var result = await mediator.Send(new GetLessInfoCourseCycleQuery { CourseId = CourseId, GroupId = GroupId });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetALlCourseCyclesWithProfInfoOfCourseAndGroup")]
+        public async Task<ActionResult> GetALlCourseCyclesWithProfInfoOfCourseAndGroup([FromHeader] int CourseId, [FromHeader] int GroupId)
+        {
+            if(CourseId ==0 || GroupId ==0)
+                return BadRequest("Invalid Id");  
+            try
+            {
+                var result = await mediator.Send(new GetCourseCyclesWithProffInfoQuery { CourseId = CourseId, GroupId = GroupId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPut]
         [Route("UpdateCourseCycle")]
         public async Task<ActionResult> UpdateCourseCycle([FromHeader] int Id, [FromBody] CourseCycleDto courseCycleDto)

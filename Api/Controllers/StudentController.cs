@@ -1,4 +1,5 @@
 ﻿
+using Application.Common.Interfaces.Presistance;
 using Application.CQRS.Command.Students;
 using Application.CQRS.Query.Students;
 using Contract.Dto.ReturnedDtos;
@@ -20,13 +21,14 @@ namespace Api.Controllers
 
 		private readonly IMediator mediator;
 		private readonly UserManager<User> userManager;
-
-		public StudentController(IMediator mediator, UserManager<User> userManager)
-		{
-			this.mediator = mediator;
-			this.userManager = userManager;
-		}
-		[HttpPost]
+		private readonly IUnitOfwork unitOfwork;
+        public StudentController(IMediator mediator, UserManager<User> userManager, IUnitOfwork unitOfwork)
+        {
+            this.mediator = mediator;
+            this.userManager = userManager;
+            this.unitOfwork = unitOfwork;
+        }
+        [HttpPost]
 		[Route("CreateStudent")]
 		public async Task<ActionResult> CreateStudent([FromBody] StudentRegisterDto studentRegisterDto)
 		{
@@ -49,11 +51,17 @@ namespace Api.Controllers
 				{
 					var command = new CreateStudentCommand() { StudentRegisterDto = studentRegisterDto };
 					Result<StudentRegisterDto> commandResult = await mediator.Send(command);
-					return commandResult.IsSuccess ? Ok("Student Added sucessfully") : throw new Exception();
+					
+					if( commandResult.IsSuccess) {
+						await unitOfwork.SaveChangesAsync();
+                        return Ok("Student Added sucessfully"); 
+					}
+					else throw new Exception();
 				}
 				catch (Exception ex)
 				{
-					userManager.DeleteAsync(user);
+					await userManager.DeleteAsync(user);
+					await unitOfwork.SaveChangesAsync();	
 					return BadRequest("Invalid Data");
 				}
 			}

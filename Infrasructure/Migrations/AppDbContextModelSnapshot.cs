@@ -842,6 +842,33 @@ namespace Infrastructure.Migrations
                     b.ToTable("Student_Lecture", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
+                {
+                    b.Property<int>("StudentCourseCycleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentCourseCycleId"), 1L, 1);
+
+                    b.Property<int>("CourseCycleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarksOfStudent")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentCourseCycleId");
+
+                    b.HasIndex("CourseCycleId");
+
+                    b.HasIndex("StudentId", "StudentCourseCycleId")
+                        .IsUnique();
+
+                    b.ToTable("StudentCourseCycle", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Models.StudentNote", b =>
                 {
                     b.Property<int>("StudentNoteId")
@@ -888,7 +915,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int>("StudentCourseCycleId")
                         .HasColumnType("int");
 
                     b.Property<int>("StudentTotalMarks")
@@ -900,7 +927,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.HasIndex("StudentId", "SectionId")
+                    b.HasIndex("StudentCourseCycleId");
+
+                    b.HasIndex("StudentSectionId", "SectionId")
                         .IsUnique();
 
                     b.ToTable("StudentSections");
@@ -1534,6 +1563,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("lecture");
                 });
 
+            modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
+                {
+                    b.HasOne("Domain.Models.CourseCycle", "CourseCycle")
+                        .WithMany("StudentsInCourseCycle")
+                        .HasForeignKey("CourseCycleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Student", "Student")
+                        .WithMany("CourseCycleOfStudent")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseCycle");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("Domain.Models.StudentNote", b =>
                 {
                     b.HasOne("Domain.Models.Lecture", "Lecture")
@@ -1561,15 +1609,15 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Student", "Student")
-                        .WithMany("StudentsInSection")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Domain.Models.StudentCourseCycle", "StudentCourseCycle")
+                        .WithMany("SectionsOfStudent")
+                        .HasForeignKey("StudentCourseCycleId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Section");
 
-                    b.Navigation("Student");
+                    b.Navigation("StudentCourseCycle");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1701,6 +1749,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Posts");
 
                     b.Navigation("Sections");
+
+                    b.Navigation("StudentsInCourseCycle");
                 });
 
             modelBuilder.Entity("Domain.Models.Departement", b =>
@@ -1774,13 +1824,18 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("AssignmentAnswers");
 
+                    b.Navigation("CourseCycleOfStudent");
+
                     b.Navigation("ExamAnswers");
 
                     b.Navigation("StudentLecture");
 
                     b.Navigation("StudentNotes");
+                });
 
-                    b.Navigation("StudentsInSection");
+            modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
+                {
+                    b.Navigation("SectionsOfStudent");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>

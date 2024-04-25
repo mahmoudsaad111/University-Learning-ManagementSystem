@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Application.CQRS.Command.Students
 {
 	public class CreateStudentCommand : ICommand<StudentRegisterDto>
-
 	{
 		public StudentRegisterDto StudentRegisterDto { get; set; }
 	}

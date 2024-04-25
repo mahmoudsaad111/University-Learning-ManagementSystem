@@ -12,5 +12,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IStudentRepository :IBaseRepository<Student>
     {
         public Task<IEnumerable<ReturnedStudentDto>> GetAllStudentsInDepartementAndAcadimicYear( int AcadimicYearId);
+        public Task<int>GetStudentIdUsingUserName( string userName );
     }
 }

@@ -24,6 +24,7 @@ namespace Application.CQRS.Command.Groups
 				group.Name = request.GroupDto.Name;
 				group.StudentHeadName = request.GroupDto.StudentHeadName;
 				group.StudentHeadPhone= request.GroupDto.StudentHeadPhone;
+				group.NumberOfStudent=request.GroupDto.NumberOfStudent;	
 
 				int NumOfTasks  = await unitOfwork.SaveChangesAsync();
 				return Result.Success<Group>(group);

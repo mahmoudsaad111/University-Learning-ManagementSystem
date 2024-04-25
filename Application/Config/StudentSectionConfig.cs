@@ -11,6 +11,9 @@ namespace Application.Config
 		{
 			// Proprties
 			builder.Property(ss => ss.StudentTotalMarks).HasDefaultValue(0);
+			builder.Property(ss => ss.StudentCourseCycleId).IsRequired(true);
+			builder.Property(ss=>ss.SectionId).IsRequired(true);
+
 
 			//Keys 
 			builder.HasKey(ss => ss.StudentSectionId);
@@ -20,7 +23,7 @@ namespace Application.Config
 			//builder.HasOne(ss => ss.Section).WithMany(sec => sec.StudentsInSection).HasForeignKey(ss => ss.SectionId).OnDelete(DeleteBehavior.NoAction);
 
 			// Indexes and Constrains
-			builder.HasIndex(ss => new { ss.StudentId, ss.SectionId }).IsUnique(true);
+			builder.HasIndex(ss => new { ss.StudentCourseCycleId, ss.SectionId }).IsUnique(true);
 		}
 	}
 

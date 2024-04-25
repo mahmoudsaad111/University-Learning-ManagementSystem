@@ -1,4 +1,6 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto;
+using Contract.Dto.CourseCycles;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -17,15 +19,49 @@ namespace Infrastructure.Repositories
         {
         }
 
+        public async Task<IEnumerable<NameIdDto>> GetAllLessInfoCourseCycles(int courseId, int groupId)
+        {
+            return await (from cc in _appDbContext.CourseCycles
+                          where cc.CourseId == courseId && cc.GroupId == groupId
+                          select new NameIdDto
+                          {
+                              Id = cc.CourseCycleId,
+                              Name = cc.Title
+
+                          }).ToListAsync();
+        }
+
         public Task<CourseCycle> GetCourseCycleContainSpecificSectionUsingSectionId(int SectionId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<int> GetCourseCycleIdOfCourseAndGroup(int courseId, int groupId)
+        {
+            return await _appDbContext.CourseCycles.Where(cc => cc.GroupId == groupId && cc.CourseId == courseId).Select(cc => cc.CourseCycleId).FirstOrDefaultAsync();
         }
 
         public async Task<CourseCycle> GetCourseCycleUsingCourseIdAndGroupIdAsync(int courseId, int groupId)
         {
             var courseCycle = await _appDbContext.CourseCycles.Where(cc=>cc.CourseId==courseId && cc.GroupId==groupId).Include(cc=>cc.Course).FirstOrDefaultAsync();
             return courseCycle; 
+        }
+
+        public async Task<IEnumerable<CourseCycleWithProfInfoDto>> GetCourseCylcesWithProfInfo(int courseId, int groupId)
+        {
+            var CourseCyclesWithProfInfo =await (from cc in _appDbContext.CourseCycles
+                                            where cc.CourseId == courseId && cc.GroupId == groupId
+                                            join user in _appDbContext.Users on cc.ProfessorId equals user.Id
+                                            select new CourseCycleWithProfInfoDto
+                                            {
+                                                CourseCycleId = cc.CourseCycleId,
+                                                ProfessorFirstName = user.FirstName,
+                                                ProfessorSecondName = user.SecondName,
+                                                ProfessorUserName = user.UserName,
+                                                ProfessorImageUrl = user.ImageUrl
+                                            }).ToListAsync();
+
+            return CourseCyclesWithProfInfo;
         }
     }
 }

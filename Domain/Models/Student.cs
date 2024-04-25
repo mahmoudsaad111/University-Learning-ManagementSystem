@@ -23,7 +23,7 @@ namespace Domain.Models
 
         public int AcadimicYearId { get; set; }
 		public AcadimicYear AcadimicYear { get; set; }	
-        public ICollection<StudentSection> StudentsInSection { get; set; }
+      //  public ICollection<StudentSection> StudentsInSection { get; set; }
 
 		public ICollection<AssignmentAnswer> AssignmentAnswers { get; set; }
 
@@ -34,6 +34,8 @@ namespace Domain.Models
 		public ICollection<Student_Lecture> StudentLecture { get; set;  }
 
 		public ICollection<StudentNote> StudentNotes { get; set; }	
+
+		public ICollection<StudentCourseCycle> CourseCycleOfStudent {  get; set; }	
 
 	}
 }

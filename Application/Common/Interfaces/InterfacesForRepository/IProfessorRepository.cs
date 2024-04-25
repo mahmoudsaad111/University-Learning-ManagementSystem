@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Contract.Dto;
 using Contract.Dto.ReturnedDtos;
 using Domain.Models;
 using System;
@@ -12,5 +13,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IProfessorRepository :IBaseRepository<Professor>
     {
         public Task<IEnumerable<ReturnedProfessorDto>> GetAllProfessorsInDepartement(int DeptId );
+        public Task<bool> CheckIfProfessorInSection(int ProfessorId, int SectionId);
+
+        public Task<IEnumerable<NameIdDto>> GetLessInfoProfessorByDeptId(int DeptId);
     }
 }

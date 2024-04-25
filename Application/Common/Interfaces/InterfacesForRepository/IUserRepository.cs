@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Domain.Enums;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 		public Task<IEnumerable<User>> GetAllInstructorsAsync();
 		public Task<IEnumerable<User>> GetAllProfessorsAsync();
 		public Task<User> GetUserByUserName(string userName);
+		public Task<TypesOfUsers> GetTypeOfUser(int UserId);
 	}
 }

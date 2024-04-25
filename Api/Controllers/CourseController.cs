@@ -1,5 +1,7 @@
 ﻿using Application.CQRS.Command.Courses;
 using Application.CQRS.Query.Courses;
+using Application.CQRS.Query.Professors;
+using Application.CQRS.Query.Students;
 using Contract.Dto.Courses;
 using Domain.Models;
 using Domain.Shared;
@@ -77,6 +79,67 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+
+        [HttpGet]
+        [Route("GetAllCoursesOfStudent")]
+        public async Task<ActionResult> GetAllCoursesOfStudent([FromHeader] string StudentUserName)
+        {
+            try
+            {
+                var user= await userManager.FindByNameAsync(StudentUserName);
+                if (user is null )
+                    return BadRequest("Wrong userName");
+
+                var ResultOfGetStudent = await mediator.Send(new GetStudentByIdQuery { Id=user.Id });
+
+                if (ResultOfGetStudent is null || ResultOfGetStudent.IsFailure || ResultOfGetStudent.Value is null)
+                    return BadRequest("Wrong userName2");
+
+                var Student= ResultOfGetStudent.Value;
+
+                var result = await mediator.Send(new GetAllCoursesOfStudentQuery {StudentId = Student.StudentId , AcadimicYearId = Student.AcadimicYearId  });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+
+        [HttpGet]
+        [Route("GetAllCoursesOfProfessor")]
+        public async Task<ActionResult> GetAllCoursesOfProfessor([FromHeader] string ProfessorUserName)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(ProfessorUserName);
+                if (user is null)
+                    return BadRequest("Wrong userName");
+
+                var ResultOfGetProfessor = await mediator.Send(new GetProfessorByIdQuery { Id = user.Id });
+
+                if (ResultOfGetProfessor is null || ResultOfGetProfessor.IsFailure || ResultOfGetProfessor.Value is null)
+                    return BadRequest("Wrong userName2");
+
+                var Professor = ResultOfGetProfessor.Value;
+
+                var result = await mediator.Send(new GetAllCoursesOfProfessorQuery { ProfessorId = Professor.ProfessorId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
 
         [HttpPut]
         [Route("UpdateCourse")]

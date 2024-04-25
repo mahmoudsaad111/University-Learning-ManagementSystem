@@ -10,6 +10,6 @@ namespace Application.CQRS.Query.Instructors
 {
 	public class GetAllInstructorsQuery : IQuery<List<ReturnedInstructorDto>>
 	{
-
+		public int Id { get; set; }
 	}
 }

@@ -18,6 +18,8 @@ using System.Text.Json.Serialization;
 using Infrastructure.Common;
 using Application.Common.Interfaces.FileProcessing;
 using Infrastructure.FileProcessing;
+using Application.Common.Interfaces.RealTimeInterfaces;
+using Infrastructure.RealTimeServices;
 
 namespace Infrastructure;
 
@@ -34,7 +36,7 @@ public static class DependencyInjection
         services.AddScoped<IFileAssignementProcessing, FileAssignementProcessingService>();
         services.AddScoped<IFileAssignementAnswerProcessing, FileAssignementAnswerProcessingService>();
         services.AddScoped<IFileImageProcessing,FileImageProcessingServes>();
-
+        services.AddScoped<ICheckDataOfRealTimeRequests, CheckDataOfRealTimeRequests>();
 
         services.AddDbContext<AppDbContext>(cfg => {
             cfg.UseSqlServer(DbSettings.ConnectionStr);               

@@ -10,7 +10,6 @@ namespace Application.CQRS.Query.Students
 {
     public class GetAllStudentsOfDepartementAndAcadimicYearQuery : IQuery<IEnumerable< ReturnedStudentDto>>
     {
-      
         public int AcadimicYearId { get;set; }
     }
 }

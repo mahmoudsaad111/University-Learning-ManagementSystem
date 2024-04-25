@@ -50,6 +50,8 @@ namespace InfraStructure
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostReply> postReplies { get; set; }
 
+        public DbSet<StudentCourseCycle> StudentsInCourseCycles { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
@@ -61,6 +63,7 @@ namespace InfraStructure
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentCourseCycleConfig).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssignmentAnswerConfig).Assembly);
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssignmentConfig).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CommentConfig).Assembly);

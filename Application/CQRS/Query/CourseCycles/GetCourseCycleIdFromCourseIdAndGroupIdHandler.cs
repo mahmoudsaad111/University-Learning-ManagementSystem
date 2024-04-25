@@ -25,7 +25,7 @@ namespace Application.CQRS.Query.CourseCycles
                 courseId : request.CourseId, groupId:request.GroupId);
  
                 return courseCycle;
-              
+   
         }
     }
 }

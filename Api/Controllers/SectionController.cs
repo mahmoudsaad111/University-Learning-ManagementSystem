@@ -1,5 +1,10 @@
-﻿using Application.CQRS.Command.Sections;
+﻿using Application.Common.Interfaces.Presistance;
+using Application.CQRS.Command.Sections;
+using Application.CQRS.Query.Courses;
+using Application.CQRS.Query.Instructors;
+using Application.CQRS.Query.Professors;
 using Application.CQRS.Query.Sections;
+using Application.CQRS.Query.Students;
 using Contract.Dto.Sections;
 using Domain.Models;
 using Domain.Shared;
@@ -17,11 +22,12 @@ namespace Api.Controllers
 
         private readonly IMediator mediator;
         private readonly UserManager<User> userManager;
-
-        public SectionController(IMediator mediator, UserManager<User> userManager)
+       
+        public SectionController(IMediator mediator, UserManager<User> userManager )
         {
             this.mediator = mediator;
             this.userManager = userManager;
+    
         }
 
         [HttpPost]
@@ -49,6 +55,7 @@ namespace Api.Controllers
         {
             try
             {
+
                 var result = await mediator.Send(new GetAllSectionsQuery());
                 if (result.IsSuccess)
                     return Ok(result.Value);
@@ -59,6 +66,123 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+
+        [HttpGet]
+        [Route("GetSectionOfCourseToStudent")]
+        public async Task<ActionResult> GetSectionOfCourseToStudent([FromHeader] string StudentUserName, [FromHeader] int CourseCylceId)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(StudentUserName);
+                if (user is null)
+                    return BadRequest("Wrong userName");
+
+                var ResultOfGetStudent = await mediator.Send(new GetStudentByIdQuery { Id = user.Id });
+
+                if (ResultOfGetStudent is null || ResultOfGetStudent.IsFailure || ResultOfGetStudent.Value is null)
+                    return BadRequest("Wrong userName2");
+
+                var Student = ResultOfGetStudent.Value;
+
+                var result = await mediator.Send(new GetSectionOfCourseToStudentQuery { StudentId = Student.StudentId, CourseCycleId = CourseCylceId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetAllSectionsOfInstructor")]
+        public async Task<ActionResult> GetAllSectionsOfInstructor([FromHeader] string InstructorUserName)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(InstructorUserName);
+                if(user is null )
+                    return BadRequest("Wrong userName");
+
+                var ResultOfInstructor = await mediator.Send(new GetInstructorByIdQuery { Id=user.Id });
+
+                if (ResultOfInstructor is null || ResultOfInstructor.IsFailure || ResultOfInstructor.Value is null)
+                    return BadRequest("Wrong userName");
+
+                var Instructor = ResultOfInstructor.Value;
+
+                var result = await mediator.Send(new GetAllSectionsOfInstructorQuery { InstructorId = Instructor.InstructorId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+        }
+
+
+
+
+        [HttpGet]
+        [Route("GetAllSectionsOfCourseCycle")]
+        public async Task<ActionResult> GetAllSectionsOfCourseCycle([FromHeader] int CourseCycleId)
+        {
+            try
+            {                
+                if (CourseCycleId == 0 )
+                    return BadRequest("Wrong Id");
+
+
+                var result = await mediator.Send(new GetAllSectionsOfCourseCycleQuery { CourseCycleId = CourseCycleId }) ;
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetAllSectionsOfProfessor")]
+        public async Task<ActionResult> GetAllSectionsOfProfessor([FromHeader] string ProfessorUserName)
+        {
+            try
+            {
+                var user = await userManager.FindByNameAsync(ProfessorUserName);
+                if (user is null)
+                    return BadRequest("Wrong userName");
+
+                var ResultOfProfessor = await mediator.Send(new GetProfessorByIdQuery { Id = user.Id });
+
+                if (ResultOfProfessor is null || ResultOfProfessor.IsFailure || ResultOfProfessor.Value is null)
+                    return BadRequest("Wrong userName");
+
+                var Professor = ResultOfProfessor.Value;
+
+                var result = await mediator.Send(new GetAllSectionsOfProfessorQuery { ProfessorId = Professor.ProfessorId });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+
+            }
+        }
+
+
+
 
         [HttpPut]
         [Route("UpdateSection")]

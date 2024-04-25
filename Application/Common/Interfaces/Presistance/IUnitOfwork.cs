@@ -32,6 +32,8 @@
         public IBaseRepository<CommentReply> CommentReplyRepository { get; }
         public IAcadimicYearRepository AcadimicYearRepository { get; }
         public IFileResourceRepository FileResourceRepository { get; }
+
+        public IStudentCourseCycleRepository StudentCourseCycleRepository { get; }
         public IAppDbContext Context { get; }
         public Task<int> SaveChangesAsync();
     }

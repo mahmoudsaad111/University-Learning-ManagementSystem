@@ -9,6 +9,7 @@
 		public ICollection<Post> Posts { get; set; }
 		public ICollection <Lecture> Lectures { get;set; }
 		public ICollection <Section> Sections { get; set; }	
+		public ICollection<StudentCourseCycle> StudentsInCourseCycle { get; set; }
 		public int GroupId { get; set; }	
 		public Group Group { get; set; }
 		public int CourseId { get; set; }

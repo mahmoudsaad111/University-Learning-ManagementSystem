@@ -41,6 +41,7 @@ namespace Infrastructure.Repositories
                 var GroupsWithAcadimicYear = await (from G in _appDbContext.Groups
                               join AC in _appDbContext.AcadimicYears on G.AcadimicYearId equals AC.AcadimicYearId
                               join D in _appDbContext.Departements on AC.DepartementId equals D.DepartementId
+                              where D.DepartementId==DepartementId
                               select new GroupLessInfoDto
                               {
                                   GroupId = G.GroupId,

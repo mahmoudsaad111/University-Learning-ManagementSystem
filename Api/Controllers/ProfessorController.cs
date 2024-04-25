@@ -1,4 +1,5 @@
-﻿ 
+﻿
+using Application.Common.Interfaces.Presistance;
 using Application.CQRS.Command.Professors;
 using Application.CQRS.Query.Professors;
 using Contract.Dto.ReturnedDtos;
@@ -7,6 +8,7 @@ using Contract.Dto.UsersRegisterDtos;
 using Contract.Dto.UserUpdatedDto;
 using Domain.Models;
 using Domain.Shared;
+using Infrastructure.Common;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -19,14 +21,16 @@ namespace Api.Controllers
 	public class ProfessorController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly UserManager<User> userManager;		 
-		public ProfessorController(IMediator mediator, UserManager<User> userManager)
-		{
-			this.mediator = mediator;
-			this.userManager = userManager;
-		}
+		private readonly UserManager<User> userManager;
+        private readonly IUnitOfwork unitOfwork;
+        public ProfessorController(IMediator mediator, UserManager<User> userManager, IUnitOfwork unitOfwork)
+        {
+            this.mediator = mediator;
+            this.userManager = userManager;
+            this.unitOfwork = unitOfwork;
+        }
 
-		[HttpPost]
+        [HttpPost]
 		[Route("CreateProfessor")]
 		public async Task<ActionResult> CreateProfessor([FromBody] ProfessorRegisterDto professorRegisterDto)
 		{
@@ -52,9 +56,10 @@ namespace Api.Controllers
 				}
 				catch (Exception ex)
 				{
-					userManager.DeleteAsync(user);
-					return BadRequest("Invalid Date");
-				}
+                    await userManager.DeleteAsync(user);
+                    await unitOfwork.SaveChangesAsync();
+                    return BadRequest("Invalid Data");
+                }
 			}
 			catch
 			{
@@ -150,6 +155,22 @@ namespace Api.Controllers
             try
             {
                 Result<IEnumerable<ReturnedProfessorDto>> resultOfQuery = await mediator.Send(new GetAllProfessorsOfDepartementQuery {DepartementId=DepartementId });
+                return resultOfQuery.IsSuccess ? Ok(resultOfQuery.Value) : BadRequest("Uable to load Professors");
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
+
+
+        [HttpGet]
+        [Route("GetAllProfessorsLessInfoInDepartement")]
+        public async Task<ActionResult> GetAllProfessorsLessInfoInDepartement([FromHeader] int DepartementId)
+        {
+            try
+            {
+                var resultOfQuery = await mediator.Send(new GetNameIdProfessorsQuery { DepartementId = DepartementId });
                 return resultOfQuery.IsSuccess ? Ok(resultOfQuery.Value) : BadRequest("Uable to load Professors");
             }
             catch (Exception ex)

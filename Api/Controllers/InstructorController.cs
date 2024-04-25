@@ -1,4 +1,5 @@
-﻿using Application.CQRS.Command.Instructors;
+﻿using Application.Common.Interfaces.Presistance;
+using Application.CQRS.Command.Instructors;
  
 using Application.CQRS.Query.Instructors;
 using Application.CQRS.Query.Professors;
@@ -22,14 +23,15 @@ namespace Api.Controllers
 
 		private readonly IMediator mediator;
 		private readonly UserManager<User> userManager;
+        private readonly IUnitOfwork unitOfwork;
+        public InstructorController(IMediator mediator, UserManager<User> userManager, IUnitOfwork unitOfwork)
+        {
+            this.mediator = mediator;
+            this.userManager = userManager;
+            this.unitOfwork = unitOfwork;
+        }
 
-		public InstructorController (IMediator mediator, UserManager<User> userManager)
-		{
-			this.mediator = mediator;
-			this.userManager = userManager;
-		}
-
-		[HttpPost]
+        [HttpPost]
 		[Route("CreateInstructor")]
 		public async Task<ActionResult> CreateInstructor([FromBody] InstructorRegisterDto instructorRegisterDto)
 		{
@@ -57,9 +59,10 @@ namespace Api.Controllers
 				}
 				catch (Exception ex)
 				{
-					userManager.DeleteAsync(user);
-					return BadRequest("Invalid Date");
-				}
+                    await userManager.DeleteAsync(user);
+                    await unitOfwork.SaveChangesAsync();
+                    return BadRequest("Invalid Data");
+                }
 			}
 			catch
 			{

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Domain.Enums;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -33,6 +34,11 @@ namespace Infrastructure.Repositories
 		{
 			return  await _appDbContext.Users.AsNoTracking().Where(user=>user.Student!=null).Include("Student").ToListAsync();
 		}
+
+        public Task<TypesOfUsers> GetTypeOfUser(int UserId)
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task<User> GetUserByUserName(string userName)
         {
