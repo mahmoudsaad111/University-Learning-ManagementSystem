@@ -98,7 +98,7 @@ namespace Infrastructure.Repositories
 
         }
 
-        public  async Task<IEnumerable<CourseOfStudentDto>> GetAllCoursesOfStudent(int StudentId, int AcadimicYearId)
+        public  async Task<IEnumerable<CourseOfStudentDto>> GetAllCoursesOfStudent(int StudentId)
         {
             var CurrentStudent =await _appDbContext.Students.FirstOrDefaultAsync(s=>s.StudentId == StudentId);
 

@@ -98,7 +98,7 @@ namespace Api.Controllers
 
                 var Student= ResultOfGetStudent.Value;
 
-                var result = await mediator.Send(new GetAllCoursesOfStudentQuery {StudentId = Student.StudentId , AcadimicYearId = Student.AcadimicYearId  });
+                var result = await mediator.Send(new GetAllCoursesOfStudentQuery {StudentId = Student.StudentId  });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);

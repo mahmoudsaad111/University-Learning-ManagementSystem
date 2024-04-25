@@ -22,7 +22,7 @@ namespace Application.CQRS.Query.Courses
         {
             try
             {
-                var CoursesOfStudent = await unitOfwork.CourseRepository.GetAllCoursesOfStudent(StudentId :request.StudentId , AcadimicYearId:request.AcadimicYearId);
+                var CoursesOfStudent = await unitOfwork.CourseRepository.GetAllCoursesOfStudent(StudentId :request.StudentId );
                 return Result.Success<IEnumerable<CourseOfStudentDto>>(CoursesOfStudent);
             }
             catch (Exception ex)

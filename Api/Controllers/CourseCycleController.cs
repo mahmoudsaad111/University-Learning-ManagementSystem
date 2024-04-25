@@ -107,7 +107,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             try
             {
-                Result<CourseCycle> resultOfUpdated = await mediator.Send(new UpdateCourseCycleCommand { Id = Id });
+                Result<CourseCycle> resultOfUpdated = await mediator.Send(new UpdateCourseCycleCommand { Id = Id, CourseCycleDto = courseCycleDto }) ;
 
                 return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);
             }

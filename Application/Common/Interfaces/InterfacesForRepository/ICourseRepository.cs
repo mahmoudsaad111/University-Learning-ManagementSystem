@@ -14,7 +14,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<AcadimicYear> GetAcadimicYearHasSpecificCourse(int courseId);
         public Task<IEnumerable< CourseLessInfoDto>> GetAllCoursesOfAcadimicYearAndCourseCategory(int AcadimicYearId, int? CourseCategoryId);
 
-        public Task<IEnumerable<CourseOfStudentDto>> GetAllCoursesOfStudent(int StudentId, int AcadimicYearId);
+        public Task<IEnumerable<CourseOfStudentDto>> GetAllCoursesOfStudent(int StudentId);
 
         public Task<IEnumerable<CourseOfProfessorDto>> GetAllCoursesOfProfessor (int ProfessorId);
 

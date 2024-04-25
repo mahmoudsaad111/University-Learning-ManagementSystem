@@ -11,6 +11,6 @@ namespace Application.CQRS.Query.Courses
     public class GetAllCoursesOfStudentQuery :IQuery<IEnumerable<CourseOfStudentDto>>
     {
         public int StudentId { get; set; }
-        public int AcadimicYearId { get; set; }
+    //    public int AcadimicYearId { get; set; }
     }
 }
