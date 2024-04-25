@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.CQRS.Query.Professors
+namespace Application.CQRS.Query.Instructors
 {
-    public class GetNameIdProfessorsQuery : IQuery<IEnumerable<NameIdDto>>
+    public class GetNameIdInstructorsQuery :IQuery<IEnumerable<NameIdDto>>
     {
         public int DepartementId { get; set; }
     }

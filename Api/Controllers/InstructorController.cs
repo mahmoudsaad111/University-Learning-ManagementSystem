@@ -168,5 +168,21 @@ namespace Api.Controllers
                 return NoContent();
             }
         }
+
+
+        [HttpGet]
+        [Route("GetAllInstructorsLessInfoInDepartement")]
+        public async Task<ActionResult> GetAllInstructorsLessInfoInDepartement([FromHeader] int DepartementId)
+        {
+            try
+            {
+                var resultOfQuery = await mediator.Send(new GetNameIdInstructorsQuery { DepartementId = DepartementId });
+                return resultOfQuery.IsSuccess ? Ok(resultOfQuery.Value) : BadRequest("Uable to load Professors");
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
+        }
     }
 }

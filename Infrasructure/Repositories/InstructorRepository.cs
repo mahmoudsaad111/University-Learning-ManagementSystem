@@ -11,6 +11,7 @@ using Infrastructure.Common;
 using Application.Common.Interfaces.InterfacesForRepository;
 using Contract.Dto.ReturnedDtos;
 using Microsoft.EntityFrameworkCore;
+using Contract.Dto;
 
 namespace Infrastructure.Repositories
 {
@@ -19,7 +20,17 @@ namespace Infrastructure.Repositories
 		public InstructorRepository(AppDbContext appDbContext) : base( appDbContext)
 		{
 		}
-
+        public async Task<IEnumerable<NameIdDto>> GetLessInfoInstructorByDeptId(int DeptId)
+        {
+            return await (from inst in _appDbContext.Instructors
+                          where inst.DepartementId == DeptId
+                          join user in _appDbContext.Users on inst.InstructorId equals user.Id
+                          select new NameIdDto
+                          {
+                              Id = user.Id,
+                              Name = $"{user.FirstName} {user.SecondName} {user.ThirdName}"
+                          }).ToListAsync();
+        }
         public async Task<IEnumerable<ReturnedInstructorDto>> GetAllInstructorInDepartement(int DeptId)
         {
             try

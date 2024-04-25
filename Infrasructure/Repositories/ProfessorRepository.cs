@@ -73,7 +73,7 @@ namespace Infrastructure.Repositories
                           select new NameIdDto
                           {
                               Id = user.Id,
-                              Name = $"{user.FirstName} {user.SecondName}"
+                              Name = $"{user.FirstName} {user.SecondName} {user.ThirdName}"
                           }).ToListAsync();
         }
     }
