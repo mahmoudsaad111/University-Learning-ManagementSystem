@@ -39,6 +39,15 @@ namespace Infrastructure.Common
         public IFileResourceRepository FileResourceRepository { get;private set; }
 
         public IStudentCourseCycleRepository StudentCourseCycleRepository { get; }
+        public IExamRepository ExamRepository { get; private set; }
+        public IExamAnswerRepository ExamAnswerRepository { get; private set; }
+        public IExamPlaceRepository ExamPlaceRepository { get; private set; }
+        public IStudentExamRepository StudentExamRepository { get; private set; }
+        public IMCQRepository MCQRepository { get; private set; }
+        public ITFQRepository TFQRepository { get; private set; }
+
+        public IStudentAnswerInMCQRepository StudentAnswerInMCQRepository { get; private set; }
+        public IStudentAnswerInTFQRepository StudentAnswerInTFQRepository { get; private set; }
         public UnitOfwork(AppDbContext context)
         {
             _context = context;
@@ -66,6 +75,18 @@ namespace Infrastructure.Common
             StudentSectionRepository = new StudentSectionRepository(_context);
 
             StudentCourseCycleRepository = new StudentCourseCycleRepository(_context);
+
+            ExamRepository=new ExamRepository(_context);
+            ExamAnswerRepository=new ExamAnswerRepository(_context);
+            ExamPlaceRepository=new ExamPlaceRepository(_context);
+            MCQRepository = new MCQRepository(_context);
+            TFQRepository = new TFQRepository(_context);
+
+            StudentAnswerInTFQRepository = new StudentAnswerInTFQRepository(_context);
+            StudentAnswerInMCQRepository = new StudentAnswerInMCQRepository(_context);
+
+
+            StudentExamRepository =new StudentExamRepository(_context , StudentAnswerInMCQRepository , StudentAnswerInTFQRepository , MCQRepository , TFQRepository);
         }
 
 		public async Task<int> SaveChangesAsync()

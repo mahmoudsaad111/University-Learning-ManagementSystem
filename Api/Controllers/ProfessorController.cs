@@ -61,9 +61,9 @@ namespace Api.Controllers
                     return BadRequest("Invalid Data");
                 }
 			}
-			catch
+			catch(Exception ex) 
 			{
-				return BadRequest();
+				return BadRequest(ex.Message) ;
 			}
 		}
 

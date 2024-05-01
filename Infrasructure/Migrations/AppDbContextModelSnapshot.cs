@@ -357,38 +357,38 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Exam", b =>
                 {
                     b.Property<int>("ExamId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseCycleId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamId"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeadLine")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("DeadLine")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ExamPlaceId")
+                        .HasColumnType("int");
 
                     b.Property<int>("FullMark")
                         .HasColumnType("int");
 
-                    b.Property<string>("ModelAnswerUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime>("StratedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExamId");
 
-                    b.HasIndex("CourseCycleId");
+                    b.HasIndex("ExamPlaceId");
 
                     b.ToTable("Exams", (string)null);
                 });
@@ -433,6 +433,38 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("ExamAnswers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.ExamPlace", b =>
+                {
+                    b.Property<int>("ExamPlaceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamPlaceId"), 1L, 1);
+
+                    b.Property<int?>("CourseCycleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamType")
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SectionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExamPlaceId");
+
+                    b.HasIndex("CourseCycleId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("ExamPlaces");
                 });
 
             modelBuilder.Entity("Domain.Models.Faculty", b =>
@@ -599,6 +631,50 @@ namespace Infrastructure.Migrations
                     b.HasIndex("SectionId");
 
                     b.ToTable("Lectures", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"), 1L, 1);
+
+                    b.Property<int>("CorrectAnswer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Degree")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OptionA")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OptionB")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OptionC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OptionD")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("MultipleChoiceQuestions");
                 });
 
             modelBuilder.Entity("Domain.Models.Notification", b =>
@@ -842,6 +918,60 @@ namespace Infrastructure.Migrations
                     b.ToTable("Student_Lecture", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.StudentAnswerInMCQ", b =>
+                {
+                    b.Property<int>("StudentAnswerInMCQId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentAnswerInMCQId"), 1L, 1);
+
+                    b.Property<int>("MultipleChoiceQuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OptionSelectedByStudent")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentExamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentAnswerInMCQId");
+
+                    b.HasIndex("MultipleChoiceQuestionId");
+
+                    b.HasIndex("StudentExamId", "MultipleChoiceQuestionId")
+                        .IsUnique();
+
+                    b.ToTable("StudentAnswerInMCQs");
+                });
+
+            modelBuilder.Entity("Domain.Models.StudentAnswerInTFQ", b =>
+                {
+                    b.Property<int>("StudentAnswersInTFQId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentAnswersInTFQId"), 1L, 1);
+
+                    b.Property<bool>("StudentAnswer")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrueFalseQuestionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentAnswersInTFQId");
+
+                    b.HasIndex("TrueFalseQuestionId");
+
+                    b.HasIndex("StudentExamId", "TrueFalseQuestionId")
+                        .IsUnique();
+
+                    b.ToTable("StudentAnswerInTFQs");
+                });
+
             modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
                 {
                     b.Property<int>("StudentCourseCycleId")
@@ -867,6 +997,38 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentCourseCycle", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Models.StudentExam", b =>
+                {
+                    b.Property<int>("StudentExamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentExamId"), 1L, 1);
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarkOfStudentInExam")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SubmitedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("StudentExamId");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("StudentId", "ExamId")
+                        .IsUnique();
+
+                    b.ToTable("StudentExams");
                 });
 
             modelBuilder.Entity("Domain.Models.StudentNote", b =>
@@ -931,6 +1093,34 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentSections");
+                });
+
+            modelBuilder.Entity("Domain.Models.TrueFalseQuestion", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"), 1L, 1);
+
+                    b.Property<int>("Degree")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsTrue")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("QuestionId");
+
+                    b.HasIndex("ExamId");
+
+                    b.ToTable("TrueFalseQuestions");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -1331,19 +1521,19 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Exam", b =>
                 {
-                    b.HasOne("Domain.Models.CourseCycle", "CourseCycle")
-                        .WithMany("Exams")
-                        .HasForeignKey("ExamId")
+                    b.HasOne("Domain.Models.ExamPlace", "ExamPlace")
+                        .WithMany("ExamsInExamPlace")
+                        .HasForeignKey("ExamPlaceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CourseCycle");
+                    b.Navigation("ExamPlace");
                 });
 
             modelBuilder.Entity("Domain.Models.ExamAnswer", b =>
                 {
                     b.HasOne("Domain.Models.Exam", "Exam")
-                        .WithMany("ExamAnswers")
+                        .WithMany()
                         .HasForeignKey("ExamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1357,6 +1547,33 @@ namespace Infrastructure.Migrations
                     b.Navigation("Exam");
 
                     b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Domain.Models.ExamPlace", b =>
+                {
+                    b.HasOne("Domain.Models.CourseCycle", "CourseCycle")
+                        .WithMany()
+                        .HasForeignKey("CourseCycleId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("CourseCycle");
+
+                    b.Navigation("Section");
                 });
 
             modelBuilder.Entity("Domain.Models.Group", b =>
@@ -1404,6 +1621,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("CourseCycle");
 
                     b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("Domain.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.HasOne("Domain.Models.Exam", "Exam")
+                        .WithMany("MultipleChoiceQuestions")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("Domain.Models.Notification", b =>
@@ -1561,6 +1789,44 @@ namespace Infrastructure.Migrations
                     b.Navigation("lecture");
                 });
 
+            modelBuilder.Entity("Domain.Models.StudentAnswerInMCQ", b =>
+                {
+                    b.HasOne("Domain.Models.MultipleChoiceQuestion", "MultipleChoiceQuestion")
+                        .WithMany("StudentAnswerInMCQ")
+                        .HasForeignKey("MultipleChoiceQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.StudentExam", "StudentExam")
+                        .WithMany("StudentMcqAnswersOfExam")
+                        .HasForeignKey("StudentExamId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("MultipleChoiceQuestion");
+
+                    b.Navigation("StudentExam");
+                });
+
+            modelBuilder.Entity("Domain.Models.StudentAnswerInTFQ", b =>
+                {
+                    b.HasOne("Domain.Models.StudentExam", "StudentExam")
+                        .WithMany("StudnetTfqAnswersOfExam")
+                        .HasForeignKey("StudentExamId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.TrueFalseQuestion", "TrueFalseQuestion")
+                        .WithMany("StudentAnswerInTFQs")
+                        .HasForeignKey("TrueFalseQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StudentExam");
+
+                    b.Navigation("TrueFalseQuestion");
+                });
+
             modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
                 {
                     b.HasOne("Domain.Models.CourseCycle", "CourseCycle")
@@ -1576,6 +1842,25 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("CourseCycle");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("Domain.Models.StudentExam", b =>
+                {
+                    b.HasOne("Domain.Models.Exam", "Exam")
+                        .WithMany("StudentsAttendExam")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Student", "Student")
+                        .WithMany("ExamsOfStudent")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
 
                     b.Navigation("Student");
                 });
@@ -1616,6 +1901,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("Section");
 
                     b.Navigation("StudentCourseCycle");
+                });
+
+            modelBuilder.Entity("Domain.Models.TrueFalseQuestion", b =>
+                {
+                    b.HasOne("Domain.Models.Exam", "Exam")
+                        .WithMany("TrueFalseQuestions")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exam");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>
@@ -1777,8 +2073,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.CourseCycle", b =>
                 {
-                    b.Navigation("Exams");
-
                     b.Navigation("Lectures");
 
                     b.Navigation("Posts");
@@ -1803,7 +2097,16 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Models.Exam", b =>
                 {
-                    b.Navigation("ExamAnswers");
+                    b.Navigation("MultipleChoiceQuestions");
+
+                    b.Navigation("StudentsAttendExam");
+
+                    b.Navigation("TrueFalseQuestions");
+                });
+
+            modelBuilder.Entity("Domain.Models.ExamPlace", b =>
+                {
+                    b.Navigation("ExamsInExamPlace");
                 });
 
             modelBuilder.Entity("Domain.Models.Faculty", b =>
@@ -1832,6 +2135,11 @@ namespace Infrastructure.Migrations
                     b.Navigation("StudentNotes");
 
                     b.Navigation("Student_Lectures");
+                });
+
+            modelBuilder.Entity("Domain.Models.MultipleChoiceQuestion", b =>
+                {
+                    b.Navigation("StudentAnswerInMCQ");
                 });
 
             modelBuilder.Entity("Domain.Models.Post", b =>
@@ -1863,6 +2171,8 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("ExamAnswers");
 
+                    b.Navigation("ExamsOfStudent");
+
                     b.Navigation("StudentLecture");
 
                     b.Navigation("StudentNotes");
@@ -1871,6 +2181,18 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.StudentCourseCycle", b =>
                 {
                     b.Navigation("SectionsOfStudent");
+                });
+
+            modelBuilder.Entity("Domain.Models.StudentExam", b =>
+                {
+                    b.Navigation("StudentMcqAnswersOfExam");
+
+                    b.Navigation("StudnetTfqAnswersOfExam");
+                });
+
+            modelBuilder.Entity("Domain.Models.TrueFalseQuestion", b =>
+                {
+                    b.Navigation("StudentAnswerInTFQs");
                 });
 
             modelBuilder.Entity("Domain.Models.User", b =>

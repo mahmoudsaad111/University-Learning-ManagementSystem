@@ -18,6 +18,22 @@ namespace Infrastructure.Repositories
 		{
 		}
 
+        public async Task<bool> CheckIfStudentHasAccessToCourse(string StudentUserName, int CourseId)
+        {
+            int StudentAcadimicYear = await (from u in _appDbContext.Users
+                     where u.UserName == StudentUserName
+                     join s in _appDbContext.Students on u.Id equals s.StudentId
+                     select s.AcadimicYearId).FirstOrDefaultAsync(); 
+
+                         
+
+             int CourseAcadimicYear=  await _appDbContext.Courses.AsNoTracking().Where(c => c.CourseId == CourseId)
+                         .Select(c => c.AcadimicYearId)
+                         .FirstOrDefaultAsync();
+
+            return StudentAcadimicYear != 0 && CourseAcadimicYear != 0 && StudentAcadimicYear == CourseAcadimicYear;
+        }
+
         public async Task<AcadimicYear> GetAcadimicYearHasSpecificCourse(int courseId)
         {
             try
@@ -41,7 +57,7 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<CourseLessInfoDto>> GetAllCoursesOfAcadimicYearAndCourseCategory(int AcadimicYearId, int? CourseCategoryId)
         {
             IEnumerable<CourseLessInfoDto> courseLessInfoDtos = null;
-            if (CourseCategoryId is not null) 
+            if (CourseCategoryId !=0 ) 
             {
                 courseLessInfoDtos= await _appDbContext.Courses.AsNoTracking().Where(c => c.CourseCategoryId == CourseCategoryId && c.AcadimicYearId == AcadimicYearId).Select(Cl => new CourseLessInfoDto
                 {
@@ -120,6 +136,7 @@ namespace Infrastructure.Repositories
                                             GroupName = Group.Name,
                                             CourseId = Course.CourseId,
                                             CourseName = Course.Name,
+                                            CourseCycleId=CC.CourseCycleId,
                                             TotalMarksOfStudent=SCC.MarksOfStudent,
                                             ProfessorId = Professor.ProfessorId,
                                             ProfessorFirstName = User.FirstName,

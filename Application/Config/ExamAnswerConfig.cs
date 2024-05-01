@@ -24,7 +24,9 @@ namespace Application.Config
             //keys
             builder.HasKey(x => x.ExamAnswerId);
             // relationships
-            builder.HasOne(x => x.Exam).WithMany(y => y.ExamAnswers).HasForeignKey(x => x.ExamId);
+            
+            // this relation in examConfig
+            //builder.HasOne(x => x.Exam).WithMany(y => y.ExamAnswers).HasForeignKey(x => x.ExamId);
             builder.HasOne(x => x.Student).WithMany(y => y.ExamAnswers).HasForeignKey(x => x.StudentId);
             //indexes
             builder.HasIndex(x => new { x.ExamId, x.StudentId }).IsUnique(true); 

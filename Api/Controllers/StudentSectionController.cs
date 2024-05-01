@@ -22,9 +22,14 @@ namespace Api.Controllers
                 return BadRequest("Invalid data") ;
 
             var Result =await mediator.Send(new AddStudensToSectionCommand {  StudentsUserNames = studentsUserName, SectionId = SectionId });
-            if(Result.IsSuccess)
-                return Ok(Result);
-            return BadRequest();
+            if (Result.IsSuccess)
+            {
+                if (Result.Value.Count() > 0)
+                    return BadRequest(Result.Value);
+
+                return Ok("all students added successfully in section");
+            }
+            return BadRequest( ) ;
         }
 
         [HttpDelete("DeleteStudentsFromSection")]
@@ -35,7 +40,11 @@ namespace Api.Controllers
 
             var Result = await mediator.Send(new DeleteStudentsFromSectionCommand { StudentsUserNames = studentsUserName, SectionId = SectionId });
             if (Result.IsSuccess)
-                return Ok(Result);
+            {
+                if(Result.Value.Count() > 0)
+                    return BadRequest(Result.Value);
+                return Ok("all students deleted successfully from section");
+            }
             return BadRequest();
         }
     }

@@ -49,8 +49,16 @@ namespace InfraStructure
         public DbSet<StudentSection> StudentSections { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostReply> postReplies { get; set; }
-
         public DbSet<StudentCourseCycle> StudentsInCourseCycles { get; set; }
+        
+        
+        public DbSet<ExamPlace> ExamPlaces {  get; set; }   
+        public DbSet<MultipleChoiceQuestion> MultipleChoiceQuestions { get; set; }
+        public DbSet<TrueFalseQuestion> TrueFalseQuestions { get; set; }    
+        public DbSet<StudentExam> StudentExams { get; set; }
+        public DbSet<StudentAnswerInMCQ> StudentAnswerInMCQs { get; set; }
+        public DbSet<StudentAnswerInTFQ> StudentAnswerInTFQs { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -61,7 +69,12 @@ namespace InfraStructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+
+
+
+
+            base.OnModelCreating(modelBuilder);        
+
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentCourseCycleConfig).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AssignmentAnswerConfig).Assembly);
@@ -101,9 +114,16 @@ namespace InfraStructure
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AcadimicYearConfig).Assembly);
 
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ExamPlaceConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MultipleChoiceQuestionConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TrueFalseQuestionConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentExamConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentAnswerInTFQConfig).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentAnswerInMCQConfig).Assembly);
+
             //
             // To include the Faculty always when call departement
-             modelBuilder.Entity<Departement>().Navigation(D => D.Faculty).AutoInclude(true);
+            modelBuilder.Entity<Departement>().Navigation(D => D.Faculty).AutoInclude(true);
        
 		}
     }

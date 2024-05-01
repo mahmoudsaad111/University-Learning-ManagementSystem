@@ -10,10 +10,8 @@ namespace Domain.Models
     {
         public int ExamAnswerId { get; set; }
 
-        public String DescriptionOrNote { get; set; }
+        public string DescriptionOrNote { get; set; }
         public int Mark { get; set; }
-
-
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; } = null!;
         public string Url { get; set; } = null!;

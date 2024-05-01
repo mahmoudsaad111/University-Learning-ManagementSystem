@@ -73,5 +73,20 @@ namespace Infrastructure.Repositories
         {
             return await _appDbContext.StudentsInCourseCycles.Where(scc => scc.StudentId == studentId && scc.CourseCycleId == courseCycleId).Select(scc=>scc.StudentCourseCycleId).FirstOrDefaultAsync();
         }
+
+        public async Task<bool> CheckIfStudnetInCourseCycle(string StudnetUserName, int CourseCylceId)
+        {
+            int StudentId = await _appDbContext.Users.AsNoTracking().Where(u=>u.UserName==StudnetUserName)
+                                                                    .Select(u=>u.Id).FirstOrDefaultAsync();
+
+            if (StudentId == 0)
+                return false;
+            int StudentCourseCylceId = await this.GetStudentCourseCycleId(StudentId , CourseCylceId);
+
+            if(StudentCourseCylceId == 0) 
+                return false;
+            return true;
+
+        }
     }
 }

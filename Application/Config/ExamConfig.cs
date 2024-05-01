@@ -17,19 +17,20 @@ namespace Application.Config
         {
             builder.ToTable("Exams");
             // properties 
-            builder.Property(x => x.Name).IsRequired(true).HasMaxLength(50);
-            builder.Property(x => x.ModelAnswerUrl).IsRequired(false);
-            builder.Property(x => x.Url).IsRequired(true); 
+            builder.Property(x => x.Name).IsRequired(true).HasMaxLength(200) ;
             builder.Property(x=>x.FullMark).IsRequired(true);
 
             //keys
             builder.HasKey(x => x.ExamId);
             // relationships
-            builder.HasMany(x => x.ExamAnswers).WithOne(y => y.Exam).OnDelete(DeleteBehavior.Cascade); 
-            builder.HasOne(x=>x.CourseCycle).WithMany(y=>y.Exams).HasForeignKey(y=>y.ExamId);   
+           
+            
+            // this relation in ExamAnswerConfig
+            // builder.HasOne(x => x.ExamAnswer).WithOne(y => y.Exam).OnDelete(DeleteBehavior.Cascade);
+            
             //indexes
             
-            builder.HasIndex(x => x.CourseCycleId).IsUnique(false);
+            builder.HasIndex(x => x.ExamPlaceId).IsUnique(false);
 
         }
     }

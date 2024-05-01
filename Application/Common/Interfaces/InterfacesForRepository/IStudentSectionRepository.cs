@@ -12,8 +12,9 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IStudentSectionRepository : IBaseRepository<StudentSection>
     {
         public Task<IEnumerable<int>> GetAllSectionsIdofStudent(int StudentId);
-        public Task<bool> CheckIfStudentInSection(int StudentId, int SectionId); 
-        
+        public Task<bool> CheckIfStudentInSection(int StudentId, int SectionId);
+        public Task<bool> CheckIfStudnetInSectionByUserName(string StudentUserName, int SectionId);
         public Task<int> GetStudentSectionId(int SectionId, int StudentCourseCycleId);
+        public Task<IEnumerable<int>>GetAllStudentsIdOnSection(int  SectionId);  
     }
 }

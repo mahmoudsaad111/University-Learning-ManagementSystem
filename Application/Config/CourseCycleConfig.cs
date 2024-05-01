@@ -21,7 +21,7 @@ namespace Application.Config
 			builder.HasMany(cc=>cc.Sections).WithOne(sec=>sec.CourseCycle).HasForeignKey(sec=>sec.CourseCycleId).OnDelete(DeleteBehavior.Cascade);
 			//builder.HasOne(cc => cc.Group).WithMany(g => g.CourseCycles).HasForeignKey(cc => cc.GroupId).OnDelete(DeleteBehavior.NoAction);
 			//builder.HasOne(cc => cc.Course).WithMany(c => c.CourseCycles).HasForeignKey(cc => cc.CourseId).OnDelete(DeleteBehavior.Cascade);
-			builder.HasMany(cc => cc.Exams).WithOne(e => e.CourseCycle).HasForeignKey(e => e.CourseCycleId).OnDelete(DeleteBehavior.Cascade);
+		//	builder.HasMany(cc => cc.Exams).WithOne(e => e.CourseCycle).HasForeignKey(e => e.CourseCycleId).OnDelete(DeleteBehavior.Cascade);
 
             //& another update to Post with CourseCylce config to make the relation is not required 
 

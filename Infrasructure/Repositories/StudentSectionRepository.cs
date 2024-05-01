@@ -33,26 +33,40 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> CheckIfStudentInSection(int StudentId, int SectionId)
         {
-            var StudentSection = await (from SCC in _appDbContext.StudentsInCourseCycles
+            var StudentSectionId = await (from SCC in _appDbContext.StudentsInCourseCycles
                                  where SCC.StudentId == StudentId
                                  join SinS in _appDbContext.StudentSections on SCC.StudentCourseCycleId equals SinS.StudentCourseCycleId
                                  where SinS.SectionId == SectionId 
-                                 select new StudentSectionDto
-                                 {
-                                     SectionId = SinS.SectionId,
-                                     StudentCourseCycleId=SCC.StudentCourseCycleId,
-                                     TotalMarks=SinS.StudentTotalMarks
-                                 }
+                                 select  SinS.StudentSectionId
 
                                  ).FirstOrDefaultAsync();
 
-            return StudentSection is null ? false : true;
+            return (StudentSectionId != 0);
         }
 
         public async Task<int> GetStudentSectionId(int SectionId, int StudentCourseCylceId)
         {
             return await _appDbContext.StudentSections.Where(ss => ss.SectionId == SectionId && ss.StudentCourseCycleId == StudentCourseCylceId).Select(ss=>ss.StudentSectionId).FirstOrDefaultAsync();
 
+        }
+
+        public async Task<IEnumerable<int>> GetAllStudentsIdOnSection(int SectionId)
+        {
+            return await (from SinS in _appDbContext.StudentSections
+                          where SinS.SectionId == SectionId
+                          join Scc in _appDbContext.StudentsInCourseCycles on SinS.StudentCourseCycleId equals Scc.StudentCourseCycleId
+                          select Scc.StudentId).ToListAsync();
+        }
+
+        public async Task<bool> CheckIfStudnetInSectionByUserName(string StudentUserName, int SectionId)
+        {
+            int StudentId= await _appDbContext.Users.AsNoTracking().Where(u=>u.UserName==StudentUserName).
+                Select(u=>u.Id)
+                .FirstOrDefaultAsync();   
+            
+            if(StudentId== 0)
+                return false;
+            return await this.CheckIfStudentInSection(StudentId, SectionId);
         }
     }
 }

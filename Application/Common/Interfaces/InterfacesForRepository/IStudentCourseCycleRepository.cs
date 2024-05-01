@@ -15,7 +15,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<bool> DeleteStudentFromHisCourseCylces(int studentId);
 
         public Task<int> GetStudentCourseCycleId(int studentId, int courseCycleId);
- 
+
+        public Task<bool> CheckIfStudnetInCourseCycle(string StudnetUserName, int CourseCylceId);
         //public Task
 
     }

@@ -5,7 +5,6 @@
 		public int CourseCycleId { get; set; }
 		public string Title { get; set; }
 		// navigation properties
-		public ICollection<Exam> Exams { get; set; }
 		public ICollection<Post> Posts { get; set; }
 		public ICollection <Lecture> Lectures { get;set; }
 		public ICollection <Section> Sections { get; set; }	

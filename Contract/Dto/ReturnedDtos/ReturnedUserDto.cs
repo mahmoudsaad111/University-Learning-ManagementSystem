@@ -16,6 +16,8 @@ namespace Contract.Dto.ReturnedDtos
 		public string Email {  get; set; } = null!;
 		public string UserName { get; set; } = null!;
 		public bool Gender { get; set; }
-		public DateTime BirthDay { get; set; } = DateTime.MinValue;
+		public string PhoneNumber { get; set; }
+
+        public DateTime BirthDay { get; set; } = DateTime.MinValue;
 	}
 }

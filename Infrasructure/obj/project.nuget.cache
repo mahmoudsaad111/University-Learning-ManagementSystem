@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "oz9YWNnC9ok9fSYZWHCLO7JZjy1wsnPBjkIki2b7yR+M3UI3EvMr2acV9F2R+WG9Gcm4avIyEVYwwKEgRwq28g==",
+  "dgSpecHash": "dNoRWkSK7SfsLvQlvGDAHZMI9ej1LyXUnOLqc2ijfjx+Cgo0J3z0UYO0PkWWKz6EP3XHAYuE59w7g4wipNi+wA==",
   "success": true,
   "projectFilePath": "C:\\Users\\lenovo\\Desktop\\NewCLone mahmoud saad\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -46,6 +46,7 @@
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\mimekit\\4.4.0\\mimekit.4.4.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.configuration.configurationmanager\\4.7.0\\system.configuration.configurationmanager.4.7.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",

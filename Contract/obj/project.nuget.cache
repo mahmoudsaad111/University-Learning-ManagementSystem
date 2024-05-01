@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "VaxQPDHXTjMIiI+bh4XNo1yqDvrBJ3HOXYX3WHAoE0ZEo6YBbK6qYguGRBkNy71jHo+75RnE9tyXGFGnji+8dQ==",
+  "dgSpecHash": "gFUiZM8Esm0ZEeObXLV31j7ZKH6nJ29sPX38S7EiUDMZxZqQN0FH9Td9v7SZKe5emqbPN3a7W71FWbRqofpyaQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\lenovo\\Desktop\\NewCLone mahmoud saad\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
   "expectedPackageFiles": [
@@ -32,6 +32,7 @@
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.35.0\\microsoft.identitymodel.tokens.6.35.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.35.0\\system.identitymodel.tokens.jwt.6.35.0.nupkg.sha512",

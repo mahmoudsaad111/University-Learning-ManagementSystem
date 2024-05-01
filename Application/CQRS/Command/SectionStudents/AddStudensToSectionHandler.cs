@@ -27,18 +27,24 @@ namespace Application.CQRS.Command.SectionStudents
                 if (Section == null)
                     return Result.Failure<IEnumerable<string>>(new Error(code: "AddStudensToSection", message: "Nullable"));
 
-                IEnumerable<string> StudentsWillNotAdded = new List<string> { };
+                List<string> StudentsWillNotAdded = new List<string> { };
 
                 foreach(var studentUserName in request.StudentsUserNames)
                 {
-                    var StudentId =await unitOfwork.StudentRepository.GetStudentIdUsingUserName(studentUserName); 
-                    if(StudentId == 0)
+                    var StudentId =await unitOfwork.StudentRepository.GetStudentIdUsingUserName(studentUserName);
+                    if (StudentId == 0)
+                    {
+                        StudentsWillNotAdded.Append(studentUserName);
+                        continue; 
+                    }
+
+                    int StudentCourseCycleId = await unitOfwork.StudentCourseCycleRepository.GetStudentCourseCycleId(studentId: StudentId, courseCycleId: Section.CourseCycleId);
+
+                    if(StudentCourseCycleId == 0)
                     {
                         StudentsWillNotAdded.Append(studentUserName);
                         continue;
                     }
-
-                    var StudentCourseCycleId = await unitOfwork.StudentCourseCycleRepository.GetStudentCourseCycleId(studentId: StudentId, courseCycleId: Section.CourseCycleId);
 
                     var AddedStudentSection = await unitOfwork.StudentSectionRepository.CreateAsync(new StudentSection
                     {
@@ -49,8 +55,18 @@ namespace Application.CQRS.Command.SectionStudents
                     if (AddedStudentSection is null)
                         StudentsWillNotAdded.Append(studentUserName);
                 }
-                await unitOfwork.SaveChangesAsync();
-                return Result.Success<IEnumerable<string>>(StudentsWillNotAdded);
+
+                if (StudentsWillNotAdded.Count == 0)
+                {
+                    await unitOfwork.SaveChangesAsync();
+                    return Result.Success<IEnumerable<string>>(StudentsWillNotAdded);
+                }
+                else if (StudentsWillNotAdded.Count > 0 && StudentsWillNotAdded.Count <= request.StudentsUserNames.Count()) 
+                {
+                    // return the Invalid UserNames and handle in api with return BadRequest(Inavlid userNames array)
+                    return Result.Success<IEnumerable<string>>(StudentsWillNotAdded);
+                }
+                return Result.Failure<IEnumerable<string>>(new Error(code: "Add students to section", message: "Can not add students to section"));
             }
             catch (Exception ex)
             {

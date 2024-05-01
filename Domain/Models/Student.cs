@@ -36,6 +36,7 @@ namespace Domain.Models
 		public ICollection<StudentNote> StudentNotes { get; set; }	
 
 		public ICollection<StudentCourseCycle> CourseCycleOfStudent {  get; set; }	
+		public ICollection<StudentExam> ExamsOfStudent { get; set; }
 
 	}
 }

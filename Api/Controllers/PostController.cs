@@ -43,8 +43,8 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetFaculties")]
-        public async Task<ActionResult> GetALlFaculties()
+        [Route("GetALlPosts")]
+        public async Task<ActionResult> GetALlPosts()
         {
             try
             {

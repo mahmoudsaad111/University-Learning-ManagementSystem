@@ -28,7 +28,7 @@ namespace Application.CQRS.Command.SectionStudents
                 if (Section == null)
                     return Result.Failure<IEnumerable<string>>(new Error(code: "AddStudensToSection", message: "Nullable"));
 
-                IEnumerable<string> StudentsWillNotDelted = new List<string> { };
+                List<string> StudentsWillNotDelted = new List<string> { };
 
                 foreach (var studentUserName in request.StudentsUserNames)
                 {
@@ -40,19 +40,36 @@ namespace Application.CQRS.Command.SectionStudents
                     }
 
                     var StudentCourseCycleId = await unitOfwork.StudentCourseCycleRepository.GetStudentCourseCycleId(studentId: StudentId, courseCycleId: Section.CourseCycleId);
-
+                    if(StudentCourseCycleId == 0)
+                    {
+                        StudentsWillNotDelted.Add(studentUserName);
+                        continue;
+                    }
                     var StudentSectionId = await unitOfwork.StudentSectionRepository.GetStudentSectionId(SectionId: Section.SectionId, StudentCourseCycleId: StudentCourseCycleId);
 
                     if (StudentSectionId == 0)
                         StudentsWillNotDelted.Append(studentUserName);
                     else
                     {
-                        await unitOfwork.StudentSectionRepository.DeleteAsync(StudentSectionId);
+                        bool Deleted = await unitOfwork.StudentSectionRepository.DeleteAsync(StudentSectionId);
+
+                        if (!Deleted)
+                            StudentsWillNotDelted.Append(studentUserName);
                     }
                 }
 
-                await unitOfwork.SaveChangesAsync();
-                return Result.Success<IEnumerable<string>>(StudentsWillNotDelted);
+                if (StudentsWillNotDelted.Count == 0)
+                {
+                    await unitOfwork.SaveChangesAsync();
+                    return Result.Success<IEnumerable<string>>(StudentsWillNotDelted);
+                }
+                else if (StudentsWillNotDelted.Count > 0 && StudentsWillNotDelted.Count <= request.StudentsUserNames.Count())
+                {
+                    // return the Invalid UserNames and handle in api with return BadRequest(Inavlid userNames array)
+                    return Result.Success<IEnumerable<string>>(StudentsWillNotDelted);
+                }
+                return Result.Failure<IEnumerable<string>>(new Error(code: "Delete students to section", message: "Can not delete students to section"));
+
             }
             catch (Exception ex)
             {

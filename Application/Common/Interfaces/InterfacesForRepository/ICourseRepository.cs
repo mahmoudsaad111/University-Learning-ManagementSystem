@@ -19,5 +19,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<IEnumerable<CourseOfProfessorDto>> GetAllCoursesOfProfessor (int ProfessorId);
 
         public Task<IEnumerable<int>> GetAllCoursesIdOfAcadimicYearId(int AcadimicYearId);
+
+        public Task<bool> CheckIfStudentHasAccessToCourse(string StudentUserName, int CourseId);
     }
 }

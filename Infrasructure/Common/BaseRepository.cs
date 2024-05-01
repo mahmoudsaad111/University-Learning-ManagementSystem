@@ -24,7 +24,7 @@ namespace Infrastructure.Common
 
 		public async Task<bool> DeleteAsync(int? Id)
 		{
-			if (Id is null)
+			if (Id == 0)
 				return false;
 			var objToDelete = await GetByIdAsync(Id);
 			if (objToDelete is not null)

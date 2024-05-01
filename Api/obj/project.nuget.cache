@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "xyxOk24RTwhR+XxJz7ORxtnh31tDyGJCjCdSX3OOYPH/s/UxOjP2eZFENXT2gtAgdMklssUFz9PAkE79azaQOg==",
+  "dgSpecHash": "qdEGWWBNjIxff0SlxDxMKyIjPa0bjK2NTUjtTo773JfkKBJW9FxPupvha1tUm9YSfxQ1MtgwkhlmuMQix8hR7A==",
   "success": true,
   "projectFilePath": "C:\\Users\\lenovo\\Desktop\\NewCLone mahmoud saad\\OnlineLearningModelSystemPlatform\\Api\\Api.csproj",
   "expectedPackageFiles": [
@@ -47,6 +47,7 @@
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\mimekit\\4.4.0\\mimekit.4.4.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

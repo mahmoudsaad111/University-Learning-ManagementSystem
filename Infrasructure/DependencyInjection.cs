@@ -23,6 +23,8 @@ using Application.Common.Interfaces.Authentication;
 using Infrastructure.Authentication;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using Application.Common.Interfaces.InterfacesForRepository;
+using Infrastructure.Repositories;
 namespace Infrastructure;
 
 
@@ -40,6 +42,11 @@ public static class DependencyInjection
         services.AddScoped<IFileAssignementAnswerProcessing, FileAssignementAnswerProcessingService>();
         services.AddScoped<IFileImageProcessing,FileImageProcessingServes>();
         services.AddScoped<ICheckDataOfRealTimeRequests, CheckDataOfRealTimeRequests>();
+
+        services.AddScoped<IStudentAnswerInMCQRepository, StudentAnswerInMCQRepository>();
+        services.AddScoped<IStudentAnswerInTFQRepository , StudentAnswerInTFQRepository>(); 
+        services.AddScoped<IMCQRepository, MCQRepository>();
+        services.AddScoped<ITFQRepository,TFQRepository>();
 
         services.AddDbContext<AppDbContext>(cfg => {
             cfg.UseSqlServer(DbSettings.ConnectionStr);               

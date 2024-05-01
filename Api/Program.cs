@@ -7,6 +7,7 @@ using Contract;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
+using Contract.Dto.Exams;
 
 namespace Api
 {
@@ -63,8 +64,15 @@ namespace Api
             //  builder.Services.AddControllers();
             builder.Services.AddControllers().AddJsonOptions(
                 // the next line is important to use enum as property in Dto that is parameters in api 
-                options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
-               );
+                options => 
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter());
+                }
+               ); ;
+        //    services.AddControllers()
+        //.AddJsonOptions(options =>
+        //    options.JsonSerializerOptions.Converters.Add(new TimeSpanToStringConverter()));
 
 
             builder.Services.AddAuthorization();

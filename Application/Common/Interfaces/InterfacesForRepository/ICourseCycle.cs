@@ -15,9 +15,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     {
         public Task<CourseCycle> GetCourseCycleUsingCourseIdAndGroupIdAsync(int courseId, int groupId);
         public Task<CourseCycle> GetCourseCycleContainSpecificSectionUsingSectionId(int SectionId);
-
         public Task<int> GetCourseCycleIdOfCourseAndGroup(int courseId, int groupId);
-
         public Task<IEnumerable<CourseCycleWithProfInfoDto>> GetCourseCylcesWithProfInfo(int courseId, int groupId);
 
         public Task<IEnumerable<NameIdDto>> GetAllLessInfoCourseCycles(int courseId, int groupId);
