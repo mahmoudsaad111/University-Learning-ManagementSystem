@@ -1,4 +1,5 @@
 ﻿using Contract.Dto.Courses;
+using Contract.Dto.Sections;
 using Domain.Models;
 using Domain.Shared;
 using System;
@@ -15,6 +16,8 @@ namespace Contract.Authentication
         public string RefreshToken { get; set; }
 
         public string? UserName { get; set; }
+
+        public string? ImageUrl { get; set; }
         public int UserId { get; set; }
         public string Email { get; set; }
 
@@ -25,7 +28,9 @@ namespace Contract.Authentication
 
         public DateTime? ExpiresAt { get; set; }
 
-        public IEnumerable<CourseOfStudentDto>?StudentCourses { get; set; }
-        public IEnumerable<CourseOfProfessorDto>?ProffessorCourses { get; set; }  
+        public IEnumerable<CourseOfStudentDto>? StudentCourses { get; set; }
+        public IEnumerable<CourseOfProfessorDto>? ProffessorCourses { get; set; }
+
+        public IEnumerable<SectionOfInstructorDto>? InstructorSections { get; set; }
     }
 }

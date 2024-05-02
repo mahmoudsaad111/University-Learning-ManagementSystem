@@ -59,6 +59,7 @@ namespace InfraStructure
         public DbSet<StudentAnswerInMCQ> StudentAnswerInMCQs { get; set; }
         public DbSet<StudentAnswerInTFQ> StudentAnswerInTFQs { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -120,6 +121,9 @@ namespace InfraStructure
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentExamConfig).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentAnswerInTFQConfig).Assembly);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudentAnswerInMCQConfig).Assembly);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MessageConfig).Assembly);
+
 
             //
             // To include the Faculty always when call departement

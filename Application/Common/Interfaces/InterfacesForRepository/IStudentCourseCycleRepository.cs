@@ -17,6 +17,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<int> GetStudentCourseCycleId(int studentId, int courseCycleId);
 
         public Task<bool> CheckIfStudnetInCourseCycle(string StudnetUserName, int CourseCylceId);
+
+        public Task<bool> ChekcIfStudentInCourseCycle(int StudentId, int CourseCycleId); 
         //public Task
 
     }

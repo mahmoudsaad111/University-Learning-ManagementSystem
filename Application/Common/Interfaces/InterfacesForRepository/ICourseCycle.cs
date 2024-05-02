@@ -19,5 +19,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<IEnumerable<CourseCycleWithProfInfoDto>> GetCourseCylcesWithProfInfo(int courseId, int groupId);
 
         public Task<IEnumerable<NameIdDto>> GetAllLessInfoCourseCycles(int courseId, int groupId);
+        public Task<bool> CheckIfProfInCourse(int ProfId, int CourseId); 
     }
 }

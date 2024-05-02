@@ -1,4 +1,5 @@
-﻿using Application.Common.Interfaces.Presistance;
+﻿using Api.Pages;
+using Application.Common.Interfaces.Presistance;
 using Infrastructure.Common;
  
 
@@ -9,7 +10,11 @@ namespace Api
 		public static IServiceCollection AddApiLayerServices(this IServiceCollection services)
 		{
 			services.AddScoped<IUnitOfwork, UnitOfwork>();
-			return services;
+
+            services.AddRazorPages();
+            services.AddTransient<IRazorPartialToStringRenderer, RazorPartialToStringRenderer>();
+
+            return services;
 		}
 	}
 }

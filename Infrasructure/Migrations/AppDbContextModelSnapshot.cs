@@ -633,6 +633,41 @@ namespace Infrastructure.Migrations
                     b.ToTable("Lectures", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Models.Message", b =>
+                {
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MessageContent")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MessageId");
+
+                    b.HasIndex("GroupId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("Domain.Models.MultipleChoiceQuestion", b =>
                 {
                     b.Property<int>("QuestionId")
@@ -1623,6 +1658,25 @@ namespace Infrastructure.Migrations
                     b.Navigation("Section");
                 });
 
+            modelBuilder.Entity("Domain.Models.Message", b =>
+                {
+                    b.HasOne("Domain.Models.Group", "Group")
+                        .WithMany("Messages")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Models.MultipleChoiceQuestion", b =>
                 {
                     b.HasOne("Domain.Models.Exam", "Exam")
@@ -2118,6 +2172,8 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("CourseCycles");
 
+                    b.Navigation("Messages");
+
                     b.Navigation("Students");
                 });
 
@@ -2205,6 +2261,8 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Instructor")
                         .IsRequired();
+
+                    b.Navigation("Messages");
 
                     b.Navigation("Posts");
 

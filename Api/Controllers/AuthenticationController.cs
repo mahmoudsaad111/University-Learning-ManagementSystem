@@ -11,6 +11,16 @@ using LearningPlatformTest.Contracts.Authentication;
 using MediatR;
 using Application.CQRS.Query.AcadimicYears;
 using Application.CQRS.Query.Courses;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Mvc.Razor;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Api.Pages;
+using Application.CQRS.Query.Sections;
 
 namespace Api.Controllers
 {
@@ -23,16 +33,18 @@ namespace Api.Controllers
         private readonly UserManager<User> _userManager;
         private readonly IMailingService _mailingService;
         private readonly IMediator _mediator;
-
+        private readonly IRazorPartialToStringRenderer _renderer;
 
         public AuthenticationController(SignInManager<User> signInManager, UserManager<User> userManager
-            , IJwtTokenGenerator jwtTokenGenerator, IMailingService mailingService, IMediator mediator)
+            , IJwtTokenGenerator jwtTokenGenerator, IMailingService mailingService, IMediator mediator
+          , IRazorPartialToStringRenderer renderer)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _jwtTokenGenerator = jwtTokenGenerator;
             _mailingService = mailingService;
-            _mediator= mediator;
+            _mediator = mediator;
+            _renderer = renderer;
         }
 
 
@@ -42,9 +54,16 @@ namespace Api.Controllers
             if (!ModelState.IsValid)
                 return Unauthorized("Invalid Email Or Password");
 
+            AuthResult authResult = new AuthResult { };
+            try
+            {
 
-
-            AuthResult authResult = await _jwtTokenGenerator.GenerateToken(loginrequest);
+                authResult = await _jwtTokenGenerator.GenerateToken(loginrequest);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
 
             if (authResult.IsAuthenticated)
                 SetRefreshTokenInCookie(authResult.RefreshToken, authResult.RefreshTokenExpiration);
@@ -54,26 +73,54 @@ namespace Api.Controllers
 
             var user = await _userManager.FindByNameAsync(loginrequest.UserName);
 
-            if (loginrequest.Role == "Student")
+            var Roles = await _userManager.GetRolesAsync(user);
+
+            authResult.Roles = Roles;
+            authResult.ImageUrl = user.ImageUrl;
+
+            try
             {
-                var result = await _mediator.Send(new GetAllCoursesOfStudentQuery { StudentId = user.Id });
-
-
-                if (result.IsSuccess)
+                if (Roles[0] == "Student")
                 {
-                    authResult.StudentCourses = result.Value;
+                    var result = await _mediator.Send(new GetAllCoursesOfStudentQuery { StudentId = user.Id });
+
+
+                    if (result.IsSuccess)
+                    {
+                        authResult.StudentCourses = result.Value;
+                    }
+                    else return StatusCode(500, "An error occured while trying to retrive the user data");
+
+                }
+                else if (Roles[0] == "Professor")
+                {
+                    var result = await _mediator.Send(new GetAllCoursesOfProfessorQuery { ProfessorId = user.Id });
+
+
+                    if (result.IsSuccess)
+                    {
+                        authResult.ProffessorCourses = result.Value;
+                    }
+                    else return StatusCode(500, "An error occured while trying to retrive the user data");
+
+                }
+                else if (Roles[0] == "Instructor")
+                {
+
+                    var result = await _mediator.Send(new GetAllSectionsOfInstructorQuery { InstructorId = user.Id });
+
+                    if (result.IsSuccess)
+                    {
+                        authResult.InstructorSections = result.Value;
+                    }
+                    else return StatusCode(500, "An error occured while trying to retrive the user data");
                 }
             }
-            else if (loginrequest.Role == "Professor") {
-                var result = await _mediator.Send(new GetAllCoursesOfProfessorQuery { ProfessorId = user.Id });
-
-
-                if (result.IsSuccess)
-                {
-                    authResult.ProffessorCourses = result.Value;
-                }
-
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
             }
+
             return Ok(authResult);
         }
 
@@ -81,15 +128,25 @@ namespace Api.Controllers
         public async Task<IActionResult> RefreshToken()
         {
             var tmp = Request.Cookies;
-            var refreshToken = Request.Cookies["refreshToken"];
+            if (tmp is null) { return BadRequest("Invalid Request"); }
 
-            var result = await _jwtTokenGenerator.RefreshTokenAsync(refreshToken);
+            var refreshToken = Request.Cookies["refreshToken"];
+            if (refreshToken is null) return BadRequest("Invalid Token");
+
+            AuthResult result = new AuthResult();
+            try
+            {
+                result = await _jwtTokenGenerator.RefreshTokenAsync(refreshToken);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
 
             if (!result.IsAuthenticated)
                 return BadRequest(result);
 
             SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
-
 
             return Ok(result);
         }
@@ -100,14 +157,22 @@ namespace Api.Controllers
             var token = Request.Cookies["refreshToken"];
 
             if (string.IsNullOrEmpty(token))
-                return BadRequest("Token is required!");
+                return BadRequest("Invalid Token");
 
-            var result = await _jwtTokenGenerator.RevokeTokenAsync(token);
+            bool result = new bool();
+            try
+            {
+                result = await _jwtTokenGenerator.RevokeTokenAsync(token);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
 
             if (!result)
-                return BadRequest("Token is invalid!");
+                return BadRequest("Invalid Token");
 
-            return Ok();
+            return Ok("Token Revoked Successfully");
         }
 
 
@@ -119,14 +184,33 @@ namespace Api.Controllers
             if (user is null)
                 return BadRequest("Invalid Email");
 
+
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            if (token is null)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            var ResetPasswordLink = $"http://localhost:3000/password-reset?token={token}";
 
-            var ResetPasswordLink = Url.Action("ResetPassword", "Authentication", new { token, email = user.Email, Request.Scheme });
+            PasswordResetModel model = new PasswordResetModel
+            {
+                ResetPasswordUrl = ResetPasswordLink,
+                Name = user.FirstName + " " + user.SecondName,
+            };
 
+            try
+            {
 
-            await _mailingService.SendEmailAsync(user.Email, "Reset Password", ResetPasswordLink);
+                var htmlContent = await _renderer.RenderPartialToStringAsync("EmailResetPasswordTemplate", model);
 
-            return Ok();
+                await _mailingService.SendEmailAsync(user.Email, "Reset Password", htmlContent);
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
+            return Ok("Reset Password Email Sent successfully");
         }
 
         [HttpPost("ResetPassword")]
@@ -141,11 +225,18 @@ namespace Api.Controllers
             if (user is null)
                 return NotFound("Invalid Email");
 
-            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            IdentityResult resetPassResult = new IdentityResult();
+            try
+            {
+                resetPassResult = await _userManager.ResetPasswordAsync(user, resetPassword.Token, resetPassword.Password);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
 
             if (!resetPassResult.Succeeded)
                 return BadRequest("Invalid Token");
-
 
 
             return Ok("Password Updated Successfully");
@@ -169,5 +260,6 @@ namespace Api.Controllers
             var temp = Response.Cookies;
 
         }
+
     }
 }

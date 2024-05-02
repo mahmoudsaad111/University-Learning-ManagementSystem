@@ -17,5 +17,7 @@ namespace Domain.Models
 		public ICollection<Student > Students { get; set; }
 		public ICollection<CourseCycle> CourseCycles { get; set; }
 
+		public ICollection<Message> Messages { get; set; }	
+
 	}
 }

@@ -30,6 +30,10 @@
         public IBaseRepository<PostReply> PostReplyRepository { get; }
         public IBaseRepository<Comment> CommentRepository { get; }
         public IBaseRepository<CommentReply> CommentReplyRepository { get; }
+
+        public IBaseRepository<Message> MessageRepository { get; }
+
+
         public IAcadimicYearRepository AcadimicYearRepository { get; }
         public IFileResourceRepository FileResourceRepository { get; }
 
@@ -43,6 +47,7 @@
         public ITFQRepository TFQRepository { get; }
         public IStudentAnswerInTFQRepository StudentAnswerInTFQRepository { get; }
         public IStudentAnswerInMCQRepository StudentAnswerInMCQRepository { get; }
+
 
         public IAppDbContext Context { get; }
         public Task<int> SaveChangesAsync();

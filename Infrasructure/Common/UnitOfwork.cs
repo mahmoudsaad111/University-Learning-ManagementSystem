@@ -48,6 +48,9 @@ namespace Infrastructure.Common
 
         public IStudentAnswerInMCQRepository StudentAnswerInMCQRepository { get; private set; }
         public IStudentAnswerInTFQRepository StudentAnswerInTFQRepository { get; private set; }
+
+        public IBaseRepository<Message> MessageRepository { get; private set; }
+
         public UnitOfwork(AppDbContext context)
         {
             _context = context;

@@ -13,5 +13,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     {
         public Task<IEnumerable<ReturnedStudentDto>> GetAllStudentsInDepartementAndAcadimicYear( int AcadimicYearId);
         public Task<int>GetStudentIdUsingUserName( string userName );
+        public Task<bool> CheckIfStudentInGroup(int StudetId, int GroupId);
     }
 }

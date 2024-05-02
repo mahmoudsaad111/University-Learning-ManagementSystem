@@ -63,5 +63,12 @@ namespace Infrastructure.Repositories
 
             return CourseCyclesWithProfInfo;
         }
+
+        public async Task<bool> CheckIfProfInCourse(int ProfId, int CourseId)
+        {
+
+            var CourseCycle = await _appDbContext.CourseCycles.FirstOrDefaultAsync(cc => cc.CourseId == CourseId && cc.ProfessorId == ProfId);
+            return CourseCycle != null;
+        }
     }
 }

@@ -58,5 +58,10 @@ namespace Infrastructure.Repositories
 
             return await (from user in _appDbContext.Users where user.UserName == userName select user.Id).FirstOrDefaultAsync();
         }
+        public async Task<bool> CheckIfStudentInGroup(int StudetId, int GroupId)
+        {
+            var Student = await _appDbContext.Students.FirstOrDefaultAsync(s => s.StudentId == StudetId && s.GroupId == GroupId);
+            return StudetId != null;
+        }
     }
 }

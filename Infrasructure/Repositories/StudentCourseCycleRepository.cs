@@ -88,5 +88,11 @@ namespace Infrastructure.Repositories
             return true;
 
         }
+        public async Task<bool> ChekcIfStudentInCourseCycle(int StudentId, int CourseCycleId)
+        {
+            var StudentCourseCycle = await _appDbContext.StudentsInCourseCycles.FirstOrDefaultAsync(scc => scc.StudentId == StudentId && scc.CourseCycleId == CourseCycleId);
+
+            return StudentCourseCycle != null;
+        }
     }
 }

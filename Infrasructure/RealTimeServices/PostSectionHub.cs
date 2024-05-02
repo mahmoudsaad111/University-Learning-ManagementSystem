@@ -8,10 +8,15 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Enums;
+using System.Runtime.InteropServices;
+using Application.Common.Interfaces.RealTimeInterfaces.PostInSection;
+using Domain.Models;
+using static System.Collections.Specialized.BitVector32;
+
 
 namespace Infrastructure.RealTimeServices
 {
-    public class PostSectionHub : Hub<IPostSectionInClient>  , IPostSectionHub
+    public class PostSectionHub : Hub, IPostSectionHub
     {
         private readonly IUnitOfwork unitOfwork;
         private readonly ICheckDataOfRealTimeRequests checkDataOfRealTimeRequests;
@@ -28,21 +33,21 @@ namespace Infrastructure.RealTimeServices
             {
                 string connectionId = Context.ConnectionId;
                 var userName = Context?.User?.Identity?.Name;
-                var sectionIdString = Context?.GetHttpContext()?.Request.Query["sectionId"];
+                var sectionIdString = Context?.GetHttpContext()?.Request.Query["SectionId"];
 
-                if (userName is not null)
+                if (userName is not null && !string.IsNullOrEmpty(sectionIdString))
                 {
                     var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(userName);
 
-                    if (TypeOfuserAndId is not null && !string.IsNullOrEmpty(sectionIdString) && int.TryParse(sectionIdString, out int sectionId))
+                    if (TypeOfuserAndId is not null & int.TryParse(sectionIdString, out int sectionId))
                     {
                         bool IfUserInThisSection = await checkDataOfRealTimeRequests.CheckIfUserInSection(SectionId: sectionId,
-                            UserId: TypeOfuserAndId.Item2, typesOfUsers: TypeOfuserAndId.Item1);
+                            UserId: TypeOfuserAndId.Item2.Id, typesOfUsers: TypeOfuserAndId.Item1);
 
                         // Add the user to the corresponding section group
                         if (IfUserInThisSection)
                         {
-                            await Groups.AddToGroupAsync(Context.ConnectionId, $"Section-{sectionId}");
+                            await Groups.AddToGroupAsync(connectionId, $"Section-{sectionId}");
                         }
                     }
                 }
@@ -50,19 +55,114 @@ namespace Infrastructure.RealTimeServices
             await base.OnConnectedAsync();
         }
 
-        public void AddPostInSection(int UserId, int SectionId, string PostContent)
+        public async void AddPostInSection(PostAddSenderMessage postMessage)
         {
-            throw new NotImplementedException();
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
+
+            if (TypeOfuserAndId is not null && (TypeOfuserAndId.Item1 == TypesOfUsers.Professor
+                || TypeOfuserAndId.Item1 == TypesOfUsers.Instructor))
+            {
+
+                User user = TypeOfuserAndId.Item2;
+
+                var post = new Post
+                {
+                    Content = postMessage.PostContent,
+                    CreatedBy = postMessage.SenderUserName,
+                    IsProfessor = true ? TypeOfuserAndId.Item1 == TypesOfUsers.Professor : false,
+                    SectionId = postMessage.SectionId,
+                    PublisherId = user.Id
+
+                };
+                try
+                {
+                    var postInDB = await unitOfwork.PostRepository.CreateAsync(post);
+                    await unitOfwork.SaveChangesAsync();
+                    var postMessageforClinets = new PostAddReceiverMessage
+                    {
+                        SenderImage = user.ImageUrl,
+                        SenderName = user.FullName,
+                        SenderUserName = user.UserName,
+                        PostContent = post.Content,
+                        PostId = postInDB.PostId
+
+                    };
+                    await Clients.Group($"Section-{postMessage.SectionId}").SendAsync("AddSectionPost", postMessageforClinets);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
         }
 
-        public void DeletePostInSection(int UserId, int SectionId, int PostId)
+        public async void DeletePostInSection(PostDeleteSenderMessage postMessage)
         {
-            throw new NotImplementedException();
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
+
+            var post = await unitOfwork.PostRepository.GetByIdAsync(postMessage.PostId);
+
+            // If there is post with the given id and the publisher is the same who want to delete it then OK 
+
+            if (post != null && post.PublisherId == TypeOfuserAndId.Item2.Id)
+            {
+                try
+                {
+                    bool IsDeleted = await unitOfwork.PostRepository.DeleteAsync(postMessage.PostId);
+                    if (IsDeleted)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+                        PostDeleteReceiverMessage postReceiverMessage = new PostDeleteReceiverMessage
+                        {
+                            PostId = postMessage.PostId,
+                        };
+
+                        await Clients.Group($"Section-{postMessage.SectionId}").SendAsync("DeleteSectionPost", postReceiverMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
         }
 
-        public void UpdatePostInSection(int UserId, int SectionId, int PostId, string PostContent)
+        public async void UpdatePostInSection(PostUpdateSenderMessage postMessage)
         {
-            throw new NotImplementedException();
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
+
+            var post = await unitOfwork.PostRepository.GetByIdAsync(postMessage.PostId);
+
+            // If there is post with the given id and the publisher is the same who want to delete it then OK 
+
+            if (post != null && post.PublisherId == TypeOfuserAndId.Item2.Id)
+            {
+                post.Content = postMessage.PostContent;
+
+                try
+                {
+                    bool IsUpdated = await unitOfwork.PostRepository.UpdateAsync(post);
+
+                    if (IsUpdated)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+                        PostUpdateReceiverMessage postReceiverMessage = new PostUpdateReceiverMessage
+                        {
+                            PostId = postMessage.PostId,
+                            PostContent = postMessage.PostContent,
+                        };
+
+                        await Clients.Group($"Section-{postMessage.SectionId}").SendAsync("UpdateSectionPost", postReceiverMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
         }
     }
 }

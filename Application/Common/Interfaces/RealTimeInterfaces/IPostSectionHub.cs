@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Application.Common.Interfaces.RealTimeInterfaces.PostInSection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace Application.Common.Interfaces.RealTimeInterfaces
 {
     public interface IPostSectionHub
     {
-        public void AddPostInSection(int UserId, int SectionId, string PostContent);
-        public void UpdatePostInSection(int UserId, int SectionId,int PostId,  string PostContent);
-        public void DeletePostInSection(int UserId, int SectionId, int PostId);
+        public void AddPostInSection(PostAddSenderMessage postMessage);
+        public void UpdatePostInSection(PostUpdateSenderMessage postMessage);
+        public void DeletePostInSection(PostDeleteSenderMessage postMessage);
     }
 }
