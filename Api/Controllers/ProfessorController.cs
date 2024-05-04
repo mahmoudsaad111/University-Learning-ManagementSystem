@@ -6,6 +6,7 @@ using Contract.Dto.ReturnedDtos;
 using Contract.Dto.UsersDeleteDto;
 using Contract.Dto.UsersRegisterDtos;
 using Contract.Dto.UserUpdatedDto;
+using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using Infrastructure.Common;
@@ -50,7 +51,10 @@ namespace Api.Controllers
 				professorRegisterDto.Id = user.Id;
 				try
 				{
-					var command = new CreateProfessorCommand() { ProfessorRegisterDto = professorRegisterDto };
+                    // New line that add the role to the user
+                    await userManager.AddToRoleAsync(user, TypesOfUsers.Professor.ToString()); 
+
+                    var command = new CreateProfessorCommand() { ProfessorRegisterDto = professorRegisterDto };
 					Result<ProfessorRegisterDto> commandResult = await mediator.Send(command);
 					return commandResult.IsSuccess ? Ok("Professor Added sucessfully") : throw new Exception();
 				}

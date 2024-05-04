@@ -6,6 +6,7 @@ using Contract.Dto.ReturnedDtos;
 using Contract.Dto.UsersDeleteDto;
 using Contract.Dto.UsersRegisterDtos;
 using Contract.Dto.UserUpdatedDto;
+using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
@@ -49,7 +50,10 @@ namespace Api.Controllers
 
 				try
 				{
-					var command = new CreateStudentCommand() { StudentRegisterDto = studentRegisterDto };
+                    // New line that add the role to the user
+                    await userManager.AddToRoleAsync(user, TypesOfUsers.Student.ToString());
+
+                    var command = new CreateStudentCommand() { StudentRegisterDto = studentRegisterDto };
 					Result<StudentRegisterDto> commandResult = await mediator.Send(command);
 					
 					if( commandResult.IsSuccess) {
