@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Enums;
+using System.Diagnostics.Eventing.Reader;
 
 
 namespace Application.CQRS.Command.Exams
@@ -28,9 +29,7 @@ namespace Application.CQRS.Command.Exams
                 if (request.ExamDto.SartedAt < DateTime.Now)
                     return Result.Failure<Exam>(new Error(code: "Create Exam", message: "Can not create exam with this data time"));
 
-               
 
-              
                 var ExamDto = request.ExamDto; // type of ExamDto
                 Exam ExamWillbeAdded= ExamDto.GetExam();
               
@@ -60,15 +59,51 @@ namespace Application.CQRS.Command.Exams
                     IfValidExamPalceExist = true; 
                 }
 
-                if (IfValidExamPalceExist  ) 
+                if (IfValidExamPalceExist) 
                 {
-                    ExamWillbeAdded.ExamPlaceId = ValidExamPalce.ExamPlaceId;
-                    ExamWillbeAdded.FullMark = 0; // well computed as the marks of each Question ; 
-                    Exam ExamAdded =await unitOfwork.ExamRepository.CreateAsync(ExamWillbeAdded); 
-                    await unitOfwork.SaveChangesAsync();    
-                    
-                    if(ExamAdded is not null) 
-                        return Result.Success<Exam>(ExamAdded);
+                    bool IfUserHasAccessToExam = false;
+                    if(ExamDto.ExamType==ExamType.Quiz && ExamDto.SectionId != 0)
+                    {
+                        var instructor = await unitOfwork.UserRepository.GetUserByUserName(request.ExamDto.InstructorUserName);
+                        if (instructor is not null)
+                            IfUserHasAccessToExam = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: instructor.Id,SectionId:  ExamDto.SectionId);
+                    }
+                    else if(ExamDto.ExamType==ExamType.Quiz && ExamDto.CourseCycleId != 0)
+                    {
+                        var professor = await unitOfwork.UserRepository.GetUserByUserName(request.ExamDto.ProfessorUserName);
+                        if (professor is not null)
+                            IfUserHasAccessToExam = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: professor.Id, CourseCycleId:  ExamDto.CourseCycleId);
+
+                    }
+                    else if(ExamDto.ExamType==ExamType.Midterm && ExamDto.CourseCycleId != 0)
+                    {
+                        var professor = await unitOfwork.UserRepository.GetUserByUserName(request.ExamDto.ProfessorUserName);
+                        if (professor is not null)
+                            IfUserHasAccessToExam = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: professor.Id, CourseCycleId: ExamDto.CourseCycleId);
+                    }
+                    else if  (ExamDto.ExamType==ExamType.Semester || ExamDto.ExamType==ExamType.Final)
+                    {
+                        IfUserHasAccessToExam = true; 
+                        // there is no validation here, but the correct thing is to check if the Stuff has access or not but this is not implemented
+                    }
+
+
+                    if (IfUserHasAccessToExam)
+                    {
+                        ExamWillbeAdded.ExamPlaceId = ValidExamPalce.ExamPlaceId;
+                        ExamWillbeAdded.FullMark = 0; // well computed as the marks of each Question ; 
+                        Exam ExamAdded = await unitOfwork.ExamRepository.CreateAsync(ExamWillbeAdded);
+
+                        if (ExamAdded is not null)
+                        {
+                            await unitOfwork.SaveChangesAsync();
+                            return Result.Success<Exam>(ExamAdded);
+                        }
+
+                        return Result.Failure<Exam>(new Error(code: "Create Exam", message: "Can not added the exam"));
+                    }
+
+                    return Result.Failure<Exam>(new Error(code: "Create Exam", message: "The user has no access"));
                 }
 
                 return Result.Failure<Exam>(new Error(code: "Create Exam", message: "Can not create exam with this data"));

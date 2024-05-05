@@ -7,7 +7,7 @@ using Domain.Shared;
 using Domain.Enums;
 namespace Application.CQRS.Query.Exams
 {
-    public class GetExamWorkNowToStudentHandler : ICommandHandler<GetExamWorkNowToStudentCommand, ExamWrokNowDto>
+    public class GetExamWorkNowToStudentHandler : IQueryHandler<GetExamWorkNowToStudentQuery, ExamWrokNowDto>
     {
         private readonly IUnitOfwork unitOfwork;
 
@@ -16,7 +16,7 @@ namespace Application.CQRS.Query.Exams
             this.unitOfwork = unitOfwork;
         }
 
-        public async Task<Result<ExamWrokNowDto>> Handle(GetExamWorkNowToStudentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<ExamWrokNowDto>> Handle(GetExamWorkNowToStudentQuery request, CancellationToken cancellationToken)
         {
             try
             {

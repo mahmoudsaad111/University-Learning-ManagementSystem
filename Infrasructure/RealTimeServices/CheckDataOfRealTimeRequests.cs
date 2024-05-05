@@ -27,14 +27,14 @@ namespace Infrastructure.RealTimeServices
                 return await unitOfwork.StudentRepository.CheckIfStudentInGroup(UserId, GroupId);
             return false;
         }
-        public async Task<bool> CheckIfUserInCourse(int CourseId, int UserId, TypesOfUsers typesOfUsers)
+        public async Task<bool> CheckIfUserInCourseCycle(int CourseCycleId, int UserId, TypesOfUsers typesOfUsers)
         {
             if (typesOfUsers == TypesOfUsers.Student)
-                return await unitOfwork.StudentCourseCycleRepository.ChekcIfStudentInCourseCycle(UserId, CourseId);
+                return await unitOfwork.StudentCourseCycleRepository.ChekcIfStudentInCourseCycle(UserId, CourseCycleId);
             else if (typesOfUsers == TypesOfUsers.Professor)
-                return await unitOfwork.CourseCycleRepository.CheckIfProfInCourse(UserId, CourseId);
+                return await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(UserId, CourseCycleId);
             else if (typesOfUsers == TypesOfUsers.Instructor)
-                return await unitOfwork.SectionRepository.CheckIfInstructorInCourse(UserId, CourseId);
+                return await unitOfwork.CourseCycleRepository.CheckIfInstructorInCoursecycle(UserId, CourseCycleId);
 
             return false;
         }

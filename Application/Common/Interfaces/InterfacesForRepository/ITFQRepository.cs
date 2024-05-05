@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Contract.Dto.MCQs;
 using Contract.Dto.TFQs;
 using Domain.Models;
 using System;
@@ -12,5 +13,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface ITFQRepository : IBaseRepository<TrueFalseQuestion>
     {
         public Task<IEnumerable<TFQCorrectAnswer>> GetMTFOfExamWithCorrectAnswer(int ExamId);
+        public Task<IEnumerable<TFQTextAsnwerDto>> GetAllTFQDetailsOfExams(int ExamId);
     }
 }

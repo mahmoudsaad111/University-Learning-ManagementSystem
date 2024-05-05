@@ -12,6 +12,7 @@ namespace Application.CQRS.Command.Exams
     public class UpdateExamCommand  : ICommand<Exam>
     {
         public int ExamId { get; set; } 
+        public string ExamCreatorUserName { get; set; } 
         public UpdateExamDto UpdateExamDto { get; set; }
     }
 }

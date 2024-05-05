@@ -3,7 +3,7 @@ using Contract.Dto.Exams;
  
 namespace Application.CQRS.Query.Exams
 {
-    public class GetExamWorkNowToStudentCommand :ICommand<ExamWrokNowDto>
+    public class GetExamWorkNowToStudentQuery :IQuery<ExamWrokNowDto>
     {
         public string StudentUserName { get; set; }    
         public int ExamId {  get; set; }    

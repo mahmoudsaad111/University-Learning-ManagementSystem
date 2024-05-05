@@ -24,7 +24,5 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<IEnumerable<SectionOfCourseCycleDto>> GetSectionsOfCourseCycle(int CourseCycelId);
 
         public Task<IEnumerable<SectionsOfProfessorDto>> GetAllSectionsOfProfessor(int  ProfesssorId);
-
-        public Task<bool> CheckIfInstructorInCourse(int InstructorId, int CourseId);
     }
 }

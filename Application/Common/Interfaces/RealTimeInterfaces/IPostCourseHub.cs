@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.RealTimeInterfaces
 {
-    public interface IPostCourseHub
+    public interface IPostCourseCycleHub
     {
-        public void AddPostInCourse(AddPostInCourseSenderMessage postMessage);
-        public void UpdatePostInCourse(UpdatePostInCourseSenderMessage postMessage);
-        public void DeletePostInCourse(DeletePostInCourseSenderMessage postMessage);
+        public void AddPostInCourseCycle(AddPostInCourseCycleSenderMessage postMessage);
+        public void UpdatePostInCourseCycle(UpdatePostInCourseCycleSenderMessage postMessage);
+        public void DeletePostInCourseCycle(DeletePostInCourseCycleSenderMessage postMessage);
     }
 }

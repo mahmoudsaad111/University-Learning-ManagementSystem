@@ -35,17 +35,26 @@ namespace Api.Controllers
         }
 
         [HttpDelete("DeleteExam")]
-        public async Task<ActionResult> DeleteExam([FromHeader] int ExamId)
+        public async Task<ActionResult> DeleteExam([FromHeader] int ExamId , [FromBody] string ExamCreatorUserName)
         {
             if (ExamId == 0)
                 return BadRequest("invalid Id");
 
-            var ResultOfDelete=await mediator.Send(new DeleteExamCommand { ExamId = ExamId });
+            var ResultOfDelete=await mediator.Send(new DeleteExamCommand { ExamId = ExamId , ExamCreatorUserName= ExamCreatorUserName });
             if(ResultOfDelete is not null &&ResultOfDelete.IsSuccess)
                 return Ok(ResultOfDelete.Value) ;
             return BadRequest(ResultOfDelete?.Error) ;
         }
-       
+        [HttpPut("UpdateExam")]
+        public async Task<ActionResult> UpdateExam([FromBody] UpdateExamDto updateExamDto , [FromHeader] int ExamId, [FromQuery] string ExamCreatorUserName)
+        {
+            var ResultOfUpdated = await mediator.Send(new UpdateExamCommand { UpdateExamDto = updateExamDto, ExamCreatorUserName = ExamCreatorUserName, ExamId = ExamId });
+
+            if (ResultOfUpdated is not null  &&ResultOfUpdated.IsSuccess)
+                return Ok(ResultOfUpdated.Value) ;
+            return BadRequest(ResultOfUpdated?.Error);
+        }
+        
 
         [HttpGet("GetExamsOfSectionToInstuructor")]
 
@@ -61,6 +70,24 @@ namespace Api.Controllers
                 return Ok(Result.Value) ;
             }
             return BadRequest(Result.Error) ;
+        }
+
+
+
+        [HttpGet("GetExamsOfCourseCycleToProfessor")]
+
+        public async Task<ActionResult> GetExamsOfCourseCycleToProfessor([FromHeader] string ProfessorUserName, [FromHeader] int CourseCycleId)
+        {
+            if (CourseCycleId == 0 || ProfessorUserName == "")
+                return BadRequest("invalid Id");
+
+            var Result = await mediator.Send(new GetAllExamsOfCourseCycleForProfessorQuery { ProfessorUserName = ProfessorUserName, CourseCycleId = CourseCycleId });
+
+            if (Result.IsSuccess)
+            {
+                return Ok(Result.Value);
+            }
+            return BadRequest(Result.Error);
         }
 
 
@@ -87,7 +114,7 @@ namespace Api.Controllers
         {
             if (ExamId == 0 || StudnetUserName == "")
                 return BadRequest("invalid Id");
-            var Result = await mediator.Send(new GetExamWorkNowToStudentCommand { StudentUserName = StudnetUserName, ExamId = ExamId });
+            var Result = await mediator.Send(new GetExamWorkNowToStudentQuery { StudentUserName = StudnetUserName, ExamId = ExamId });
 
             if (Result.IsSuccess)
             {
@@ -96,12 +123,54 @@ namespace Api.Controllers
             return BadRequest(Result.Error);
         }
 
+        [HttpGet("GetAllQuestionsOfExam")]
+        public async Task<ActionResult> GetAllQuestionsOfExam (int ExamId, string ExamCreatorUserName)
+        {
+            if (ExamId == 0 || ExamCreatorUserName == "")
+                return BadRequest("invalid Id");
+            var Result = await mediator.Send(new GetAllQuestionsOfExamQuery { ExamCreatorUserName = ExamCreatorUserName, ExamId = ExamId });
+            if (Result.IsSuccess)
+            {
+                return Ok(Result.Value);
+            }
+            return BadRequest(Result.Error);
+        }
+
+
         [HttpGet("GetStudentanswerOfExamWithModelAnswer")]
         public async Task<ActionResult> GetStudentanswerOfExamWithModelAnswer (int ExamId, string StudnetUserName)
         {
             if (ExamId == 0 || StudnetUserName == "")
                 return BadRequest("invalid Id");
             var Result = await mediator.Send(new GetExamAnswerOfStudentQuery { StudentUserName = StudnetUserName, ExamId = ExamId });
+
+            if (Result.IsSuccess)
+            {
+                return Ok(Result.Value);
+            }
+            return BadRequest(Result.Error);
+        }
+
+        [HttpGet("GetAllQuizesOfSectionToStudent")]
+        public async Task<ActionResult> GetAllQuizesOfSectionToStudent(int sectionId, string studentUserName)
+        {
+            if (sectionId == 0 || studentUserName == "")
+                return BadRequest("Invalid data");
+            var Result = await mediator.Send(new GetAllQuizessOfStudentOnSectionQuery { StudentUserName = studentUserName, SectionId=sectionId });
+
+            if (Result.IsSuccess)
+            {
+                return Ok(Result.Value);
+            }
+            return BadRequest(Result.Error);
+        }
+
+        [HttpGet("GetAllExamsOfCourseCycleToStudent")]
+        public async Task<ActionResult> GetAllExamsOfCourseCycleToStudent(int courseCycleId, string studentUserName)
+        {
+            if (courseCycleId == 0 || studentUserName == "")
+                return BadRequest("Invalid data");
+            var Result = await mediator.Send(new GetAllExamsOfCourseCycleForStudentQuery { StudentUserName = studentUserName, CourseCycleId = courseCycleId });
 
             if (Result.IsSuccess)
             {

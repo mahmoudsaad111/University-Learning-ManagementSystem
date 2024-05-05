@@ -12,5 +12,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IMCQRepository : IBaseRepository<MultipleChoiceQuestion>
     {
         public Task<IEnumerable<MCQCorrectAnswer>> GetMCQOfExamWithCorrectAnswers(int ExamId);
+        public Task<IEnumerable<MCQTextOPtionsAnswerDto>> GetAllMCQDetailsOfExams(int ExamId);
     }
 }

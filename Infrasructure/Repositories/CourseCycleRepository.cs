@@ -64,11 +64,19 @@ namespace Infrastructure.Repositories
             return CourseCyclesWithProfInfo;
         }
 
-        public async Task<bool> CheckIfProfInCourse(int ProfId, int CourseId)
+        public async Task<bool> CheckIfProfInCourseCycle(int ProfId, int CourseCycleId)
         {
 
-            var CourseCycle = await _appDbContext.CourseCycles.FirstOrDefaultAsync(cc => cc.CourseId == CourseId && cc.ProfessorId == ProfId);
+            var CourseCycle = await _appDbContext.CourseCycles.AsNoTracking().FirstOrDefaultAsync(cc => cc.CourseCycleId == CourseCycleId && cc.ProfessorId == ProfId);
             return CourseCycle != null;
+        }
+
+        public async Task<bool> CheckIfInstructorInCoursecycle(int InstructorId, int CourseCycleId)
+        {
+
+            var Section = await _appDbContext.Sections.FirstOrDefaultAsync(s => s.InstructorId == InstructorId && s.CourseCycleId == CourseCycleId);
+
+            return Section != null;
         }
     }
 }

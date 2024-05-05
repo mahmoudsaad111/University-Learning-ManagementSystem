@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.RealTimeInterfaces.PostInCourse
 {
-    public class UpdatePostInCourseSenderMessage
+    public class UpdatePostInCourseCycleSenderMessage
     {
         public string SenderUserName { get; set; }
         public int PostId { get; set; }
-        public int CourseId { get; set; }
+        public int CourseCycleId { get; set; }
         public string PostContent { get; set; }
 
     }

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.MCQs;
 using Contract.Dto.TFQs;
 using Domain.Models;
 using Infrastructure.Common;
@@ -16,6 +17,21 @@ namespace Infrastructure.Repositories
     {
         public TFQRepository(AppDbContext _appDbContext) : base(_appDbContext)
         {
+        }
+
+        public async Task<IEnumerable<TFQTextAsnwerDto>> GetAllTFQDetailsOfExams(int ExamId)
+        {
+            var TFQDetails = await (from tfq in _appDbContext.TrueFalseQuestions
+                                    where tfq.ExamId == ExamId
+                                    select new TFQTextAsnwerDto
+                                    {
+                                        QuestionId = tfq.QuestionId,
+                                        Text = tfq.Text,
+                                        IsTrue = tfq.IsTrue,
+                                        Degree = tfq.Degree,
+                                    }
+                                   ).ToListAsync();
+            return TFQDetails;
         }
 
         public async Task<IEnumerable<TFQCorrectAnswer>> GetMTFOfExamWithCorrectAnswer(int ExamId)

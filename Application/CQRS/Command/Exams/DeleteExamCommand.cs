@@ -10,5 +10,6 @@ namespace Application.CQRS.Command.Exams
     public class DeleteExamCommand :ICommand<int>
     {
         public int ExamId {  get; set; }
+        public string ExamCreatorUserName {  get; set; }    
     }
 }

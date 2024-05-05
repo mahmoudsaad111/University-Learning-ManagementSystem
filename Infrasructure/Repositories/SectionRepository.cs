@@ -181,12 +181,6 @@ namespace Infrastructure.Repositories
 
             return SectionsOfProfessor;
         }
-        public async Task<bool> CheckIfInstructorInCourse(int InstructorId, int CourseId)
-        {
-
-            var Section = await _appDbContext.Sections.FirstOrDefaultAsync(s => s.InstructorId == InstructorId && s.CourseCycleId == CourseId);
-
-            return Section != null;
-        }
+     
     }
 }

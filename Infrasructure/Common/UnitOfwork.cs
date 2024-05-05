@@ -96,7 +96,6 @@ namespace Infrastructure.Common
         {
            
             bool IsTrcked=_context.ChangeTracker.HasChanges();
-            ;
             return await _context.SaveChangesAsync();
 		}
         public void Dispose()

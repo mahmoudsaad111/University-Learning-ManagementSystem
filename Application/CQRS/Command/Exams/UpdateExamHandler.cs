@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.CQRSInterfaces;
 using Application.Common.Interfaces.Presistance;
+using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using System;
@@ -28,11 +29,41 @@ namespace Application.CQRS.Command.Exams
                     return Result.Failure<Exam>(new Error(code: "UpdateExam", message: "No Exam Exist")) ;
 
                 if (request.UpdateExamDto.SartedAt < DateTime.UtcNow)
-                    return Result.Failure<Exam>(new Error(code: "Create Exam", message: "Can not create exam with this data time"));
+                    return Result.Failure<Exam>(new Error(code: "Update Exam", message: "Can not create exam with this data time"));
 
-             
+
+                bool IfUserHasAccessToExam = false;
+
+                ExamPlace examPlaceOfCurrentExam = await unitOfwork.ExamPlaceRepository.GetByIdAsync(OldExam.ExamPlaceId);
+
+                if (examPlaceOfCurrentExam is null)
+                    return Result.Failure<Exam>(new Error(code: "Update Exam", message: "can not delete this exam"));
+
+                var user = await unitOfwork.UserRepository.GetUserByUserName(request.ExamCreatorUserName);
+                if (user is null)
+                    return Result.Failure<Exam>(new Error(code: "Update Exam", message: "user has no access"));
+ 
+
+                if (examPlaceOfCurrentExam.ExamType == ExamType.Quiz && examPlaceOfCurrentExam.SectionId != 0)
+                {
+                    IfUserHasAccessToExam = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: user.Id, SectionId: (int)examPlaceOfCurrentExam.SectionId);
+                }
+                else if ((examPlaceOfCurrentExam.ExamType == ExamType.Quiz || examPlaceOfCurrentExam.ExamType == ExamType.Midterm) && examPlaceOfCurrentExam.CourseCycleId != 0)
+                {
+                    IfUserHasAccessToExam = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: user.Id, CourseCycleId: (int)examPlaceOfCurrentExam.CourseCycleId);
+                }
+                else if (examPlaceOfCurrentExam.ExamType == ExamType.Final || examPlaceOfCurrentExam.ExamType == ExamType.Semester)
+                {
+                    IfUserHasAccessToExam = true;
+                }
+
+                if (!IfUserHasAccessToExam)
+                    return Result.Failure<Exam>(new Error(code: "Update Exam", message: "user has no access"));
+
+
+
                 OldExam.Name=request.UpdateExamDto.Name;
-                OldExam.FullMark = request.UpdateExamDto.FaullMarks;
+            //    OldExam.FullMark = request.UpdateExamDto.FaullMarks;
                 OldExam.StratedAt=request.UpdateExamDto.SartedAt;
                 OldExam.DeadLine=request.UpdateExamDto.DeadLine;
 

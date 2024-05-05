@@ -33,15 +33,18 @@ namespace Infrastructure.Repositories
 
         public async Task<bool> CheckIfStudentInSection(int StudentId, int SectionId)
         {
-            var StudentSectionId = await (from SCC in _appDbContext.StudentsInCourseCycles
-                                 where SCC.StudentId == StudentId
-                                 join SinS in _appDbContext.StudentSections on SCC.StudentCourseCycleId equals SinS.StudentCourseCycleId
-                                 where SinS.SectionId == SectionId 
-                                 select  SinS.StudentSectionId
+            var courseCycleIdOfSection = await _appDbContext.Sections.Where(s => s.SectionId == SectionId).Select(s => s.CourseCycleId).FirstOrDefaultAsync();
+            if(courseCycleIdOfSection==0)
+                return false;
 
+            var StudentSectionId = await (from SCC in _appDbContext.StudentsInCourseCycles
+                                 where SCC.StudentId == StudentId && SCC.CourseCycleId==courseCycleIdOfSection
+                                 from SinS in _appDbContext.StudentSections 
+                                 where SinS.SectionId == SectionId && SCC.StudentCourseCycleId == SinS.StudentCourseCycleId
+                                 select  SinS.StudentSectionId
                                  ).FirstOrDefaultAsync();
 
-            return (StudentSectionId != 0);
+            return (StudentSectionId != 0) ;
         }
 
         public async Task<int> GetStudentSectionId(int SectionId, int StudentCourseCylceId)

@@ -76,18 +76,20 @@ namespace Contract.Dto.Exams
     public class ExamDto
     {
         public string Name { get; set; }
-        public int FaullMarks { get; set; } 
-        public string Title { get; set; }   
+        public int FaullMarks { get; set; }
+        public string Title { get; set; }
         public DateTime SartedAt { get; set; }
-     //    [DataType(DataType.Duration)]
+        //    [DataType(DataType.Duration)]
 
         [System.Text.Json.Serialization.JsonConverterAttribute(typeof(TimeSpanToStringConverter))]
-        public TimeSpan DeadLine { get; set;}
+        public TimeSpan DeadLine { get; set; }
         public ExamType ExamType { get; set; }
-        public int SectionId { get; set; }  
-        public int CourseId { get; set; }   
-        public int CourseCycleId {  get; set; }
-
+        public int SectionId { get; set; }
+        public int CourseId { get; set; }
+        public int CourseCycleId { get; set; }
+        public string ProfessorUserName { get; set; }
+        public string InstructorUserName { get; set; }
+        public string StuffUserName {  get; set; }  
         public ExamPlaceDto GetExamPlaceDto()
         {
             return new ExamPlaceDto

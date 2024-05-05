@@ -13,7 +13,7 @@ namespace Application.Common.Interfaces.RealTimeInterfaces
         public Task<Tuple<TypesOfUsers, User>> GetTypeOfUserAndHisId(string userName);
         public Task<bool> CheckIfUserInSection(int SectionId, int UserId, TypesOfUsers typesOfUsers);
 
-        public Task<bool> CheckIfUserInCourse(int CourseId, int UserId, TypesOfUsers typesOfUsers);
+        public Task<bool> CheckIfUserInCourseCycle(int CourseCycleId, int UserId, TypesOfUsers typesOfUsers);
         public Task<bool> CheckIfUserInGroup(int UserId, int GroupId, TypesOfUsers typesOfUsers);
 
 

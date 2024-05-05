@@ -40,7 +40,6 @@ namespace Infrastructure.Repositories
             return true; 
             // save changes using unit of work ; 
         }
-
         public async Task<Tuple<bool, ExamPlace>> CheckIfExamDataValidHasValidExamPlace(ExamDto ExamDto)
         {
 
@@ -108,11 +107,10 @@ namespace Infrastructure.Repositories
 
             return new Tuple<bool, ExamPlace>(false, null);
         }
-
-        public async Task<IEnumerable<QuizsToSectionOfInstructorDto>> GetQuizsToSectionOfInstructors(int sectionId)
+        public async Task<IEnumerable<QuizsToSectionOfInstructorDto>> GetAllQuizsToSectionOfInstructors(int sectionId)
         {
             var QuizsToSectionOfInstructors = await (from section in _appDbContext.Sections
-                                                     where section.SectionId == sectionId
+                                                     where section.SectionId == sectionId 
                                                      join examPlace in _appDbContext.ExamPlaces on section.SectionId equals examPlace.SectionId
                                                      join exam in _appDbContext.Exams on examPlace.ExamPlaceId equals exam.ExamPlaceId
                                                      //  join studentInExam in _appDbContext.StudentExams on exam.ExamId equals studentInExam.ExamId
@@ -128,31 +126,32 @@ namespace Infrastructure.Repositories
                                                          ExamFullMarks=exam.FullMark,
                                                          StartedAt = exam.StratedAt,
                                                          DeadLine = exam.DeadLine,
-                                                         TFQs = (from tfq in _appDbContext.TrueFalseQuestions
-                                                                 where tfq.ExamId == exam.ExamId
-                                                                 select new TFQTextAsnwerDto
-                                                                 {
-                                                                     QuestionId = tfq.QuestionId,
-                                                                     Text = tfq.Text,
-                                                                     IsTrue = tfq.IsTrue,
-                                                                     Degree=tfq.Degree
+
+                                                         //TFQs = (from tfq in _appDbContext.TrueFalseQuestions
+                                                         //        where tfq.ExamId == exam.ExamId
+                                                         //        select new TFQTextAsnwerDto
+                                                         //        {
+                                                         //            QuestionId = tfq.QuestionId,
+                                                         //            Text = tfq.Text,
+                                                         //            IsTrue = tfq.IsTrue,
+                                                         //            Degree=tfq.Degree
                                                                      
-                                                                 }).ToList(),
+                                                         //        }).ToList(),
 
-                                                         MCQs = (from mcq in _appDbContext.MultipleChoiceQuestions
-                                                                 where mcq.ExamId == exam.ExamId
-                                                                 select new MCQTextOPtionsAnswerDto
-                                                                 {
-                                                                     QuestionId = mcq.QuestionId,
-                                                                     Text = mcq.Text,
-                                                                     OptionA = mcq.OptionA,
-                                                                     OptionB = mcq.OptionB,
-                                                                     OptionC = mcq.OptionC,
-                                                                     OptionD = mcq.OptionD,
-                                                                     CorrectAnswer = mcq.CorrectAnswer,
-                                                                     Degree=mcq.Degree
+                                                         //MCQs = (from mcq in _appDbContext.MultipleChoiceQuestions
+                                                         //        where mcq.ExamId == exam.ExamId
+                                                         //        select new MCQTextOPtionsAnswerDto
+                                                         //        {
+                                                         //            QuestionId = mcq.QuestionId,
+                                                         //            Text = mcq.Text,
+                                                         //            OptionA = mcq.OptionA,
+                                                         //            OptionB = mcq.OptionB,
+                                                         //            OptionC = mcq.OptionC,
+                                                         //            OptionD = mcq.OptionD,
+                                                         //            CorrectAnswer = mcq.CorrectAnswer,
+                                                         //            Degree=mcq.Degree
 
-                                                                 }).ToList(),
+                                                         //        }).ToList(),
 
                                                          StudentsAttendExam = (from sie in _appDbContext.StudentExams
                                                                                where sie.ExamId == exam.ExamId
@@ -169,16 +168,14 @@ namespace Infrastructure.Repositories
             return QuizsToSectionOfInstructors; 
 
         }
-
         public async Task<Exam> GetExamIncludinigExamPlaceByExamId(int ExamId)
         {
             return await _appDbContext.Exams.AsNoTracking().Include(x => x.ExamPlace).FirstOrDefaultAsync(e => e.ExamId == ExamId);
         }
-
         public async Task<ExamWrokNowDto> GetExamWorkNow(int ExamId)
         {
             var examWorkNow= await (from e in _appDbContext.Exams
-                          where e.ExamId == ExamId
+                          where e.ExamId == ExamId && e.StratedAt>= DateTime.Now && DateTime.Now<=e.StratedAt+e.DeadLine
                           select new ExamWrokNowDto
                           {
                               ExamId = e.ExamId,
@@ -186,7 +183,7 @@ namespace Infrastructure.Repositories
                               ExamTitle = e.Title,
                               ExamFullMarks = e.FullMark,
                               ExamDateTime = e.StratedAt,
-                              ExamDeadLine = e.DeadLine,
+                              ExamDeadLine = e.DeadLine,                           
                               mCQTextOptionsDtos =  (from mcq in _appDbContext.MultipleChoiceQuestions
                                                     where e.ExamId == mcq.ExamId
                                                     select new MCQTextOptionsDto
@@ -212,8 +209,79 @@ namespace Infrastructure.Repositories
 
             return examWorkNow;
         }
+        public async Task<IEnumerable<QuizesOrMidtermsToCourceCycleOfProfDto>> GetAllExamsOfCourseCycleOfProfessor(int courseCycleId )
+        {
+            var ResultOfQuesry = await (from examPlace in _appDbContext.ExamPlaces
+                                        where examPlace.CourseCycleId == courseCycleId
+                                        join exam in _appDbContext.Exams on examPlace.ExamPlaceId equals exam.ExamPlaceId
+                                        select new QuizesOrMidtermsToCourceCycleOfProfDto
+                                        {
+                                            CourseCylceId = courseCycleId,
+                                            ExamId = exam.ExamId,
+                                            ExamName = exam.Name,
+                                            ExamTitle = exam.Title,
+                                            ExamFullMarks = exam.FullMark,
+                                            ExamType = examPlace.ExamType,
+                                            StartedAt = exam.StratedAt,
+                                            DeadLine = exam.DeadLine,
+                                            StudentsAttendExam = (from studentExam in _appDbContext.StudentExams
+                                                                  where studentExam.ExamId == exam.ExamId
+                                                                  from user in _appDbContext.Users
+                                                                  where user.Id == studentExam.StudentId
+                                                                  select new NameIdDto
+                                                                  {
+                                                                      Name = user.FullName,
+                                                                      Id = user.Id
+                                                                  }).ToList()
+                                        }).ToListAsync();
 
-    
+            return ResultOfQuesry;
+        }
 
+ 
+
+        public async Task<IEnumerable<ExamOfStudentToDto>> GetAllExamsOfStudentInCourseCycle(int courseCylceId , int studentId)
+        {
+            var ResuultOfQuery = await (from examPlace in _appDbContext.ExamPlaces
+                                        where examPlace.CourseCycleId == courseCylceId
+                                        join exam in _appDbContext.Exams on examPlace.ExamPlaceId equals exam.ExamPlaceId
+                                      //  where exam.StratedAt + exam.DeadLine < DateTime.Now
+                                       
+                                        select new ExamOfStudentToDto
+                                        {
+                                            ExamId = exam.ExamId,
+                                            ExamName = exam.Name,
+                                            ExamTitle = exam.Title,
+                                            StartedDate = exam.StratedAt,
+                                            MarksOfStudent = _appDbContext.StudentExams.Where(se => se.ExamId == exam.ExamId && se.StudentId == studentId)
+                                                                                       .Select(se => se.MarkOfStudentInExam).FirstOrDefault(),
+                                            FullMarksOfExam =exam.FullMark                                         
+                                        }
+
+                                       ).ToListAsync();
+            return ResuultOfQuery; 
+        }
+
+        public async Task<IEnumerable<ExamOfStudentToDto>> GetAllExamsOfStudentInSection(int sectionId , int studentId)
+        {
+            var ResultOfQuery = await(from examPlace in _appDbContext.ExamPlaces
+                                       where examPlace.SectionId == sectionId
+                                       join exam in _appDbContext.Exams on examPlace.ExamPlaceId equals exam.ExamPlaceId
+                                      // where exam.StratedAt + exam.DeadLine < DateTime.Now
+                                 
+                                       select new ExamOfStudentToDto
+                                       {
+                                           ExamId = exam.ExamId,
+                                           ExamName = exam.Name,
+                                           ExamTitle = exam.Title,
+                                           StartedDate = exam.StratedAt,
+                                           MarksOfStudent =  _appDbContext.StudentExams.Where(se=>se.ExamId==exam.ExamId && se.StudentId==studentId)
+                                                                                       .Select(se=>se.MarkOfStudentInExam).FirstOrDefault(),
+                                           FullMarksOfExam = exam.FullMark
+                                       }
+
+                                     ).ToListAsync();
+            return ResultOfQuery;
+        }
     }
 }

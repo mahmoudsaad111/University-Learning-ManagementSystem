@@ -1,5 +1,6 @@
 ﻿using Contract.Dto.MCQs;
 using Contract.Dto.TFQs;
+using Domain.Enums;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,10 @@ namespace Contract.Dto.Exams
         public int SectionId { get; set; }
         public string SectionName {  get; set; }   
         public int ExamId { get; set; } 
-        public string ExamName { get; set; }
+        public string ExamName { get; set; }  
         public int ExamFullMarks { get; set; }  
         public DateTime StartedAt {  get; set; }    
         public TimeSpan DeadLine { get; set; }
-        public IEnumerable<TFQTextAsnwerDto> TFQs { get; set; }
-        public IEnumerable<MCQTextOPtionsAnswerDto> MCQs { get; set; }   
         public IEnumerable<NameIdDto> StudentsAttendExam {  get; set; } 
-            
     }
 }

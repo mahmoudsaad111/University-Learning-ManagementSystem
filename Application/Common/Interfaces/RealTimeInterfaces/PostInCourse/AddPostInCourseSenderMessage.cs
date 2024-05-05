@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.RealTimeInterfaces.PostInCourse
 {
-    public class AddPostInCourseSenderMessage
+    public class AddPostInCourseCycleSenderMessage
     {
-        public int CourseId { get; set; }   
+        public int CourseCycleId { get; set; }   
         public string PostContent { get; set; }
 
         public string SenderUserName { get; set; }
