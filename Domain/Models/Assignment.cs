@@ -15,13 +15,9 @@ namespace Domain.Models
         public string Description { get; set; }
      
         //& public string ModelAnswerUrl { get; set; } = null!; 
-
         public int FullMark {  get; set; }  
-        public DateTime CreatedAt { get; set; }    
-
-        public DateTime UpdatedAt { get; set;}
-
-        public DateTime DeadLine { get; set; }  
+        public DateTime StartedAt { get; set; }    
+        public TimeSpan DeadLine { get; set; }  
 
        //& public string UrlOfResource { get; set; } = null!;
 

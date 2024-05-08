@@ -36,11 +36,11 @@ namespace Application.CQRS.Query.Exams
                     IfStudentHasAccessToExam = await unitOfwork.StudentSectionRepository.CheckIfStudnetInSectionByUserName(
                         StudentUserName: request.StudentUserName, SectionId: (int)(examPlace.SectionId));
             
-                else if ((examPlace.ExamType == ExamType.Quiz || examPlace.ExamType==ExamType.Midterm) && examPlace.CourseCycleId != 0)
+                else if ((examPlace.ExamType == ExamType.Quiz || examPlace.ExamType==ExamType.Midterm) && examPlace.CourseCycleId is not null)
                     IfStudentHasAccessToExam = await unitOfwork.StudentCourseCycleRepository.CheckIfStudnetInCourseCycle(
                         StudnetUserName :  request.StudentUserName, CourseCylceId : (int)(examPlace.CourseCycleId));
 
-                else if((examPlace.ExamType == ExamType.Semester || examPlace.ExamType == ExamType.Final) && examPlace.CourseId!=0)
+                else if((examPlace.ExamType == ExamType.Semester || examPlace.ExamType == ExamType.Final) && examPlace.CourseId is not null)
                     IfStudentHasAccessToExam= await unitOfwork.CourseRepository.CheckIfStudentHasAccessToCourse(
                         StudentUserName:request.StudentUserName , CourseId :  (int)(examPlace.CourseId));
 
