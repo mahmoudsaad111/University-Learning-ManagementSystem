@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces.Presistance;
 using Contract.Dto.Exams;
 using Contract.Dto.QuestionsOfExam;
+using Contract.Dto.StudentExamDto;
 using Domain.Enums;
 using Domain.Models;
 using System;
@@ -26,5 +27,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 
         public Task<IEnumerable<ExamOfStudentToDto>> GetAllExamsOfStudentInCourseCycle(int courseCylceId, int studentId);
         public Task<IEnumerable<ExamOfStudentToDto>> GetAllExamsOfStudentInSection(int sectionId , int studentId);
+        public Task<IEnumerable<StudentAttendExamDto>> GetAllStudentsAttendExam(int ExamId);
     }
 }

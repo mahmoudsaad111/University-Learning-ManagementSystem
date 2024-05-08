@@ -178,5 +178,20 @@ namespace Api.Controllers
             }
             return BadRequest(Result.Error);
         }
+
+
+        [HttpGet("GetAllStudnetsAttendExam")]
+        public async Task<ActionResult> GetAllStudnetsAttendExam(int ExamId, string ExamCreatorUserName)
+        {
+            if (ExamId == 0 || ExamCreatorUserName == "")
+                return BadRequest("Invalid data");
+            var Result = await mediator.Send(new GetAllStudentsAttendExamQuery {  ExamId=ExamId , ExamCreatorUserName= ExamCreatorUserName });
+
+            if (Result.IsSuccess)
+            {
+                return Ok(Result.Value);
+            }
+            return BadRequest(Result.Error);
+        }
     }
 }

@@ -19,6 +19,6 @@ namespace Contract.Dto.Exams
         public int ExamFullMarks { get; set; }  
         public DateTime StartedAt {  get; set; }    
         public TimeSpan DeadLine { get; set; }
-        public IEnumerable<NameIdDto> StudentsAttendExam {  get; set; } 
+      //  public IEnumerable<NameIdDto> StudentsAttendExam {  get; set; } 
     }
 }

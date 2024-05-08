@@ -2,7 +2,7 @@
 using Contract.Dto;
 using Contract.Dto.Exams;
 using Contract.Dto.MCQs;
- 
+using Contract.Dto.StudentExamDto;
 using Contract.Dto.TFQs;
 using Domain.Enums;
 using Domain.Models;
@@ -153,15 +153,15 @@ namespace Infrastructure.Repositories
 
                                                          //        }).ToList(),
 
-                                                         StudentsAttendExam = (from sie in _appDbContext.StudentExams
-                                                                               where sie.ExamId == exam.ExamId
-                                                                               join user in _appDbContext.Users on sie.StudentId equals user.Id
-                                                                               select new NameIdDto
-                                                                               {
-                                                                                   Id = user.Id,
-                                                                                   Name = user.FullName
-                                                                               }
-                                                                               ).ToList()
+                                                         //StudentsAttendExam = (from sie in _appDbContext.StudentExams
+                                                         //                      where sie.ExamId == exam.ExamId
+                                                         //                      join user in _appDbContext.Users on sie.StudentId equals user.Id
+                                                         //                      select new NameIdDto
+                                                         //                      {
+                                                         //                          Id = user.Id,
+                                                         //                          Name = user.FullName
+                                                         //                      }
+                                                         //                      ).ToList()
 
 
                                                      }).ToListAsync();
@@ -223,16 +223,17 @@ namespace Infrastructure.Repositories
                                             ExamFullMarks = exam.FullMark,
                                             ExamType = examPlace.ExamType,
                                             StartedAt = exam.StratedAt,
-                                            DeadLine = exam.DeadLine,
-                                            StudentsAttendExam = (from studentExam in _appDbContext.StudentExams
-                                                                  where studentExam.ExamId == exam.ExamId
-                                                                  from user in _appDbContext.Users
-                                                                  where user.Id == studentExam.StudentId
-                                                                  select new NameIdDto
-                                                                  {
-                                                                      Name = user.FullName,
-                                                                      Id = user.Id
-                                                                  }).ToList()
+                                            DeadLine = exam.DeadLine
+                                            //    StudentsAttendExam = (from studentExam in _appDbContext.StudentExams
+                                            //                          where studentExam.ExamId == exam.ExamId
+                                            //                          from user in _appDbContext.Users
+                                            //                          where user.Id == studentExam.StudentId
+                                            //                          select new NameIdDto
+                                            //                          {
+                                            //                              Name = user.FullName,
+                                            //                              Id = user.Id
+                                            //                          }).ToList()
+                                            
                                         }).ToListAsync();
 
             return ResultOfQuesry;
@@ -282,6 +283,28 @@ namespace Infrastructure.Repositories
 
                                      ).ToListAsync();
             return ResultOfQuery;
+        }
+
+        public async Task<IEnumerable<StudentAttendExamDto>> GetAllStudentsAttendExam(int ExamId)
+        {
+            var studentsInExam = await (from studnetExam in _appDbContext.StudentExams
+                                        where studnetExam.ExamId == ExamId
+                                        join user in _appDbContext.Users on studnetExam.StudentId equals user.Id
+                                        select new StudentAttendExamDto
+                                        {
+                                            StudentId = user.Id,
+                                            StudentFirstName = user.FirstName,
+                                            StudentSecondName = user.SecondName,
+                                            StudentThirdName = user.ThirdName,
+                                            StudentFourthName = user.FourthName,
+                                            StudentImageUrl = user.ImageUrl,
+                                            StudentUserName = user.UserName,
+                                            StudentMarks = studnetExam.MarkOfStudentInExam,
+
+
+                                        }
+                                        ).ToListAsync();
+            return studentsInExam;
         }
     }
 }
