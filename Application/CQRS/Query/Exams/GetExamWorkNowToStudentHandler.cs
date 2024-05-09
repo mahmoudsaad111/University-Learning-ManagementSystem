@@ -32,7 +32,7 @@ namespace Application.CQRS.Query.Exams
                 if (examPlace is null)
                     return Result.Failure<ExamWrokNowDto>(new Error(code: "Get Exam Work Now", message: "wrong examId")) ;
       
-                if (examPlace.ExamType == ExamType.Quiz && examPlace.SectionId != 0)
+                if (examPlace.ExamType == ExamType.Quiz && examPlace.SectionId is not null)
                     IfStudentHasAccessToExam = await unitOfwork.StudentSectionRepository.CheckIfStudnetInSectionByUserName(
                         StudentUserName: request.StudentUserName, SectionId: (int)(examPlace.SectionId));
             
@@ -43,7 +43,6 @@ namespace Application.CQRS.Query.Exams
                 else if((examPlace.ExamType == ExamType.Semester || examPlace.ExamType == ExamType.Final) && examPlace.CourseId is not null)
                     IfStudentHasAccessToExam= await unitOfwork.CourseRepository.CheckIfStudentHasAccessToCourse(
                         StudentUserName:request.StudentUserName , CourseId :  (int)(examPlace.CourseId));
-
 
                 if(!IfStudentHasAccessToExam)
                     return Result.Failure<ExamWrokNowDto>(new Error(code: "Get Exam Work Now", message: "Student has no access to exam"));

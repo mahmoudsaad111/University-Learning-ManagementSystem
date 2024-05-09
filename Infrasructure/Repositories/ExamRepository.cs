@@ -175,7 +175,7 @@ namespace Infrastructure.Repositories
         public async Task<ExamWrokNowDto> GetExamWorkNow(int ExamId)
         {
             var examWorkNow= await (from e in _appDbContext.Exams
-                          where e.ExamId == ExamId && e.StratedAt>= DateTime.Now && DateTime.Now<=e.StratedAt+e.DeadLine
+                          where e.ExamId == ExamId 
                           select new ExamWrokNowDto
                           {
                               ExamId = e.ExamId,
