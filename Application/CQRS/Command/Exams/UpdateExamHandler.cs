@@ -44,11 +44,11 @@ namespace Application.CQRS.Command.Exams
                     return Result.Failure<Exam>(new Error(code: "Update Exam", message: "user has no access"));
  
 
-                if (examPlaceOfCurrentExam.ExamType == ExamType.Quiz && examPlaceOfCurrentExam.SectionId != 0)
+                if (examPlaceOfCurrentExam.ExamType == ExamType.Quiz && examPlaceOfCurrentExam.SectionId  is not null)
                 {
                     IfUserHasAccessToExam = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: user.Id, SectionId: (int)examPlaceOfCurrentExam.SectionId);
                 }
-                else if ((examPlaceOfCurrentExam.ExamType == ExamType.Quiz || examPlaceOfCurrentExam.ExamType == ExamType.Midterm) && examPlaceOfCurrentExam.CourseCycleId != 0)
+                else if ((examPlaceOfCurrentExam.ExamType == ExamType.Quiz || examPlaceOfCurrentExam.ExamType == ExamType.Midterm) && examPlaceOfCurrentExam.CourseCycleId is not null)
                 {
                     IfUserHasAccessToExam = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: user.Id, CourseCycleId: (int)examPlaceOfCurrentExam.CourseCycleId);
                 }
