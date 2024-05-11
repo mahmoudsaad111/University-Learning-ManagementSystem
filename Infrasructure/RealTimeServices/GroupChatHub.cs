@@ -53,7 +53,7 @@ namespace Infrastructure.RealTimeServices
             await base.OnConnectedAsync();
         }
 
-        public async void AddMessageToGroup(AddMessageToGroupSender groupMessage)
+        public async Task AddMessageToGroup(AddMessageToGroupSender groupMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(groupMessage.SenderUserName);
 
@@ -95,7 +95,7 @@ namespace Infrastructure.RealTimeServices
 
         }
 
-        public async void DeleteMessageFromGroup(DeleteMessageInGroupSender GroupMessage)
+        public async Task DeleteMessageFromGroup(DeleteMessageInGroupSender GroupMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(GroupMessage.SenderUserName);
 
@@ -126,7 +126,7 @@ namespace Infrastructure.RealTimeServices
         }
 
 
-        public async void UpdateMessageInGroup(UpdateMessageInGroupSender GroupMessage)
+        public async Task UpdateMessageInGroup(UpdateMessageInGroupSender GroupMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(GroupMessage.SenderUserName);
 

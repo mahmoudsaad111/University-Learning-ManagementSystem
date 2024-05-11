@@ -9,15 +9,15 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Api
 build_property.RootNamespace = Api
-build_property.ProjectDir = C:\Users\lenovo\Desktop\LatestVersion LMS mahmoud\OnlineLearningModelSystemPlatform\Api\
+build_property.ProjectDir = C:\Users\mahmo\OneDrive\Desktop\New folder (2)\OnlineLearningModelSystemPlatform\Api\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\lenovo\Desktop\LatestVersion LMS mahmoud\OnlineLearningModelSystemPlatform\Api
+build_property.MSBuildProjectDirectory = C:\Users\mahmo\OneDrive\Desktop\New folder (2)\OnlineLearningModelSystemPlatform\Api
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/lenovo/Desktop/LatestVersion LMS mahmoud/OnlineLearningModelSystemPlatform/Api/Pages/Shared/EmailResetPasswordTemplate.cshtml]
+[C:/Users/mahmo/OneDrive/Desktop/New folder (2)/OnlineLearningModelSystemPlatform/Api/Pages/Shared/EmailResetPasswordTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXEVtYWlsUmVzZXRQYXNzd29yZFRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

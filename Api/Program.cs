@@ -8,6 +8,7 @@ using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using Contract.Dto.Exams;
+using Infrastructure.RealTimeServices;
 
 namespace Api
 {
@@ -95,6 +96,16 @@ namespace Api
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<GroupChatHub>("/GroupChatHub");
+
+                endpoints.MapHub<PostCourseCycleHub>("/PostCourseCycleHub");
+
+                endpoints.MapHub<PostSectionHub>("/PostSectionHub");
+
+                endpoints.MapHub<CommentLectureHub>("/CommentLectureHub");
+            });
             app.MapControllers();
             app.Run();
         }

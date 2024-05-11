@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using Application.Common.Interfaces.RealTimeInterfaces.PostInSection;
 using Domain.Models;
 using static System.Collections.Specialized.BitVector32;
+using Application.Common.Interfaces.RealTimeInterfaces.PostReplyInSection;
 
 
 namespace Infrastructure.RealTimeServices
@@ -32,7 +33,10 @@ namespace Infrastructure.RealTimeServices
             if (Context is not null)
             {
                 string connectionId = Context.ConnectionId;
-                var userName = Context?.User?.Identity?.Name;
+
+                // var userName = Context?.User?.Identity?.Name;
+                var userName = Context?.GetHttpContext()?.Request.Query["UserName"];
+
                 var sectionIdString = Context?.GetHttpContext()?.Request.Query["SectionId"];
 
                 if (userName is not null && !string.IsNullOrEmpty(sectionIdString))
@@ -55,7 +59,7 @@ namespace Infrastructure.RealTimeServices
             await base.OnConnectedAsync();
         }
 
-        public async void AddPostInSection(PostAddSenderMessage postMessage)
+        public async Task AddPostInSection(PostAddSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -97,7 +101,7 @@ namespace Infrastructure.RealTimeServices
 
         }
 
-        public async void DeletePostInSection(PostDeleteSenderMessage postMessage)
+        public async Task DeletePostInSection(PostDeleteSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -129,7 +133,7 @@ namespace Infrastructure.RealTimeServices
 
         }
 
-        public async void UpdatePostInSection(PostUpdateSenderMessage postMessage)
+        public async Task UpdatePostInSection(PostUpdateSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -163,6 +167,115 @@ namespace Infrastructure.RealTimeServices
                 }
             }
 
+        }
+
+        public async Task AddPostReplyInSection(AddPostReplyInSectionSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            if (TypeOfuserAndId is not null)
+            {
+
+                User user = TypeOfuserAndId.Item2;
+
+                var postReply = new PostReply
+                {
+                    Content = postReplyMessage.PostReplyContent,
+                    CreatedBy = user.UserName,
+                    CreatedAt = DateTime.Now,
+                    ReplierId = user.Id,
+                    PostId = postReplyMessage.PostId,
+                };
+                try
+                {
+                    var postReplyInDB = await unitOfwork.PostReplyRepository.CreateAsync(postReply);
+                    await unitOfwork.SaveChangesAsync();
+                    var postReplyMessageforClinets = new AddPostReplyInSectionReceiverMessage
+                    {
+                        SenderImageUrl = user.ImageUrl,
+                        SenderName = user.FullName,
+                        SenderUserName = user.UserName,
+                        PostReplyContent = postReply.Content,
+                        PostId = postReplyInDB.PostId,
+                        PostReplyId = postReplyInDB.PostReplyId
+
+                    };
+                    await Clients.Group($"Section-{postReplyMessage.SectionId}").SendAsync("AddPostReplyInSection", postReplyMessageforClinets);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+        public async Task DeletePostReplyInSection(DeletePostReplyInSectionSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            var postReply = await unitOfwork.PostReplyRepository.GetByIdAsync(postReplyMessage.PostReplyId);
+
+            // If there is post with the given id and the publisher is the same who want to delete it then OK 
+
+            if (postReply != null && (postReply.ReplierId == TypeOfuserAndId.Item2.Id || TypeOfuserAndId.Item1 == TypesOfUsers.Instructor))
+            {
+                try
+                {
+                    bool IsDeleted = await unitOfwork.PostReplyRepository.DeleteAsync(postReplyMessage.PostReplyId);
+                    if (IsDeleted)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+                        var postReplyReceiverMessage = new DeletePostReplyInSectionReceiverMessage
+                        {
+                            PostId = postReplyMessage.PostId,
+                            PostReplyId = postReplyMessage.PostReplyId,
+                            SectionId = postReplyMessage.SectionId,
+                        };
+
+                        await Clients.Group($"Section-{postReplyMessage.SectionId}").SendAsync("DeleteSectionPost", postReplyReceiverMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+        public async Task UpdatePostReplyInSection(UpdatePostReplyInSectionSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            var postReply = await unitOfwork.PostReplyRepository.GetByIdAsync(postReplyMessage.PostReplyId);
+
+            // If there is post with the given id and the publisher is the same who want to delete it then OK 
+
+            if (postReply != null && postReply.ReplierId == TypeOfuserAndId.Item2.Id)
+            {
+                postReply.Content = postReplyMessage.PostReplyContent;
+
+                try
+                {
+                    bool IsUpdated = await unitOfwork.PostReplyRepository.UpdateAsync(postReply);
+
+                    if (IsUpdated)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+                        var postReplyReceiverMessage = new UpdatePostReplyInSectionReceiverMessage
+                        {
+                            PostId = postReplyMessage.PostId,
+                            PostReplyContent = postReplyMessage.PostReplyContent,
+                            PostReplyId = postReplyMessage.PostReplyId,
+                        };
+
+                        await Clients.Group($"Section-{postReplyMessage.SectionId}").SendAsync("UpdateSectionPost", postReplyReceiverMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
     }
 }

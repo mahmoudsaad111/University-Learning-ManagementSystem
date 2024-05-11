@@ -7,7 +7,8 @@ using Domain.Models;
 using Microsoft.AspNetCore.SignalR;
   
 using Application.Common.Interfaces.RealTimeInterfaces;
- 
+using Application.Common.Interfaces.RealTimeInterfaces.PostReplyInCourseCycle;
+
 
 namespace Infrastructure.RealTimeServices
 {
@@ -49,7 +50,7 @@ namespace Infrastructure.RealTimeServices
             }
             await base.OnConnectedAsync();
         }
-        public async void AddPostInCourseCycle(AddPostInCourseCycleSenderMessage postMessage)
+        public async Task AddPostInCourseCycle(AddPostInCourseCycleSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -90,7 +91,7 @@ namespace Infrastructure.RealTimeServices
 
         }
 
-        public async void DeletePostInCourseCycle(DeletePostInCourseCycleSenderMessage postMessage)
+        public async Task DeletePostInCourseCycle(DeletePostInCourseCycleSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -121,7 +122,7 @@ namespace Infrastructure.RealTimeServices
             }
         }
 
-        public async void UpdatePostInCourseCycle(UpdatePostInCourseCycleSenderMessage postMessage)
+        public async Task UpdatePostInCourseCycle(UpdatePostInCourseCycleSenderMessage postMessage)
         {
             var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postMessage.SenderUserName);
 
@@ -148,6 +149,110 @@ namespace Infrastructure.RealTimeServices
                 }
                 catch (Exception ex) { }
 
+            }
+        }
+        public async Task AddPostReplyInCourseCycle(AddPostReplyInCourseCycleSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            if (TypeOfuserAndId is not null)
+            {
+
+                User user = TypeOfuserAndId.Item2;
+
+                var postReply = new PostReply
+                {
+                    Content = postReplyMessage.PostReplyContent,
+                    CreatedBy = postReplyMessage.SenderUserName,
+                    CreatedAt = DateTime.Now,
+                    PostId = postReplyMessage.PostId,
+                    ReplierId = user.Id,
+
+                };
+                try
+                {
+                    var postReplyInDB = await unitOfwork.PostReplyRepository.CreateAsync(postReply);
+                    await unitOfwork.SaveChangesAsync();
+                    var postReplyMessageforClinets = new AddPostReplyInCourseCycleReceiverMessage
+                    {
+                        SenderImageUrl = user.ImageUrl,
+                        PostReplyContent = user.FullName,
+                        PostReplyId = postReplyInDB.PostReplyId,
+                        SenderUserName = user.UserName,
+                        SenderName = user.FullName,
+                        PostId = postReplyInDB.PostId
+
+                    };
+                    await Clients.Group($"CourseCycle-{postReplyMessage.CourseCycleId}").SendAsync("AddPostReplyInCourseCycle", postReplyMessageforClinets);
+                }
+                catch (Exception ex)
+                {
+                }
+            }
+
+        }
+
+        public async Task UpdatePostReplyInCourseCycle(UpdatePostReplyInCourseCycleSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            var postReply = await unitOfwork.PostReplyRepository.GetByIdAsync(postReplyMessage.PostReplyId);
+
+            if (postReply != null && postReply.ReplierId == TypeOfuserAndId.Item2.Id)
+            {
+                postReply.Content = postReplyMessage.PostReplyContent;
+                try
+                {
+                    bool IsUpdated = await unitOfwork.PostReplyRepository.UpdateAsync(postReply);
+
+                    if (IsUpdated)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+
+                        var postReplyReceiverMessage = new UpdatePostReplyInCourseCycleReceiverMessage
+                        {
+                            PostId = postReply.PostId,
+                            PostReplyContent = postReply.Content,
+                            PostReplyId = postReply.PostReplyId,
+                        };
+
+                        await Clients.Group($"CourseCycle-{postReplyMessage.CourseCycleId}").SendAsync("UpdatePostReplyInCourseCycle", postReplyReceiverMessage);
+                    }
+                }
+                catch (Exception ex) { }
+
+            }
+        }
+
+        public async Task DeletePostReplyInCourseCycle(DeletePostReplyInCourseCycleSenderMessage postReplyMessage)
+        {
+            var TypeOfuserAndId = await checkDataOfRealTimeRequests.GetTypeOfUserAndHisId(postReplyMessage.SenderUserName);
+
+            var postReply = await unitOfwork.PostReplyRepository.GetByIdAsync(postReplyMessage.PostReplyId);
+
+            // If there is post with the given id and the publisher is the same who want to delete it then OK 
+
+            if (postReply != null && (postReply.ReplierId == TypeOfuserAndId.Item2.Id || TypeOfuserAndId.Item1 == TypesOfUsers.Professor))
+            {
+                try
+                {
+                    bool IsDeleted = await unitOfwork.PostReplyRepository.DeleteAsync(postReplyMessage.PostReplyId);
+                    if (IsDeleted)
+                    {
+                        await unitOfwork.SaveChangesAsync();
+
+                        var postReplyReceiverMessage = new DeletePostReplyInCourseCycleReceiverMessage
+                        {
+                            PostId = postReplyMessage.PostId,
+                            PostReplyId = postReplyMessage.PostReplyId,
+                        };
+
+                        await Clients.Group($"CourseCycle-{postReplyMessage.CourseCycleId}").SendAsync("DeleteCoursePost", postReplyReceiverMessage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                }
             }
         }
     }

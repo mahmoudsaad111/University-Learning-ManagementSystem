@@ -9,8 +9,8 @@ namespace Application.Common.Interfaces.RealTimeInterfaces
 {
     public interface IGroupChatHub
     {
-        public void AddMessageToGroup(AddMessageToGroupSender postMessage);
-        public void UpdateMessageInGroup(UpdateMessageInGroupSender postMessage);
-        public void DeleteMessageFromGroup(DeleteMessageInGroupSender postMessage);
+        public Task AddMessageToGroup(AddMessageToGroupSender postMessage);
+        public Task UpdateMessageInGroup(UpdateMessageInGroupSender postMessage);
+        public Task DeleteMessageFromGroup(DeleteMessageInGroupSender postMessage);
     }
 }

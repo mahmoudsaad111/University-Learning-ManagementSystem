@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.RealTimeInterfaces;
 using Domain.Enums;
 using Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,13 @@ namespace Infrastructure.RealTimeServices
     public class CheckDataOfRealTimeRequests : ICheckDataOfRealTimeRequests
     {
         private readonly IUnitOfwork unitOfwork;
+        private readonly UserManager<User> _userManager;
 
-        public CheckDataOfRealTimeRequests(IUnitOfwork unitOfwork)
+        public CheckDataOfRealTimeRequests(IUnitOfwork unitOfwork, UserManager<User> userManager)
         {
             this.unitOfwork = unitOfwork;
+            _userManager = userManager;
+
         }
 
         public async Task<bool> CheckIfUserInGroup(int UserId, int GroupId, TypesOfUsers typesOfUsers)
@@ -60,13 +64,13 @@ namespace Infrastructure.RealTimeServices
             if (user == null)
                 return null;
 
-            if (user.Student is not null)
+            if (await _userManager.IsInRoleAsync(user, "Student"))
                 return new Tuple<TypesOfUsers, User>(TypesOfUsers.Student, user);
 
-            else if (user.Professor is not null)
+            else if (await _userManager.IsInRoleAsync(user, "Professor"))
                 return new Tuple<TypesOfUsers, User>(TypesOfUsers.Professor, user);
 
-            else if (user.Instructor is not null)
+            else if (await _userManager.IsInRoleAsync(user, "Instructor"))
                 return new Tuple<TypesOfUsers, User>(TypesOfUsers.Instructor, user);
 
             return null;

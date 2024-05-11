@@ -70,6 +70,9 @@ public static class DependencyInjection
 
         services.AddAuth(configuration);
 
+        // This Line to register signalR service
+        services.AddSignalR(options => { });
+
         return services;
     }
 
