@@ -1659,19 +1659,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mahmo\\.nuget\\packages\\": {}
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New folder (2)\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
       "projectName": "Contract",
-      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New folder (2)\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
-      "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New folder (2)\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1685,8 +1685,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mahmo\\OneDrive\\Desktop\\New folder (2)\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New folder (2)\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
+            "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
             }
           }
         }

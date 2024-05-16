@@ -1,5 +1,7 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.Assignements;
 using Domain.Models;
+using Domain.TmpFilesProcessing;
 using Infrastructure.Common;
 using InfraStructure;
 using Microsoft.EntityFrameworkCore;
@@ -17,16 +19,42 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<string>> GetAllFilesUrlForAssignementAsync(int AssignementId)
+        public async Task<IEnumerable<AssignmentResource>> GetAllFilesUrlForAssignementAsync(int AssignementId)
         {
             try
             {
-                return await _appDbContext.AssignmentResources.Where(ar => ar.AssignmentId == AssignementId).Select(ar => ar.Url).ToListAsync();
+                return await _appDbContext.AssignmentResources.AsNoTracking().Where(ar => ar.AssignmentId == AssignementId).ToListAsync();
             }
             catch (Exception ex)
             {
-                return new List<string>();
+                return new List<AssignmentResource>();
             }
+        }
+
+
+        public async Task<AssignemntFilesDto> GetFilesOfAssignemnt(int assignemntId)
+        {
+            var Result = await (from a in _appDbContext.Assignments
+                                where a.AssignmentId == assignemntId
+                                select new AssignemntFilesDto
+                                {
+                                    Name = a.Name,
+                                    Description = a.Description,
+                                    FullMark = a.FullMark,
+                                    ResourcesOfAssigenments = (from asr in _appDbContext.AssignmentResources
+                                                               where asr.AssignmentId == a.AssignmentId
+                                                               select new AssignmentResource
+                                                               {
+                                                                   Name = asr.Name,
+                                                                   Url = asr.Url,
+                                                                   FileType = asr.FileType,
+
+                                                               }
+                                                               ).ToList()
+
+                                }
+                                ).FirstOrDefaultAsync();
+            return Result;
         }
     }
 }

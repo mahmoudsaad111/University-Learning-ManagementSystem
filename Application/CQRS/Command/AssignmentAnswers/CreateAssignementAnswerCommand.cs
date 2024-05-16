@@ -5,8 +5,9 @@ using Domain.Models;
 
 namespace Application.CQRS.Command.AssignementAnswers
 {
-	public class CreateAssignementAnswerCommand : ICommand<AssignmentAnswer>
-	{
-		public AssignementAnswerDto AssignementAnswerDto { get; set; }
-	}
+    public class CreateAssignementAnswerCommand : ICommand<AssignmentAnswer>
+    {
+        public AssignementAnswerDto AssignementAnswerDto { get; set; }
+        public string StudentUserName { get; set; }
+    }
 }

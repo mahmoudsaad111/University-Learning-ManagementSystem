@@ -76,7 +76,16 @@ namespace Infrastructure.Repositories
             var TargetSection = await _appDbContext.Sections.FirstOrDefaultAsync(sec => sec.SectionId == SectionId);
             return (TargetSection is not null && TargetSection.InstructorId == InstrucotrId);
         }
+        public async Task<bool> CheckIfProfessorInSection(int ProfessorId, int SectionId)
+        {
+            var CorrectProffId = await (
+                                               from s in _appDbContext.Sections where s.SectionId == SectionId
+                                               from cc in _appDbContext.CourseCycles where s.CourseCycleId == s.CourseCycleId
+                                               select cc.ProfessorId                            
+                       ).FirstOrDefaultAsync();
 
+            return (CorrectProffId != 0 && ProfessorId == CorrectProffId);
+        }
         public async Task<IEnumerable<SectionOfInstructorDto>> GetSectionsOfInstructor(int InstructorId)
         {
             var SectionsOfInstructor = await (

@@ -32,6 +32,7 @@ namespace Api.Controllers
             return BadRequest( ) ;
         }
 
+
         [HttpDelete("DeleteStudentsFromSection")]
         public async Task<ActionResult> DeleteStudentsFromSection([FromBody] string[] studentsUserName, [FromHeader] int SectionId)
         {

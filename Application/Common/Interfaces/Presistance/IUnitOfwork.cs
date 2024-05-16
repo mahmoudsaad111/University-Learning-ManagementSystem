@@ -22,9 +22,9 @@
         public IBaseRepository<Lecture> LectureRepository { get; }
         public ILectureResourceRepository LectureResourceRepository { get; }
         public IAssignementResourceRepository AssignementResourceRepository { get; }
-        public IAssignementAnswerResouceRepository AssignementAnswerResouceRepository { get; }
-        public IBaseRepository<Assignment> AssignementRepository { get; }
-        public IBaseRepository<AssignmentAnswer> AssignementAnswerRepository { get; }
+        public IAssignementAnswerResourceRepository AssignementAnswerResourceRepository { get; }
+        public IAssignementRepository AssignementRepository { get; }
+        public IAssignementAnswerRepository AssignementAnswerRepository { get; }
 
         public IBaseRepository<Post> PostRepository { get; }
         public IBaseRepository<PostReply> PostReplyRepository { get; }
@@ -32,8 +32,6 @@
         public IBaseRepository<CommentReply> CommentReplyRepository { get; }
 
         public IBaseRepository<Message> MessageRepository { get; }
-
-
         public IAcadimicYearRepository AcadimicYearRepository { get; }
         public IFileResourceRepository FileResourceRepository { get; }
 

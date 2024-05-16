@@ -13,8 +13,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
     public interface IProfessorRepository :IBaseRepository<Professor>
     {
         public Task<IEnumerable<ReturnedProfessorDto>> GetAllProfessorsInDepartement(int DeptId );
-        public Task<bool> CheckIfProfessorInSection(int ProfessorId, int SectionId);
-
         public Task<IEnumerable<NameIdDto>> GetLessInfoProfessorByDeptId(int DeptId);
     }
 }

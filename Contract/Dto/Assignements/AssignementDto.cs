@@ -12,8 +12,7 @@ namespace Contract.Dto.Assignements
         public string Name { get; set; } = null!;
         public string Description { get; set; }
         public int FullMark { get; set; }
-        public DateTime StartedAt {  get; set; }
-        public TimeSpan DeadLine { get; set; }
+        public DateTime EndedAt { get; set; }
         public int SectionId { get; set; }
         public Assignment GetAssignement()
         {
@@ -22,8 +21,7 @@ namespace Contract.Dto.Assignements
                 Name = Name,
                 Description = Description,
                 FullMark = FullMark,
-                StartedAt = StartedAt,
-                DeadLine = DeadLine,
+                EndedAt = EndedAt,
                 SectionId = SectionId
             };
         }

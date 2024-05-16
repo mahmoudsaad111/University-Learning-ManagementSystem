@@ -181,6 +181,21 @@ namespace Api.Controllers
             }
         }
 
+        [HttpGet("GetAllSectionsOfStudnet")]
+        public async Task<ActionResult> GetAllSectionsOfStudnet(string StudnetUserName)
+        {
+            if (StudnetUserName is null)
+                return BadRequest();
+            try
+            {
+                var Result = await mediator.Send(new GetAllSectionsToStudentQuery { StudentUserName = StudnetUserName });   
+                return Result.IsSuccess ? Ok(Result.Value) : BadRequest(Result.Error);  
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+        }
 
 
 

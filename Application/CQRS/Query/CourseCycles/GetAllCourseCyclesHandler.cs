@@ -13,7 +13,6 @@ namespace Application.CQRS.Query.CourseCycles
     public class GetAllCourseCyclesHandler : IQueryHandler<GetAllCourseCyclesQuery, IEnumerable<CourseCycle>>
     {
         private readonly IUnitOfwork unitOfwork;
-
         public GetAllCourseCyclesHandler(IUnitOfwork unitOfwork)
         {
             this.unitOfwork = unitOfwork;

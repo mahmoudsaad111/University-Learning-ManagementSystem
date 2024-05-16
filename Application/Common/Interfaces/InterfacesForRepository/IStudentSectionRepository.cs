@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.Presistance;
 using Contract.Dto.ReturnedDtos;
+using Contract.Dto.Sections;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<bool> CheckIfStudnetInSectionByUserName(string StudentUserName, int SectionId);
         public Task<int> GetStudentSectionId(int SectionId, int StudentCourseCycleId);
         public Task<IEnumerable<int>>GetAllStudentsIdOnSection(int  SectionId);  
+        public Task<IEnumerable<SectionOfStudentDto>> GetAllSectionsOfStudent(int StudentId);
     }
 }

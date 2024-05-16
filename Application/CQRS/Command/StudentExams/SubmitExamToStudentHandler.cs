@@ -27,6 +27,8 @@ namespace Application.CQRS.Command.StudentExams
 
         public async Task<Result<int>> Handle(SubmitExamToStudentCommand request, CancellationToken cancellationToken)
         {
+            bool IsAdded = false;
+            int addedone = 0;
             try
             {
                 Exam ExamWorkNow = await unitOfwork.ExamRepository.GetExamIncludinigExamPlaceByExamId(request.studentAnswersOfExamDto.ExamId);
@@ -41,15 +43,15 @@ namespace Application.CQRS.Command.StudentExams
                 if (examPlace is null)
                     return Result.Failure<int>(new Error(code: "Submit Studnet Asnwer to Exam", message: "wrong examId"));
 
-                if (examPlace.ExamType == ExamType.Quiz && examPlace.SectionId != 0)
+                if (examPlace.ExamType == ExamType.Quiz && examPlace.SectionId is not null)
                     IfStudentHasAccessToExam = await unitOfwork.StudentSectionRepository.CheckIfStudnetInSectionByUserName(
                         StudentUserName: request.studentAnswersOfExamDto.StudentUserName, SectionId: (int)examPlace.SectionId);
 
-                else if ((examPlace.ExamType == ExamType.Quiz || examPlace.ExamType == ExamType.Midterm) && examPlace.CourseCycleId != 0)
+                else if ((examPlace.ExamType == ExamType.Quiz || examPlace.ExamType == ExamType.Midterm) && examPlace.CourseCycleId is not null)
                     IfStudentHasAccessToExam = await unitOfwork.StudentCourseCycleRepository.CheckIfStudnetInCourseCycle(
                         StudnetUserName: request.studentAnswersOfExamDto.StudentUserName, CourseCylceId: (int)examPlace.CourseCycleId);
 
-                else if ((examPlace.ExamType == ExamType.Semester || examPlace.ExamType == ExamType.Final) && examPlace.CourseId != 0)
+                else if ((examPlace.ExamType == ExamType.Semester || examPlace.ExamType == ExamType.Final) && examPlace.CourseId is not null)
                     IfStudentHasAccessToExam = await unitOfwork.CourseRepository.CheckIfStudentHasAccessToCourse(
                         StudentUserName: request.studentAnswersOfExamDto.StudentUserName, CourseId: (int)examPlace.CourseId);
 
@@ -63,7 +65,7 @@ namespace Application.CQRS.Command.StudentExams
                 var AddStudentExam = await unitOfwork.StudentExamRepository.CreateAsync(new StudentExam
                 {
                     StudentId = StudentId,
-                    ExamId =request.studentAnswersOfExamDto.ExamId,
+                    ExamId = request.studentAnswersOfExamDto.ExamId,
                     MarkOfStudentInExam = 0,
                     SubmitedAt = DateTime.Now
                 });
@@ -71,24 +73,24 @@ namespace Application.CQRS.Command.StudentExams
                     return Result.Failure<int>(new Error(code: "Submit student answer in exam", message: "Can not add student to this exam "));
 
                 await unitOfwork.SaveChangesAsync(); // make sure that StudentExam get Identitiy Id 
-           
-                List<MCQCorrectAnswer> mCQCorrectAnswers =(List<MCQCorrectAnswer>) await unitOfwork.MCQRepository.GetMCQOfExamWithCorrectAnswers(ExamId: request.studentAnswersOfExamDto.ExamId); 
-                
-                var MCQTupleOfBoolAndInt = await unitOfwork.StudentExamRepository.AddStudentMCQAnswerOfExam(studentExamId: AddStudentExam.StudentExamId,   
-                    mCQCorrectAnswers = mCQCorrectAnswers ,
+
+                List<MCQCorrectAnswer> mCQCorrectAnswers = (List<MCQCorrectAnswer>)await unitOfwork.MCQRepository.GetMCQOfExamWithCorrectAnswers(ExamId: request.studentAnswersOfExamDto.ExamId);
+
+                var MCQTupleOfBoolAndInt = await unitOfwork.StudentExamRepository.AddStudentMCQAnswerOfExam(studentExamId: AddStudentExam.StudentExamId,
+                    mCQCorrectAnswers = mCQCorrectAnswers,
                     MCQStudentAnswers: request.studentAnswersOfExamDto.StudentMCQAnswers);
 
 
-                if(MCQTupleOfBoolAndInt is not null  && MCQTupleOfBoolAndInt.Item1 == true)
+                if (MCQTupleOfBoolAndInt is not null && MCQTupleOfBoolAndInt.Item1 == true)
                 {
                     List<TFQCorrectAnswer> tFQCorrectAnswers = (List<TFQCorrectAnswer>)await unitOfwork.TFQRepository.GetMTFOfExamWithCorrectAnswer(ExamId: request.studentAnswersOfExamDto.ExamId);
 
                     var TFQTupleOfBoolAndInt = await unitOfwork.StudentExamRepository.AddStudentTFQAnswerOfExam(studentExamId: AddStudentExam.StudentExamId,
-                        tFQCorrectAnswers= tFQCorrectAnswers,
+                        tFQCorrectAnswers = tFQCorrectAnswers,
                       TFQStudentAnswers: request.studentAnswersOfExamDto.StudentTFQAnswers);
 
 
-                    if(TFQTupleOfBoolAndInt is not null && TFQTupleOfBoolAndInt.Item1 ==true)
+                    if (TFQTupleOfBoolAndInt is not null && TFQTupleOfBoolAndInt.Item1 == true)
                     {
                         AddStudentExam.MarkOfStudentInExam = MCQTupleOfBoolAndInt.Item2 + TFQTupleOfBoolAndInt.Item2;
                         await unitOfwork.StudentExamRepository.UpdateAsync(AddStudentExam);
@@ -106,8 +108,13 @@ namespace Application.CQRS.Command.StudentExams
 
             }
             catch (Exception ex)
-            {               
-                return Result.Failure<int>(new Error(code: "Submit student Answer in Exam", message: ex.Message.ToString())) ;
+            {
+                if (IsAdded)
+                {
+                    await unitOfwork.StudentExamRepository.DeleteAsync(addedone);
+                    await unitOfwork.SaveChangesAsync();
+                }
+                return Result.Failure<int>(new Error(code: "Submit student Answer in Exam", message: ex.Message.ToString()));
             }
         }
 

@@ -49,7 +49,7 @@ namespace Infrastructure.RealTimeServices
                 return await unitOfwork.StudentSectionRepository.CheckIfStudentInSection(StudentId: UserId, SectionId: SectionId);
 
             else if (typesOfUsers == TypesOfUsers.Professor)
-                return await unitOfwork.ProfessorRepository.CheckIfProfessorInSection(ProfessorId: UserId, SectionId: SectionId);
+                return await unitOfwork.SectionRepository.CheckIfProfessorInSection(ProfessorId: UserId, SectionId: SectionId);
 
             else if (typesOfUsers == TypesOfUsers.Instructor)
                 return await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: UserId, SectionId: SectionId);

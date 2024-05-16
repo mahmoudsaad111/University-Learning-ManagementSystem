@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.Sections;
 using Contract.Dto.StudentSection;
 using Domain.Models;
 using Infrastructure.Common;
@@ -70,6 +71,26 @@ namespace Infrastructure.Repositories
             if(StudentId== 0)
                 return false;
             return await this.CheckIfStudentInSection(StudentId, SectionId);
+        }
+
+        public async Task<IEnumerable<SectionOfStudentDto>> GetAllSectionsOfStudent(int StudentId)
+        {
+            return  await (from scc in _appDbContext.StudentsInCourseCycles
+                                where scc.StudentId == StudentId
+                                join sins in _appDbContext.StudentSections on scc.StudentCourseCycleId equals sins.StudentCourseCycleId
+                                join sec in _appDbContext.Sections on sins.SectionId equals sec.SectionId
+                                join u in _appDbContext.Users on sec.InstructorId equals u.Id
+                                select new SectionOfStudentDto
+                                {
+                                    SectionName = sec.Name,
+                                    SectionDescription = sec.Description,
+                                    InstructorId = sec.InstructorId,
+                                    InstructorFirstName = u.FirstName,
+                                    InstructorSecondName = u.SecondName,
+                                    InstructorImageUrl = u.ImageUrl,
+                                    InstructorUserName = u.UserName,
+                                }
+                                ).ToListAsync();  
         }
     }
 }

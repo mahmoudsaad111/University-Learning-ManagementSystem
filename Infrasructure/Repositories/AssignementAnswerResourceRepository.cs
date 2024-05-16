@@ -7,21 +7,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class AssignementAnswerResourceRepository : BaseRepository<AssignmentAnswerResource>, IAssignementAnswerResouceRepository
+    public class AssignementAnswerResourceRepository : BaseRepository<AssignmentAnswerResource>, IAssignementAnswerResourceRepository
     {
         public AssignementAnswerResourceRepository(AppDbContext _appDbContext) : base(_appDbContext)
         {
         }
 
-        public async Task<IEnumerable<string>> GetAllFilesUrlForAssignementAnswerAsync(int AssignementAnswerId)
+        public async Task<IEnumerable<AssignmentAnswerResource>> GetAllFilesUrlForAssignementAnswerAsync(int AssignementAnswerId)
         {
             try
             {
-                return await _appDbContext.AssignmentAnswerResources.Where(ar => ar.AssignmentAnswerId == AssignementAnswerId).Select(ar => ar.Url).ToListAsync();
+                return await _appDbContext.AssignmentAnswerResources.AsNoTracking().Where(ar => ar.AssignmentAnswerId == AssignementAnswerId).ToListAsync();
             }
             catch (Exception ex)
             {
-                return new List<string>();
+                return new List<AssignmentAnswerResource>();
             }
         }
     }

@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="CQRS\Query\Assignements\**" />
     <Compile Remove="CQRS\Query\AssignemntAnswers\**" />
-    <EmbeddedResource Remove="CQRS\Query\Assignements\**" />
     <EmbeddedResource Remove="CQRS\Query\AssignemntAnswers\**" />
-    <None Remove="CQRS\Query\Assignements\**" />
     <None Remove="CQRS\Query\AssignemntAnswers\**" />
   </ItemGroup>
 

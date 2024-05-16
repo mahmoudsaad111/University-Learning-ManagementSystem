@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.InterfacesForRepository
 {
-    public interface IAssignementAnswerResouceRepository :IBaseRepository<AssignmentAnswerResource>
+    public interface IAssignementAnswerResourceRepository :IBaseRepository<AssignmentAnswerResource>
     {
-        Task<IEnumerable<string>> GetAllFilesUrlForAssignementAnswerAsync(int AssignementAnswerId);
+        Task<IEnumerable<AssignmentAnswerResource>> GetAllFilesUrlForAssignementAnswerAsync(int AssignementAnswerId);
     }
 }

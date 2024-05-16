@@ -10,37 +10,41 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Command.AssignementAnswers
 {
-	public class DeleteAssignementAnswerHandler : ICommandHandler<DeleteAssignementAnswerCommand, int>
-	{
+    public class DeleteAssignementAnswerHandler : ICommandHandler<DeleteAssignementAnswerCommand, int>
+    {
 
-		private readonly IUnitOfwork unitOfwork;
+        private readonly IUnitOfwork unitOfwork;
+        public DeleteAssignementAnswerHandler(IUnitOfwork unitOfwork)
+        {
+            this.unitOfwork = unitOfwork;
+        }
 
-		public DeleteAssignementAnswerHandler(IUnitOfwork unitOfwork)
-		{
-			this.unitOfwork = unitOfwork;
-		}
+        public async Task<Result<int>> Handle(DeleteAssignementAnswerCommand request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                User user = await unitOfwork.UserRepository.GetUserByUserName(request.StudentUserName);
+                if (user is null)
+                    return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "not valid data"));
 
-		public async Task<Result<int>> Handle(DeleteAssignementAnswerCommand request, CancellationToken cancellationToken)
-		{
-			try
-			{
-				AssignmentAnswer assignementanswer = await unitOfwork.AssignementAnswerRepository.GetByIdAsync(request.Id);
-				if (assignementanswer is null)
-					Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "No assignementanswer has this Id")) ;			 
+                AssignmentAnswer assignementanswer = await unitOfwork.AssignementAnswerRepository.GetByIdAsync(request.Id);
 
-				bool IsDeleted = await unitOfwork.AssignementAnswerRepository.DeleteAsync(request.Id);
+                if (assignementanswer is null || assignementanswer.StudentId != user.Id)
+                    Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "No assignementanswer has this Id"));
 
-				if (IsDeleted) 
-				{
-					int NumOfTasks = await unitOfwork.SaveChangesAsync();
-					return Result.Success<int>(request.Id);
-				}
-				return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "Unable To Delete")) ;
-			}
-			catch(Exception ex) 
-			{
-				return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: ex.Message.ToString()));
-			}
-		}
-	}
+                bool IsDeleted = await unitOfwork.AssignementAnswerRepository.DeleteAsync(request.Id);
+
+                if (IsDeleted)
+                {
+                    int NumOfTasks = await unitOfwork.SaveChangesAsync();
+                    return Result.Success<int>(request.Id);
+                }
+                return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: "Unable To Delete"));
+            }
+            catch (Exception ex)
+            {
+                return Result.Failure<int>(new Error(code: "Delete AssignementAnswer", message: ex.Message.ToString()));
+            }
+        }
+    }
 }

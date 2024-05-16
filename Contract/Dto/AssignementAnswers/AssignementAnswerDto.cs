@@ -12,7 +12,7 @@ namespace Contract.Dto.AssignementAnswers
         public string Description { get; set; }
         public int StudentId { get; set; }  
         public int AssignementId { get; set; }
-
+         
         public AssignmentAnswer GetAssignementAnswer()
         {
             return new AssignmentAnswer

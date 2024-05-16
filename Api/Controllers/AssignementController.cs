@@ -1,5 +1,6 @@
 ﻿using Application.CQRS.Command.Assignements;
 using Application.CQRS.Command.Faculties;
+using Application.CQRS.Query.Assignements;
 using Application.CQRS.Query.Faculties;
 using Contract.Dto.Assignements;
 using Contract.Dto.Faculties;
@@ -27,13 +28,13 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("CreateAssignement")] //CreateAssignementCommand
-        public async Task<ActionResult> CreateAssignement([FromBody] AssignementDto assignementDto)
+        public async Task<ActionResult> CreateAssignement([FromBody] AssignementDto assignementDto, string InstructorUserName)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                var command = new CreateAssignementCommand { AssignementDto = assignementDto };
+                var command = new CreateAssignementCommand { AssignementDto = assignementDto , InstructorUserName= InstructorUserName };
                 Result result = await mediator.Send(command);
 
                 return result.IsSuccess ? Ok("Assignement Added Sucessfully") : BadRequest(result.Error);
@@ -43,14 +44,14 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        /*
+        
         [HttpGet]
-        [Route("GetFaculties")]
-        public async Task<ActionResult> GetALlFaculties()
+        [Route("GetAllAssignemntsOfSection")]
+        public async Task<ActionResult> GetAllAssignemntsOfSection(int SectionId , bool IsInstructor , string ProfOrInstrUserName )
         {
             try
             {
-                var result = await mediator.Send(new GetAllFacultiesQuery());
+                var result = await mediator.Send(new GetAllAssignementsOfSectionQuery {SectionId =SectionId , IsInstructor= IsInstructor , ProfOrInstUserName = ProfOrInstrUserName });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);
@@ -60,16 +61,33 @@ namespace Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
-        */
+
+        [HttpGet]
+        [Route("GetAllFilesForAssignemnt")]
+        public async Task<ActionResult> GetAllFilesForAssignemnt(int AssigenmentId, bool IsInstructor, string ProfOrInstrUserName)
+        {
+            try
+            {
+                var result = await mediator.Send(new GetAssignementsResourceByIdQuery { AssignmentId = AssigenmentId, IsInstructor = IsInstructor, ProfessorOrInstrucotrUserName = ProfOrInstrUserName });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPut]
         [Route("UpdateAssignement")]
-        public async Task<ActionResult> UpdateAssignement([FromHeader] int Id, [FromBody] AssignementDto assignementDto)
+        public async Task<ActionResult> UpdateAssignement([FromHeader] int Id, [FromBody] AssignementDto assignementDto, string InstructorUserName)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                Result<Assignment> resultOfUpdated = await mediator.Send(new UpdateAssignementCommand { Id = Id, AssignementDto = assignementDto });
+                Result<Assignment> resultOfUpdated = await mediator.Send(new UpdateAssignementCommand { Id = Id, AssignementDto = assignementDto , InstructorUserName = InstructorUserName });
 
                 return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);
             }
@@ -81,7 +99,7 @@ namespace Api.Controllers
 
         [HttpDelete]
         [Route("DeleteAssignement")]
-        public async Task<ActionResult> DeleteAssignement([FromHeader] int Id)
+        public async Task<ActionResult> DeleteAssignement([FromHeader] int Id , string InstructorUserName)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -89,7 +107,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteAssignementCommand { Id = Id });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteAssignementCommand { Id = Id , InstructorUserName= InstructorUserName });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

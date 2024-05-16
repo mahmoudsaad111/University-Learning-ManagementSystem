@@ -12,7 +12,6 @@ namespace Application.Config
 {
 
 	public class AssignmentAnswerConfig : IEntityTypeConfiguration<AssignmentAnswer>
-
     {
         public void Configure(EntityTypeBuilder<AssignmentAnswer> builder)
         {
@@ -29,7 +28,6 @@ namespace Application.Config
             // Relations
             builder.HasOne(x => x.Assignment).WithMany(y => y.AssignmentAnswers).HasForeignKey(x => x.AssignmentId);
             builder.HasOne(x => x.Student).WithMany(y => y.AssignmentAnswers).HasForeignKey(x => x.StudentId);
-
 
             //
             builder.HasMany(x => x.AssignmentAnswerResources).WithOne(y => y.AssignmentAnswer).HasForeignKey(y => y.AssignmentAnswerId).OnDelete(DeleteBehavior.NoAction);

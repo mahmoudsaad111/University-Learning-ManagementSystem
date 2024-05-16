@@ -26,11 +26,11 @@ namespace Infrastructure.Common
         public ICourseCategoryRepository CourseCategoryRepository { get; private set; }
         public ICourseCycle CourseCycleRepository { get; private set; }
         public IBaseRepository<Lecture> LectureRepository { get; private set; }
-        public IBaseRepository<Assignment> AssignementRepository {  get; private set; }    
-        public IBaseRepository<AssignmentAnswer> AssignementAnswerRepository { get; private set; }
+        public IAssignementRepository AssignementRepository { get; private set; }
+        public IAssignementAnswerRepository AssignementAnswerRepository { get; private set; }
         public ILectureResourceRepository LectureResourceRepository { get; private set; }
         public IAssignementResourceRepository AssignementResourceRepository { get; private set; }
-        public IAssignementAnswerResouceRepository AssignementAnswerResouceRepository { get; private set; }
+        public IAssignementAnswerResourceRepository AssignementAnswerResourceRepository { get; private set; }
         public IBaseRepository<Post> PostRepository {get;private set;}
         public IBaseRepository<PostReply> PostReplyRepository {get;private set;}
         public IBaseRepository<Comment> CommentRepository { get;private set;}
@@ -84,12 +84,12 @@ namespace Infrastructure.Common
             ExamPlaceRepository=new ExamPlaceRepository(_context);
             MCQRepository = new MCQRepository(_context);
             TFQRepository = new TFQRepository(_context);
-
             StudentAnswerInTFQRepository = new StudentAnswerInTFQRepository(_context);
             StudentAnswerInMCQRepository = new StudentAnswerInMCQRepository(_context);
-
-
             StudentExamRepository =new StudentExamRepository(_context , StudentAnswerInMCQRepository , StudentAnswerInTFQRepository , MCQRepository , TFQRepository);
+
+            AssignementResourceRepository = new AssignementResourceRepository(_context);
+            AssignementAnswerResourceRepository = new AssignementAnswerResourceRepository(_context);
         }
 
 		public async Task<int> SaveChangesAsync()

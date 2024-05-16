@@ -96,7 +96,7 @@ namespace Infrastructure.Repositories
 
                                    select new CourseOfProfessorDto
                                    {
-                                       CourseCycleId= courseCycle.CourseId,
+                                       CourseCycleId= courseCycle.CourseCycleId,
                                        GroupId=_group.GroupId ,
                                        GroupName=_group.Name,                               
                                        CourseId = course.CourseId,

@@ -15,8 +15,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<IEnumerable<int>> GetAllSectionsIdOfInstructore(int instructorId);
         public Task<IEnumerable<int>> GetAllSectionsIdOfProfessor(int ProfesssorId);
 
-        public Task<bool> CheckIfInstructorInSection(int InstrucotrId, int SectionId); 
-
+        public Task<bool> CheckIfInstructorInSection(int InstrucotrId, int SectionId);
+        public Task<bool> CheckIfProfessorInSection(int ProfessorId, int SectionId);
         public Task<SectionsOfCoursesToStudentDto> GetSectionOfCoursesToStudent (int StudentId , int CourseCycleId);
 
         public Task<IEnumerable<SectionOfInstructorDto>> GetSectionsOfInstructor(int InstructorId);

@@ -31,9 +31,7 @@ namespace Application.Config
            
             // the next line is commented because we delete relation between assignment and Lecture and make the relation betwen section and Assignmnet
            //builder.HasOne(a=>a.lecture).WithMany(l=>l.Assignments).HasForeignKey(a=>a.LectureId); 
-            //indexes
-             
-           
+            //indexes           
         }
     }
 }
