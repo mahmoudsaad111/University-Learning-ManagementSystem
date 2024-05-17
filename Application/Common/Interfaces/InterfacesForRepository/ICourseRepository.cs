@@ -21,5 +21,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<IEnumerable<int>> GetAllCoursesIdOfAcadimicYearId(int AcadimicYearId);
 
         public Task<bool> CheckIfStudentHasAccessToCourse(string StudentUserName, int CourseId);
+
+        public Task<IEnumerable<string>> GetEmailsOfStudnetsHavingAccessToCourseOnAllGroups (int CourseId); 
     }
 }

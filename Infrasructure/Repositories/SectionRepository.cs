@@ -190,6 +190,5 @@ namespace Infrastructure.Repositories
 
             return SectionsOfProfessor;
         }
-     
     }
 }

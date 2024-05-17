@@ -10,6 +10,7 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 {
     public interface IAssignementRepository : IBaseRepository<Assignment>
     {
-        public Task<IEnumerable<Assignment>> GetAllAssignementsOfSection(int sectionId);    
+        public Task<IEnumerable<Assignment>> GetAllAssignementsOfSection(int sectionId);
+        public Task<IEnumerable<string>> GetEmailsOfStudnetsHavingAccessToAssignment(int AssignmentId);
     }
 }

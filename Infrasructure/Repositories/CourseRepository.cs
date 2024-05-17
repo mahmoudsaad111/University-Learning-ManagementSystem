@@ -148,5 +148,16 @@ namespace Infrastructure.Repositories
             }
             return Enumerable.Empty<CourseOfStudentDto>();
         }
+
+        public async Task<IEnumerable<string>> GetEmailsOfStudnetsHavingAccessToCourseOnAllGroups(int CourseId)
+        {
+            var Emails = await (from course in _appDbContext.Courses
+                                where course.CourseId == CourseId
+                                join student in _appDbContext.Students on course.AcadimicYearId equals student.AcadimicYearId
+                                join user in _appDbContext.Users on student.StudentId equals user.Id
+                                select user.Email
+                                ).ToListAsync();
+            return Emails;
+        }
     }
 }

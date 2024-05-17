@@ -33,7 +33,6 @@ namespace Application.CQRS.Query.Sections
             catch (Exception ex)
             {
                 return Result.Failure<IEnumerable<SectionOfStudentDto>>(new Error(code: "GetAllSectionsToStudent", message: ex.Message.ToString()));
-
             }
         }
     }

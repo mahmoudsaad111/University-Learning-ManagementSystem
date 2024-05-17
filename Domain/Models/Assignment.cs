@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Models
@@ -20,6 +21,7 @@ namespace Domain.Models
 
         //& public string UrlOfResource { get; set; } = null!;
         public int SectionId { get; set; }
+        [JsonIgnore]
         public Section Section { get; set; }
         public ICollection<AssignmentAnswer> AssignmentAnswers { get; set; } = null!;
         public ICollection<AssignmentResource> AssignmentResources { get; set; }

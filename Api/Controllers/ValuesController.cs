@@ -1,4 +1,6 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Application.CQRS.Query.Assignements;
+using Application.CQRS.Query.StudentExams;
 using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +32,24 @@ namespace Api.Controllers
 
             var result = await unitOfWork.SectionRepository.GetSectionsOfInstructor(user.Id);
             return Ok(result);  
+        }
+
+        [HttpGet("EmailsOfStudnetsOnExam")]
+        public async Task<ActionResult> EmailsOfStudnetsOnExam(int ExamId)
+        {
+            var result = await mediator.Send(new GetEmailsOfStudentsHavingAccessToExamQuery { ExamId = ExamId }); 
+           if(result.IsSuccess)
+            return Ok(result.Value);
+           return BadRequest(result);   
+        }
+
+        [HttpGet("EmailsOfStudnetsOnAssignment")]
+        public async Task<ActionResult> EmailsOfStudnetsOnAssignment(int AssId)
+        {
+            var result = await mediator.Send(new GetEmailsOfStudnetsHavingAccessToAssignmentQuery { AssignmentId = AssId });
+            if (result.IsSuccess)
+                return Ok(result.Value);
+            return BadRequest(result);
         }
     }
 }

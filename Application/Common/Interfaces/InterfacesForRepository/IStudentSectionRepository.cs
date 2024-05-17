@@ -16,7 +16,9 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<bool> CheckIfStudentInSection(int StudentId, int SectionId);
         public Task<bool> CheckIfStudnetInSectionByUserName(string StudentUserName, int SectionId);
         public Task<int> GetStudentSectionId(int SectionId, int StudentCourseCycleId);
-        public Task<IEnumerable<int>>GetAllStudentsIdOnSection(int  SectionId);  
+        public Task<IEnumerable<int>>GetAllStudentsIdOnSection(int  SectionId);
         public Task<IEnumerable<SectionOfStudentDto>> GetAllSectionsOfStudent(int StudentId);
+
+        public Task<IEnumerable<string>> GetEmailsOfStudentsOnSection(int SectionId);
     }
 }

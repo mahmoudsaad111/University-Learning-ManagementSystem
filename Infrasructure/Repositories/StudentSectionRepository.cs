@@ -92,5 +92,16 @@ namespace Infrastructure.Repositories
                                 }
                                 ).ToListAsync();  
         }
+
+        public async Task<IEnumerable<string>> GetEmailsOfStudentsOnSection(int SectionId)
+        {
+            var Emails = await (from sins in _appDbContext.StudentSections
+                                 where sins.SectionId == SectionId
+                                 join sincc in _appDbContext.StudentsInCourseCycles on sins.StudentCourseCycleId equals sincc.StudentCourseCycleId
+                                 join user in _appDbContext.Users on sincc.StudentId equals user.Id
+                                 select user.Email
+                                 ).ToListAsync();
+            return Emails; 
+        }
     }
 }

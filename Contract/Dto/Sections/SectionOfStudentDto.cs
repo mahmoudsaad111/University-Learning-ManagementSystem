@@ -8,6 +8,7 @@ namespace Contract.Dto.Sections
 {
     public class SectionOfStudentDto
     {
+        public int SectionId { get; set; } 
         public string SectionName { get; set; }
         public string SectionDescription { get; set; }
         public int InstructorId { get; set; }
