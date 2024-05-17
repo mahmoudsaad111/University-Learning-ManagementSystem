@@ -1,4 +1,6 @@
 ﻿using Application.Common.Interfaces.CQRSInterfaces;
+using Contract.Dto.Assignements;
+using Domain.Enums;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -10,8 +12,6 @@ namespace Application.CQRS.Query.Assignements
 {
     public class GetAllAssignementsOfSectionQuery : IQuery<IEnumerable<Assignment>>
     {
-        public int SectionId {  get; set; } 
-        public string ProfOrInstUserName { get; set; }    
-        public bool IsInstructor {  get; set; } 
+       public AssignmentOfSectionToAnyUserDto assignmentToAnyUserDto { get; set; }
     }
 }

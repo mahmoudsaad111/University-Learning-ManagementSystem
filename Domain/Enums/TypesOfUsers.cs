@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Enums
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+//    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum TypesOfUsers
     {
-        [EnumMember(Value = "Student")]
+      //  [EnumMember(Value = "Student")]
         Student,
-        [EnumMember(Value = "Professor")]
+     //   [EnumMember(Value = "Professor")]
         Professor,
-        [EnumMember(Value = "Instructor")]
+     //   [EnumMember(Value = "Instructor")]
         Instructor
     }
 }

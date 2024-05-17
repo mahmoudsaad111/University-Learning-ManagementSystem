@@ -2,6 +2,7 @@
 using Application.Common.Interfaces.Presistance;
 using Contract.Dto.AssignementAnswers;
 using Contract.Dto.Assignements;
+using Domain.Enums;
 using Domain.Shared;
 using System;
 using System.Collections.Generic;
@@ -25,26 +26,28 @@ namespace Application.CQRS.Query.Assignements
             try
             {
                 bool IfUserHasAccessToSection = false;
-                var User = await unitOfwork.UserRepository.GetUserByUserName(request.ProfessorOrInstrucotrUserName);
+                var User = await unitOfwork.UserRepository.GetUserByUserName(request.assignmentsResourseToAnyUserDto.UserName);
 
                 if (User is null)
                     return Result.Failure<AssignemntFilesDto>(new Error(code: "GetAssignementsResourceByIdQuery", message: "Invalid data"));
 
-                var Assignment = await unitOfwork.AssignementRepository.GetByIdAsync(request.AssignmentId);
+                var Assignment = await unitOfwork.AssignementRepository.GetByIdAsync(request.assignmentsResourseToAnyUserDto.AssignmentId);
                 if (Assignment is null)
                     return Result.Failure<AssignemntFilesDto>(new Error(code: "GetAssignementsResourceByIdQuery", message: "Invalid data"));
 
 
-                if (request.IsInstructor)
+                if (request.assignmentsResourseToAnyUserDto.TypeOfUser == TypesOfUsers.Instructor)
                     IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfInstructorInSection(SectionId: Assignment.SectionId, InstrucotrId: User.Id);
-                else
+                else if (request.assignmentsResourseToAnyUserDto.TypeOfUser == TypesOfUsers.Professor)
                     IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfProfessorInSection(SectionId: Assignment.SectionId, ProfessorId: User.Id);
+                else if (request.assignmentsResourseToAnyUserDto.TypeOfUser == TypesOfUsers.Student)
+                    IfUserHasAccessToSection = await unitOfwork.StudentSectionRepository.CheckIfStudentInSection(StudentId: User.Id, SectionId: Assignment.SectionId);
+
 
                 if (!IfUserHasAccessToSection)
                     return Result.Failure<AssignemntFilesDto>(new Error(code: "GetAssignementsResourceByIdQuery", message: "Has no access"));
 
-
-                var AssignmentFiles = await unitOfwork.AssignementResourceRepository.GetFilesOfAssignemnt(assignemntId: request.AssignmentId);
+                var AssignmentFiles = await unitOfwork.AssignementResourceRepository.GetFilesOfAssignemnt(assignemntId: Assignment.AssignmentId);
                 return Result.Success(AssignmentFiles); 
             }
             catch (Exception ex)

@@ -10,8 +10,6 @@ namespace Application.CQRS.Query.Assignements
 {
     public class GetAssignementsResourceByIdQuery : IQuery<AssignemntFilesDto>
     {
-        public int AssignmentId { get; set; }   
-        public string ProfessorOrInstrucotrUserName { get; set; }   
-        public bool IsInstructor { get; set; }  
+       public AssignmentsResourseToAnyUserDto assignmentsResourseToAnyUserDto { get; set; }   
     }
 }

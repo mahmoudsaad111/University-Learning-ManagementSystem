@@ -4,6 +4,7 @@ using Application.CQRS.Query.Assignements;
 using Application.CQRS.Query.Faculties;
 using Contract.Dto.Assignements;
 using Contract.Dto.Faculties;
+using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
@@ -47,11 +48,20 @@ namespace Api.Controllers
         
         [HttpGet]
         [Route("GetAllAssignemntsOfSection")]
-        public async Task<ActionResult> GetAllAssignemntsOfSection(int SectionId , bool IsInstructor , string ProfOrInstrUserName )
+        public async Task<ActionResult> GetAllAssignemntsOfSection(int SectionId, string UserName ,  TypesOfUsers typesOfUsers)
         {
             try
             {
-                var result = await mediator.Send(new GetAllAssignementsOfSectionQuery {SectionId =SectionId , IsInstructor= IsInstructor , ProfOrInstUserName = ProfOrInstrUserName });
+                var result = await mediator.Send(new GetAllAssignementsOfSectionQuery
+                { 
+                    assignmentToAnyUserDto = new AssignmentOfSectionToAnyUserDto
+                    {
+                        SectionId=SectionId ,
+                        UserName=UserName,
+                        TypeOfUser=typesOfUsers
+                    }
+                    
+                });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);
@@ -64,11 +74,19 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetAllFilesForAssignemnt")]
-        public async Task<ActionResult> GetAllFilesForAssignemnt(int AssigenmentId, bool IsInstructor, string ProfOrInstrUserName)
+        public async Task<ActionResult> GetAllFilesForAssignemnt( int AssignmentId, string UserName , TypesOfUsers typesOfUsers)
         {
             try
             {
-                var result = await mediator.Send(new GetAssignementsResourceByIdQuery { AssignmentId = AssigenmentId, IsInstructor = IsInstructor, ProfessorOrInstrucotrUserName = ProfOrInstrUserName });
+                var result = await mediator.Send(new GetAssignementsResourceByIdQuery
+                {
+                    assignmentsResourseToAnyUserDto = new AssignmentsResourseToAnyUserDto
+                    {
+                        AssignmentId = AssignmentId,
+                        UserName = UserName,
+                        TypeOfUser = typesOfUsers
+                    }
+                });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);

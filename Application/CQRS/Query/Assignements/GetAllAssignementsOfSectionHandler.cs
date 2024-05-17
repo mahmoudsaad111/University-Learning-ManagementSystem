@@ -2,10 +2,7 @@
 using Application.Common.Interfaces.Presistance;
 using Domain.Models;
 using Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Domain.Enums;
 using System.Threading.Tasks;
 
 namespace Application.CQRS.Query.Assignements
@@ -23,20 +20,22 @@ namespace Application.CQRS.Query.Assignements
             try
             {
                 bool IfUserHasAccessToSection = false;  
-                var User = await unitOfwork.UserRepository.GetUserByUserName(request.ProfOrInstUserName);
+                var User = await unitOfwork.UserRepository.GetUserByUserName(request.assignmentToAnyUserDto.UserName);
 
                 if (User is null)
                     return Result.Failure<IEnumerable<Assignment>>(new Error(code: "GetAllAssignementsOfSectionQuery", message: "Invalid data"));
 
-                if (request.IsInstructor)
-                    IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfInstructorInSection(SectionId: request.SectionId, InstrucotrId: User.Id);
-                else
-                    IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfProfessorInSection(SectionId: request.SectionId, ProfessorId: User.Id);
+                if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Instructor)
+                    IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfInstructorInSection(SectionId: request.assignmentToAnyUserDto.SectionId, InstrucotrId: User.Id);
+                else if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Professor)
+                    IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfProfessorInSection(SectionId: request.assignmentToAnyUserDto.SectionId, ProfessorId: User.Id);
+                else if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Professor)
+                    IfUserHasAccessToSection =await unitOfwork.StudentSectionRepository.CheckIfStudentInSection(StudentId: User.Id, SectionId: request.assignmentToAnyUserDto.SectionId);
 
-                if(! IfUserHasAccessToSection)
+                    if (! IfUserHasAccessToSection)
                     return Result.Failure<IEnumerable<Assignment>>(new Error(code: "GetAllAssignementsOfSectionQuery", message: "Has no access"));
 
-                var AssignemntsOfSection = await unitOfwork.AssignementRepository.GetAllAssignementsOfSection(sectionId : request.SectionId);   
+                var AssignemntsOfSection = await unitOfwork.AssignementRepository.GetAllAssignementsOfSection(sectionId: request.assignmentToAnyUserDto.SectionId);   
 
                 return Result.Success(AssignemntsOfSection);
             }
