@@ -27,9 +27,15 @@ namespace Api.Controllers
             if(!ModelState.IsValid)
              return BadRequest(ModelState);
             var ResultOfCreateExam = await mediator.Send(new CreateExamCommand { ExamDto = examDto });
-
             if (ResultOfCreateExam is not null && ResultOfCreateExam.IsSuccess)
-                return Ok(ResultOfCreateExam.Value) ;
+            {
+                // Update for sending notification to students via email
+                var StudentEmails = await mediator.Send(new GetEmailsOfStudentsHavingAccessToExamQuery {ExamId=ResultOfCreateExam.Value.ExamId }); 
+                
+
+
+                return Ok(ResultOfCreateExam.Value);
+            }
 
             return BadRequest(ResultOfCreateExam?.Value);            
         }

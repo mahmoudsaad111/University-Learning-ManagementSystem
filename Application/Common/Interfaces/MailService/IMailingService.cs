@@ -10,5 +10,7 @@ namespace Application.Common.Interfaces.MailService
     public interface IMailingService
     {
         Task SendEmailAsync(string mailTo, string subject, string body, IList<IFormFile> attachments = null);
+        Task SendToEmails(IEnumerable<string> Emails, string subject, string body, IList<IFormFile> attachments = null);
+
     }
 }

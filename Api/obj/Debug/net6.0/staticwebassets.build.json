@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "mRD5GlG99W5j6XhkOFdgRyNaMGb+BR+4Wm3k3MfLpmQ=",
+  "Hash": "1jYjhUnedfesN6NgQ9z31VevIMrV/0LoeOdhNrQHvz8=",
   "Source": "Api",
   "BasePath": "_content/Api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "Api\\wwwroot",
       "Source": "Api",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\AssignementAnswers\\1\\1\\1\\1\\KarinSaadAssignemnetAnswer.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\AssignementAnswers\\1\\1\\1\\1\\KarinSaadAssignemnetAnswer.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/AssignementAnswers/1/1/1/1/KarinSaadAssignemnetAnswer.pdf",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\AssignementAnswers\\1\\1\\1\\1\\KarinSaadAssignemnetAnswer.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\1\\1\\1\\KarimSaadAssignement.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\1\\1\\1\\KarimSaadAssignement.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Assignements/1/1/1/KarimSaadAssignement.pdf",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Assignements\\1\\1\\1\\KarimSaadAssignement.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\KarimSaadResume.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\KarimSaadResume.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Assignements/3/1/1/KarimSaadResume.pdf",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\KarimSaadResume.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\Shhet5.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\Shhet5.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Assignements/3/1/1/Shhet5.pdf",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Assignements\\3\\1\\1\\Shhet5.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Courses\\1\\1\\KarimSaadNewResume.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Courses\\1\\1\\KarimSaadNewResume.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Courses/1/1/KarimSaadNewResume.pdf",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Courses\\1\\1\\KarimSaadNewResume.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Courses\\1\\2\\Name List.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Courses\\1\\2\\Name List.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Courses/1/2/Name List.pdf",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Courses\\1\\2\\Name List.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\3\\KarimSaadResume.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\3\\KarimSaadResume.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Sections/1/1/3/KarimSaadResume.pdf",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Sections\\1\\1\\3\\KarimSaadResume.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\4\\Name List.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\4\\Name List.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Sections/1/1/4/Name List.pdf",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Sections\\1\\1\\4\\Name List.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\KarimSaadResume.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\KarimSaadResume.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Sections/1/1/5/KarimSaadResume.pdf",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\KarimSaadResume.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\NameList.pdf",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\NameList.pdf",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/1/Sections/1/1/5/NameList.pdf",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\1\\1\\1\\Sections\\1\\1\\5\\NameList.pdf"
     },
     {
-      "Identity": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\Student\\karim.elsa3d100.jpg",
+      "Identity": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\1\\1\\Student\\karim.elsa3d100.jpg",
       "SourceId": "Api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\lenovo\\Desktop\\LV will add assignments\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Api\\wwwroot\\",
       "BasePath": "_content/Api",
       "RelativePath": "1/1/Student/karim.elsa3d100.jpg",
       "AssetKind": "All",

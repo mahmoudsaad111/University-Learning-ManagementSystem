@@ -1,16 +1,21 @@
-﻿using Application.CQRS.Command.Assignements;
+﻿using Api.Pages;
+using Application.Common.Interfaces.MailService;
+using Application.CQRS.Command.Assignements;
 using Application.CQRS.Command.Faculties;
 using Application.CQRS.Query.Assignements;
 using Application.CQRS.Query.Faculties;
+using Application.CQRS.Query.Sections;
 using Contract.Dto.Assignements;
 using Contract.Dto.Faculties;
 using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Api.Controllers
 {
@@ -18,13 +23,18 @@ namespace Api.Controllers
     [ApiController]
     public class AssignementController : ControllerBase
     {
+        private readonly IMailingService _mailingService;
+        private readonly IRazorPartialToStringRenderer _renderer;
         private readonly IMediator mediator;
         private readonly UserManager<User> userManager;
 
-        public AssignementController(IMediator mediator, UserManager<User> userManager)
+        public AssignementController(IMediator mediator, UserManager<User> userManager,
+            IMailingService mailingService, IRazorPartialToStringRenderer renderer)
         {
             this.mediator = mediator;
             this.userManager = userManager;
+            _mailingService = mailingService;   
+            _renderer = renderer;   
         }
 
         [HttpPost]
@@ -36,9 +46,27 @@ namespace Api.Controllers
             try
             {
                 var command = new CreateAssignementCommand { AssignementDto = assignementDto , InstructorUserName= InstructorUserName };
-                Result result = await mediator.Send(command);
+                var result = await mediator.Send(command);
 
-                return result.IsSuccess ? Ok("Assignement Added Sucessfully") : BadRequest(result.Error);
+                if (result.IsFailure) return BadRequest(result.Error); 
+                // Email notification for students
+
+                var Assignment = result.Value; 
+                var EmailsResult= await mediator.Send(new GetEmailsOfStudnetsHavingAccessToAssignmentQuery { AssignmentId =Assignment.AssignmentId });
+                var Emails = EmailsResult.Value;
+                var AssignmentLink = $"http://localhost:3000/Assignement/GetAllFilesForAssignemnt?AssignmentId={Assignment.AssignmentId}";
+                var SectionAndCourseCycleName = await mediator.Send(new GetSectionAndCourseCycleNameQuery { SectionId =Assignment.SectionId}); 
+                var model = new AssigmentsNotificationModel { AssignmentLink = AssignmentLink,
+                    Deadline=Assignment.EndedAt,SectionName= SectionAndCourseCycleName.Value.SectionName,
+                   CourseCycleName= SectionAndCourseCycleName.Value.CourseCycleName}; 
+
+                var htmlContent = await _renderer.RenderPartialToStringAsync("AssignmentsNotificationTemplate", model);
+
+                await _mailingService.SendToEmails(Emails, "New Assignemnt", htmlContent);
+
+                //////////////////////////////////////
+                
+                return result.IsSuccess ? Ok(Assignment) : BadRequest(result.Error);
             }
             catch (Exception ex)
             {

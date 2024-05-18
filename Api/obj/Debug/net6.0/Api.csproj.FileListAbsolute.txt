@@ -754,3 +754,6 @@ C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatfor
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Api\obj\Debug\net6.0\Api.pdb
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Api\obj\Debug\net6.0\Api.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Api\obj\Debug\net6.0\ref\Api.dll
+C:\Users\mahmo\OneDrive\Desktop\new project\OnlineLearningModelSystemPlatform\Api\obj\Debug\net6.0\Api.RazorAssemblyInfo.cache
+C:\Users\mahmo\OneDrive\Desktop\new project\OnlineLearningModelSystemPlatform\Api\obj\Debug\net6.0\Api.RazorAssemblyInfo.cs
+C:\Users\mahmo\OneDrive\Desktop\new project\OnlineLearningModelSystemPlatform\Api\bin\Debug\net6.0\Newtonsoft.Json.dll

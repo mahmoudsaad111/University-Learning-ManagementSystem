@@ -240,7 +240,7 @@ namespace Infrastructure.Repositories
         }
 
  
-
+ 
         public async Task<IEnumerable<ExamOfStudentToDto>> GetAllExamsOfStudentInCourseCycle(int courseCylceId , int studentId)
         {
             var ResuultOfQuery = await (from examPlace in _appDbContext.ExamPlaces

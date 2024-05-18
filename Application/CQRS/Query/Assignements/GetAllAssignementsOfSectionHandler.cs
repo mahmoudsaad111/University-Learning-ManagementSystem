@@ -29,7 +29,7 @@ namespace Application.CQRS.Query.Assignements
                     IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfInstructorInSection(SectionId: request.assignmentToAnyUserDto.SectionId, InstrucotrId: User.Id);
                 else if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Professor)
                     IfUserHasAccessToSection = await unitOfwork.SectionRepository.CheckIfProfessorInSection(SectionId: request.assignmentToAnyUserDto.SectionId, ProfessorId: User.Id);
-                else if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Professor)
+                else if (request.assignmentToAnyUserDto.TypeOfUser == TypesOfUsers.Student)
                     IfUserHasAccessToSection =await unitOfwork.StudentSectionRepository.CheckIfStudentInSection(StudentId: User.Id, SectionId: request.assignmentToAnyUserDto.SectionId);
 
                     if (! IfUserHasAccessToSection)

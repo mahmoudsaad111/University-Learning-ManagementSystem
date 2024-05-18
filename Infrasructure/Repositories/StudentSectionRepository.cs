@@ -82,6 +82,7 @@ namespace Infrastructure.Repositories
                                 join u in _appDbContext.Users on sec.InstructorId equals u.Id
                                 select new SectionOfStudentDto
                                 {
+                                    SectionId=sec.SectionId,
                                     SectionName = sec.Name,
                                     SectionDescription = sec.Description,
                                     InstructorId = sec.InstructorId,

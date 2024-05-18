@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.CQRSInterfaces;
 using Application.Common.Interfaces.Presistance;
+using Contract.Dto.Assignements;
 using Domain.Shared;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Presistance;
+using Contract.Dto.Assignements;
 using Domain.Models;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.Assignements;
 using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
@@ -31,7 +32,7 @@ namespace Infrastructure.Repositories
                                           join studentCourseCycle in _appDbContext.StudentsInCourseCycles on studentSection.StudentCourseCycleId equals studentCourseCycle.StudentCourseCycleId
                                           join user in _appDbContext.Users on studentCourseCycle.StudentId equals user.Id
                                           select user.Email
-                                          ).ToListAsync();
+                                              ).ToListAsync();
             return EmailsOfStudents;
         }
     }

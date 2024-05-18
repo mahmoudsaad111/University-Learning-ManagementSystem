@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.InterfacesForRepository;
+using Contract.Dto.ReturnedDtos;
 using Contract.Dto.Sections;
 using Domain.Models;
 using Infrastructure.Common;
@@ -189,6 +190,21 @@ namespace Infrastructure.Repositories
                                       ).ToListAsync();
 
             return SectionsOfProfessor;
+        }
+
+        public async Task<SectionAndCourseCycleNameDto> GetSectionAndCourseCycleName(int SectionId) {
+            var SectionAndCourseCycleNames = await (from s in _appDbContext.Sections
+                                                    where s.SectionId == SectionId
+                                                    from sc in _appDbContext.CourseCycles
+                                                    where s.CourseCycleId==sc.CourseCycleId
+                                                    select new SectionAndCourseCycleNameDto
+                                                    {
+                                                        SectionName=s.Name,
+                                                        CourseCycleName=sc.Title
+                                                    }
+                                                    ).FirstOrDefaultAsync();
+
+            return SectionAndCourseCycleNames; 
         }
     }
 }
