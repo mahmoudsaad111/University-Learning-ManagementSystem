@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {}
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
         "projectName": "Contract",
-        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
         "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
+        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
+              "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
               }
             }
           }
@@ -86,14 +86,14 @@
         }
       }
     },
-    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",

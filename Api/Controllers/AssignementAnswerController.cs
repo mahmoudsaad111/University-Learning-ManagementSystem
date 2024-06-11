@@ -34,9 +34,9 @@ namespace Api.Controllers
             try
             {
                 var command = new CreateAssignementAnswerCommand { AssignementAnswerDto = assignementAnswerDto , StudentUserName= StudentUserName };
-                Result result = await mediator.Send(command);
+                var result = await mediator.Send(command);
 
-                return result.IsSuccess ? Ok("AssignementAnswer Added Sucessfully") : BadRequest(result.Error);
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
             }
             catch (Exception ex)
             {

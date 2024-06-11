@@ -3011,11 +3011,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
+      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Infrasructure\\obj\\",
+      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Infrasructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3032,8 +3032,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj"
+            "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {
+              "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj"
             }
           }
         }

@@ -125,3 +125,19 @@ C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatfor
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\refint\Contract.dll
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.pdb
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\ref\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\bin\Debug\net6.0\Contract.deps.json
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\bin\Debug\net6.0\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\bin\Debug\net6.0\Contract.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\bin\Debug\net6.0\Domain.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\bin\Debug\net6.0\Domain.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.csproj.AssemblyReference.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.AssemblyInfoInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.AssemblyInfo.cs
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.csproj.CoreCompileInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.sourcelink.json
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.csproj.Up2Date
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\refint\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\Contract.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Contract\obj\Debug\net6.0\ref\Contract.dll

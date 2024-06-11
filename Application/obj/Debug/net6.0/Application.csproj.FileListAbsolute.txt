@@ -157,3 +157,23 @@ C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatfor
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.pdb
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.genruntimeconfig.cache
 C:\Users\lenovo\Desktop\LV will add assignments\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\ref\Application.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Application.deps.json
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Application.runtimeconfig.json
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Application.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Application.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Domain.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Contract.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\bin\Debug\net6.0\Domain.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.csproj.AssemblyReference.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.AssemblyInfoInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.AssemblyInfo.cs
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.csproj.CoreCompileInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.sourcelink.json
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Applicat.44B5EDA2.Up2Date
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\refint\Application.dll
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.pdb
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\Application.genruntimeconfig.cache
+C:\Users\mahmo\OneDrive\Desktop\version after exams'\OnlineLearningModelSystemPlatform\Application\obj\Debug\net6.0\ref\Application.dll

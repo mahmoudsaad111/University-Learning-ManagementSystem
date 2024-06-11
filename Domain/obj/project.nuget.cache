@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "J79KBoC7rxiruZpxNfuAHnd6RwZ3u+t8Jon8PBOwPb179cWW7dsy/erktI0p/+idM0yhE9sBIHJgdpmpvbOMXw==",
+  "dgSpecHash": "2JaIi1d3VZ3uC2mtWgpzKrxQRPU50CyXOKeLSdSOfd6zUah3nUTTunQPOW/acH5DPIojObYuG3RHcA0yiugC3A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mahmo\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.27\\microsoft.aspnetcore.authentication.jwtbearer.6.0.27.nupkg.sha512",
     "C:\\Users\\mahmo\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.27\\microsoft.aspnetcore.cryptography.internal.6.0.27.nupkg.sha512",
