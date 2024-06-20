@@ -32,6 +32,7 @@ namespace Application.Config
             //
             builder.HasMany(x => x.AssignmentAnswerResources).WithOne(y => y.AssignmentAnswer).HasForeignKey(y => y.AssignmentAnswerId).OnDelete(DeleteBehavior.NoAction);
             // Indexes
+            builder.HasIndex(x => new { x.StudentId, x.AssignmentId }).IsUnique(true);
         }
     }
 }

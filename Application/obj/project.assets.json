@@ -2716,19 +2716,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mahmo\\.nuget\\packages\\": {}
+    "C:\\Users\\lenovo\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
-      "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Application\\obj\\",
+      "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
+      "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2742,11 +2742,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
-              "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj"
+            "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj"
             },
-            "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\version after exams'\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
+            "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
             }
           }
         }

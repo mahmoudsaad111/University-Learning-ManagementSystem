@@ -23,6 +23,7 @@ namespace Domain.Models
         public int SectionId { get; set; }
         [JsonIgnore]
         public Section Section { get; set; }
+        [JsonIgnore]
         public ICollection<AssignmentAnswer> AssignmentAnswers { get; set; } = null!;
         public ICollection<AssignmentResource> AssignmentResources { get; set; }
 
