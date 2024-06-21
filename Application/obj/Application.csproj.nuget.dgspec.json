@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {}
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Application\\obj\\",
+        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +28,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
-                "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj"
+              "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
+                "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj"
               },
-              "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
+              "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
               }
             }
           }
@@ -103,17 +103,17 @@
         }
       }
     },
-    "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
         "projectName": "Contract",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
+        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\Contract.csproj",
+        "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Contract\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -127,8 +127,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
+              "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj"
               }
             }
           }
@@ -185,17 +185,17 @@
         }
       }
     },
-    "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
+    "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lenovo\\Desktop\\llv_project\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

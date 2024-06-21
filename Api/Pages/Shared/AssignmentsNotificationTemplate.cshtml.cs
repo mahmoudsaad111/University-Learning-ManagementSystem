@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class AssigmentsNotificationModel : PageModel
 {
+    public string TypeOfEmail { get; set; }
     public string AssignmentLink { get; set; }
     public string SectionName { get; set; }
 

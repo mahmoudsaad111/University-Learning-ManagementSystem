@@ -1,11 +1,17 @@
-﻿using Application.CQRS.Command.Exams;
+﻿using Api.Pages;
+using Application.Common.Interfaces.MailService;
+using Application.CQRS.Command.Exams;
 using Application.CQRS.Command.StudentExams;
 using Application.CQRS.Query.Exams;
+using Application.CQRS.Query.Sections;
 using Application.CQRS.Query.StudentExams;
+using Application.CQRS.Query.CourseCycles;
+using Application.CQRS.Query.Courses;
 using Contract.Dto.Exams;
 using Contract.Dto.StudentExamDto;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +22,13 @@ namespace Api.Controllers
     public class ExamController : ControllerBase
     {
         private readonly IMediator mediator;
-        public ExamController(IMediator mediator)
+        private readonly IMailingService _mailingService;
+        private readonly IRazorPartialToStringRenderer _renderer;
+        public ExamController(IMediator mediator, IMailingService mailingService, IRazorPartialToStringRenderer renderer)
         {
             this.mediator = mediator;
+            _mailingService = mailingService;
+            _renderer = renderer;
         }
 
         [HttpPost("CreateExam")]
@@ -30,10 +40,8 @@ namespace Api.Controllers
             if (ResultOfCreateExam is not null && ResultOfCreateExam.IsSuccess)
             {
                 // Update for sending notification to students via email
-                var StudentEmails = await mediator.Send(new GetEmailsOfStudentsHavingAccessToExamQuery {ExamId=ResultOfCreateExam.Value.ExamId }); 
-                
-
-
+                await SendExamNotificationViaEmail(ResultOfCreateExam.Value, examDto); 
+                //// 
                 return Ok(ResultOfCreateExam.Value);
             }
 
@@ -198,6 +206,47 @@ namespace Api.Controllers
                 return Ok(Result.Value);
             }
             return BadRequest(Result.Error);
+        }
+
+        async Task SendExamNotificationViaEmail(Exam Exam,ExamDto examDto) {
+     
+                var EmailsResult = await mediator.Send(new GetEmailsOfStudentsHavingAccessToExamQuery { ExamId = Exam.ExamId });
+                var Emails = EmailsResult.Value;
+                // GetExamWorkNowToStudent api that get exam to student using exam Id as query string
+                var ExamLink = $"http://localhost:3000/Exam/GetExamWorkNowToStudent?ExamId={Exam.ExamId}";
+                var model = new ExamNotificationModel
+                {
+                    ExamLink = ExamLink,
+                    ExamDateTime = Exam.StratedAt,
+                };
+                // if the Exam is for Section
+                if (examDto.SectionId != 0)
+                {
+                    var SectionAndCourseCycleName = await mediator.Send(new GetSectionAndCourseCycleNameQuery { SectionId = examDto.SectionId });
+                    model.SectionName = SectionAndCourseCycleName.Value.SectionName;
+                    model.CourseCycleName = SectionAndCourseCycleName.Value.CourseCycleName;
+                }
+                else if (examDto.CourseCycleId != 0)
+                {
+                    var CourseCycle = await mediator.Send(new GetCourseCycleByIdQuery
+                    { CourseCycleId = examDto.CourseCycleId });
+
+                    model.CourseCycleName = CourseCycle.Value.Title;
+
+                }
+                else
+                {
+                    var Course = await mediator.Send(new GetCourseByIdQuery { CourseId = examDto.CourseId });
+                    model.CourseCycleName = Course.Value.Name;
+
+                }
+                var htmlContent = await _renderer.RenderPartialToStringAsync("ExamNotificationTemplate", model);
+
+                await _mailingService.SendToEmails(Emails, "New Exam", htmlContent);
+
+            
+            /////////////////////////////////////////////////////
+
         }
     }
 }

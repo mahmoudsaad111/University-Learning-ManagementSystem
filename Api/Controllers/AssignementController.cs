@@ -51,21 +51,11 @@ namespace Api.Controllers
                 if (result.IsFailure) return BadRequest(result.Error); 
                 // Email notification for students
 
-                var Assignment = result.Value; 
-                var EmailsResult= await mediator.Send(new GetEmailsOfStudnetsHavingAccessToAssignmentQuery { AssignmentId =Assignment.AssignmentId });
-                var Emails = EmailsResult.Value;
-                var AssignmentLink = $"http://localhost:3000/Assignement/GetAllFilesForAssignemnt?AssignmentId={Assignment.AssignmentId}";
-                var SectionAndCourseCycleName = await mediator.Send(new GetSectionAndCourseCycleNameQuery { SectionId =Assignment.SectionId}); 
-                var model = new AssigmentsNotificationModel { AssignmentLink = AssignmentLink,
-                    Deadline=Assignment.EndedAt,SectionName= SectionAndCourseCycleName.Value.SectionName,
-                   CourseCycleName= SectionAndCourseCycleName.Value.CourseCycleName}; 
-
-                var htmlContent = await _renderer.RenderPartialToStringAsync("AssignmentsNotificationTemplate", model);
-
-                await _mailingService.SendToEmails(Emails, "New Assignemnt", htmlContent);
+                var Assignment = result.Value;
+                await SendAssignmentNotificationViaEmail(Assignment,"New Assignment"); 
 
                 //////////////////////////////////////
-                
+
                 return result.IsSuccess ? Ok(Assignment) : BadRequest(result.Error);
             }
             catch (Exception ex)
@@ -134,6 +124,10 @@ namespace Api.Controllers
             try
             {
                 Result<Assignment> resultOfUpdated = await mediator.Send(new UpdateAssignementCommand { Id = Id, AssignementDto = assignementDto , InstructorUserName = InstructorUserName });
+                // Email notification for an update in assigment
+                var Assignment = resultOfUpdated.Value;
+                await SendAssignmentNotificationViaEmail(Assignment, "Assignment Updated");
+                ///////////////////////
 
                 return resultOfUpdated.IsSuccess ? Ok(resultOfUpdated.Value) : BadRequest(resultOfUpdated.Error);
             }
@@ -160,6 +154,26 @@ namespace Api.Controllers
             {
                 return NotFound();
             }
+        }
+
+        async Task SendAssignmentNotificationViaEmail(Assignment Assignment,string TypeOfEmail) {
+            var EmailsResult = await mediator.Send(new GetEmailsOfStudnetsHavingAccessToAssignmentQuery { AssignmentId = Assignment.AssignmentId });
+            var Emails = EmailsResult.Value;
+            var AssignmentLink = $"http://localhost:3000/Assignement/GetAllFilesForAssignemnt?AssignmentId={Assignment.AssignmentId}";
+            var SectionAndCourseCycleName = await mediator.Send(new GetSectionAndCourseCycleNameQuery { SectionId = Assignment.SectionId });
+            var model = new AssigmentsNotificationModel
+            {
+                TypeOfEmail = TypeOfEmail,  
+                AssignmentLink = AssignmentLink,
+                Deadline = Assignment.EndedAt,
+                SectionName = SectionAndCourseCycleName.Value.SectionName,
+                CourseCycleName = SectionAndCourseCycleName.Value.CourseCycleName
+            };
+
+            var htmlContent = await _renderer.RenderPartialToStringAsync("AssignmentsNotificationTemplate", model);
+
+            await _mailingService.SendToEmails(Emails, "Assignment Notigication", htmlContent);
+
         }
     }
 }

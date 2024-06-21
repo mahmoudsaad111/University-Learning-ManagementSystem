@@ -1,4 +1,4 @@
-﻿@model AssigmentsNotificationModel
+﻿@model ExamNotificationModel
 
 <!DOCTYPE html>
 <html>
@@ -49,36 +49,49 @@
             text-decoration: none;
         }
 
-        a:hover {
-            text-decoration: underline;
-        }
+            a:hover {
+                text-decoration: underline;
+            }
     </style>
 </head>
 <body>
-    <h1>@Model.TypeOfEmail</h1>
+    <h1>Assignment Email Notifications</h1>
 
- 
-        <table>
-            <tr>
-                <th colspan="2">Assignment Details</th>
-            </tr>
+
+    <table>
+        <tr>
+            <th colspan="2">Assignment Details</th>
+        </tr>
+        @if (@Model.SectionName is not null)
+        {
             <tr>
                 <td>Section:</td>
-            <td>@Model.SectionName</td>
+                <td>@Model.SectionName</td>
             </tr>
+        }
+        @if (@Model.SectionName is not null && @Model.CourseCycleName is not null)
+        {
             <tr>
                 <td>Course:</td>
-            <td>@Model.CourseCycleName</td>
+                <td>@Model.CourseCycleName</td>
             </tr>
+        }
+        @if (@Model.CourseName is not null)
+        {
             <tr>
-                <td>Assignment Link:</td>
-            <td><a href="@Model.AssignmentLink">Assignment Link</a></td>
+                <td>Course:</td>
+                <td>@Model.CourseName</td>
             </tr>
-            <tr>
-                <td>Deadline:</td>
-            <td>@Model.Deadline.ToString("yyyy-MM-dd HH:mm:ss")</td>
-            </tr>
-        </table>
-    
+        }
+        <tr>
+            <td>Exam Link:</td>
+            <td><a href="@Model.ExamLink">Exam Link</a></td>
+        </tr>
+        <tr>
+            <td>Exam Date:</td>
+            <td>@Model.ExamDateTime.ToString("yyyy-MM-dd HH:mm:ss")</td>
+        </tr>
+    </table>
+
 </body>
 </html>
