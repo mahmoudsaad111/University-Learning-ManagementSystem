@@ -16,6 +16,8 @@ namespace Domain.Enums
      //   [EnumMember(Value = "Professor")]
         Professor,
      //   [EnumMember(Value = "Instructor")]
-        Instructor
+        Instructor,
+        Staff,
+        Admin
     }
 }

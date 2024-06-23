@@ -5,12 +5,15 @@ using Contract.Dto.UsersDeleteDto;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

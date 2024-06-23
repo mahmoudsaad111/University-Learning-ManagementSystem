@@ -11,13 +11,16 @@ using Domain.Models;
 using Domain.Shared;
 using Infrastructure.Common;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-	[Route("api/[controller]")]
+    [Authorize]
+
+    [Route("api/[controller]")]
 	[ApiController]
 	public class ProfessorController : ControllerBase
 	{

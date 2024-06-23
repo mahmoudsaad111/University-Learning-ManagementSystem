@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "je/v3H2Fo7RQNN35PhQp9YV23GZOB1vTfOCzmT3K53z38IxZ22vxvB6NTNd+IM6JYnnpEw4vN9Nm1RIq1SBKJQ==",
+  "dgSpecHash": "EHO/Iue8W43A+xT5maPhADDJaiMnmc3SiGfdpoyFsGYWH9uDeeJLgQyJscqR5LskrRGxWVi8qxBui6SlqWC7DQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New Version\\OnlineLearningModelSystemPlatform\\Infrasructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mahmo\\.nuget\\packages\\bouncycastle.cryptography\\2.3.0\\bouncycastle.cryptography.2.3.0.nupkg.sha512",
     "C:\\Users\\mahmo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

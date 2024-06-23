@@ -4,12 +4,15 @@ using Contract.Dto.Groups;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-	[Route("api/[controller]")]
+    [Authorize]
+
+    [Route("api/[controller]")]
 	[ApiController]
 	public class GroupController : ControllerBase
 	{

@@ -1599,11 +1599,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+      "projectUniqueName": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New Version\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
+      "projectPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New Version\\OnlineLearningModelSystemPlatform\\Domain\\Domain.csproj",
       "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
+      "outputPath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New Version\\OnlineLearningModelSystemPlatform\\Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",

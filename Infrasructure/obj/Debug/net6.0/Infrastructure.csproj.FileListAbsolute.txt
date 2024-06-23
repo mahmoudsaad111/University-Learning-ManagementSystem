@@ -239,3 +239,25 @@ C:\Users\mahmo\OneDrive\Desktop\new version of the project\OnlineLearningModelSy
 C:\Users\mahmo\OneDrive\Desktop\new version of the project\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.pdb
 C:\Users\mahmo\OneDrive\Desktop\new version of the project\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.genruntimeconfig.cache
 C:\Users\mahmo\OneDrive\Desktop\new version of the project\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\ref\Infrastructure.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Infrastructure.deps.json
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Infrastructure.runtimeconfig.json
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Infrastructure.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Infrastructure.pdb
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Application.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Contract.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Domain.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Application.pdb
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Contract.pdb
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\bin\Debug\net6.0\Domain.pdb
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.AssemblyInfo.cs
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.sourcelink.json
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastr.15EFFBFE.Up2Date
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\refint\Infrastructure.dll
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.pdb
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\Infrastructure.genruntimeconfig.cache
+C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Infrasructure\obj\Debug\net6.0\ref\Infrastructure.dll

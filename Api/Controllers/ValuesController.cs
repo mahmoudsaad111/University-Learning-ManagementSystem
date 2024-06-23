@@ -3,6 +3,7 @@ using Application.CQRS.Query.Assignements;
 using Application.CQRS.Query.StudentExams;
 using Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

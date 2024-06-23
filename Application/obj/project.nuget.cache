@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qs2Pv5VqWh16xU+bZzUXh2xQGxigFsmKEKW5+P7V16haSZiac/Pf0HDSkZHrBrIWYmymgg9iW6S285EMbx4q3w==",
+  "dgSpecHash": "lvmfjz5G2lAC6GacbdG3wea0p/oVAlVnMR+uuS4wkHWNctC4GHlEGqNhT3ayfV0LAIaDlxtFHEaADxQAFbhNDA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\new version of the project\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
+  "projectFilePath": "C:\\Users\\mahmo\\OneDrive\\Desktop\\New Version\\OnlineLearningModelSystemPlatform\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mahmo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\mahmo\\.nuget\\packages\\mediatr\\6.0.0\\mediatr.6.0.0.nupkg.sha512",

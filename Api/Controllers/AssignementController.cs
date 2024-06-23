@@ -11,6 +11,7 @@ using Domain.Enums;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AssignementController : ControllerBase

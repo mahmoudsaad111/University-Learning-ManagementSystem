@@ -14,9 +14,12 @@ using MediatR;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
+    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ExamController : ControllerBase
