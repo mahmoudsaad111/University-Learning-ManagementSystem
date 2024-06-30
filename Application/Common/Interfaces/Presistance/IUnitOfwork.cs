@@ -19,14 +19,13 @@
         public ICourseRepository CourseRepository { get; }
         public ICourseCategoryRepository CourseCategoryRepository { get; }
         public ICourseCycle CourseCycleRepository { get; }
-        public IBaseRepository<Lecture> LectureRepository { get; }
         public ILectureResourceRepository LectureResourceRepository { get; }
         public IAssignementResourceRepository AssignementResourceRepository { get; }
         public IAssignementAnswerResourceRepository AssignementAnswerResourceRepository { get; }
         public IAssignementRepository AssignementRepository { get; }
         public IAssignementAnswerRepository AssignementAnswerRepository { get; }
-
-        public IBaseRepository<Post> PostRepository { get; }
+        public IPostRepository PostRepository { get; }
+        public ILectureRepository LectureRepository { get;  }
         public IBaseRepository<PostReply> PostReplyRepository { get; }
         public IBaseRepository<Comment> CommentRepository { get; }
         public IBaseRepository<CommentReply> CommentReplyRepository { get; }

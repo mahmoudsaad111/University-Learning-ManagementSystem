@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     [Route("api/[controller]")]
 	[ApiController]
@@ -23,7 +23,26 @@ namespace Api.Controllers
 			this.mediator = mediator;
 		}
 
-		[HttpPost]
+        [HttpPost]
+        [Route("GetGroupChat")] //CreateGroupCommand
+        public async Task<ActionResult> GetGroupChat([FromBody] int GroupId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                var query = new GetGroupChatQuery { GroupId = GroupId };
+                var result= await mediator.Send(query);
+
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
 		[Route("CreateGroup")] //CreateGroupCommand
 		public async Task<ActionResult> CreateGroup([FromBody] GroupDto groupDto)
 		{

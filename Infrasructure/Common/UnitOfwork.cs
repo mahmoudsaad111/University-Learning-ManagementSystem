@@ -31,7 +31,7 @@ namespace Infrastructure.Common
         public ILectureResourceRepository LectureResourceRepository { get; private set; }
         public IAssignementResourceRepository AssignementResourceRepository { get; private set; }
         public IAssignementAnswerResourceRepository AssignementAnswerResourceRepository { get; private set; }
-        public IBaseRepository<Post> PostRepository {get;private set;}
+        public IPostRepository PostRepository {get;}
         public IBaseRepository<PostReply> PostReplyRepository {get;private set;}
         public IBaseRepository<Comment> CommentRepository { get;private set;}
         public IBaseRepository<CommentReply> CommentReplyRepository { get;private set;} 
@@ -50,6 +50,10 @@ namespace Infrastructure.Common
         public IStudentAnswerInTFQRepository StudentAnswerInTFQRepository { get; private set; }
 
         public IBaseRepository<Message> MessageRepository { get; private set; }
+
+        IPostRepository IUnitOfwork.PostRepository => throw new NotImplementedException();
+
+        ILectureRepository IUnitOfwork.LectureRepository => throw new NotImplementedException();
 
         public UnitOfwork(AppDbContext context)
         {

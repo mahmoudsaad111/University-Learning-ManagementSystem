@@ -2,6 +2,7 @@
 using Application.CQRS.Command.Posts;
 using Application.CQRS.Query.Posts;
 using Contract.Dto.Posts;
+using Contract.Dto.Sections;
 using Domain.Models;
 using Domain.Shared;
 using MediatR;
@@ -24,6 +25,48 @@ namespace Api.Controllers
             this.mediator = mediator;
             this.userManager = userManager;
         }
+
+
+
+        [HttpPost]
+        [Route("GetSectionPosts")] 
+        public async Task<ActionResult> GetSectionPostsWithComments([FromBody] GetSectionPostsDTO sectionDtO) {
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                var query = new GetSectionPostsQuery { SectionId = sectionDtO.SectionId };
+                var result = await mediator.Send(query);
+
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Route("GetCourseCyclePosts")] //CreatePostCommand
+        public async Task<ActionResult> GetCourseCyclepostsWithComments([FromBody] GetCourseCyclePostsDTO courseCyclePostsDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                var query = new GetCourseCyclePostsQuery {  CourseCycleId= courseCyclePostsDTO.CourseCycleId };
+                var result = await mediator.Send(query);
+
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
 
         [HttpPost]
         [Route("CreatePost")] //CreatePostCommand

@@ -113,7 +113,7 @@ namespace Infrastructure.RealTimeServices
                             PostId = postMessage.PostId,
                         };
 
-                        await Clients.Group($"CourseCycle-{postMessage.CourseCycleId}").SendAsync("UpdateCourseCyclePost", postReceiverMessage);
+                        await Clients.Group($"CourseCycle-{postMessage.CourseCycleId}").SendAsync("DeleteCourseCyclePost", postReceiverMessage);
                     }
                 }
                 catch (Exception ex)

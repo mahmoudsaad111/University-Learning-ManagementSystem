@@ -25,7 +25,10 @@ namespace Api.Controllers
             this.userManager = userManager;
         }
 
-        [HttpPost]
+   
+
+
+       [HttpPost]
         [Route("CreateComment")] //CreateCommentCommand
         public async Task<ActionResult> CreateComment([FromBody] CommentDto commentDto)
         {

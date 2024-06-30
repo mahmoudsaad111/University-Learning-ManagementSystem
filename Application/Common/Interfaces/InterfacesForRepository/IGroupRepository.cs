@@ -6,6 +6,7 @@ using Domain.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,7 +17,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
         public Task<AcadimicYear> GetAcadimicYearHasSpecificGroup(int groupId);
         public Task<IEnumerable<GroupLessInfoDto>> GetGroupsOfDepartement(int DepartementId);
         public Task<IEnumerable<NameIdDto>> GetLessInfoGroupsOfAcadimicYear(int AcadimicYearId);
-   
+        public Task<IEnumerable<Message>> GetGroupChat(int GroupId); 
+
     }
 }
  

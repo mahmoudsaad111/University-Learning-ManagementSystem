@@ -125,12 +125,13 @@ namespace Api.Controllers
         }
 
         [HttpPost("RefreshToken")]
-        public async Task<IActionResult> RefreshToken()
+        public async Task<IActionResult> RefreshToken([FromHeader] string refreshToken)
         {
-            var tmp = Request.Cookies;
-            if (tmp is null) { return BadRequest("Invalid Request"); }
+            //var tmp = Request.Cookies;
+            //if (tmp is null) { return BadRequest("Invalid Request"); }
 
-            var refreshToken = Request.Cookies["refreshToken"];
+            //var refreshToken = Request.Headers["refreshToken"].FirstOrDefault();
+
             if (refreshToken is null) return BadRequest("Invalid Token");
 
             AuthResult result = new AuthResult();
@@ -152,9 +153,9 @@ namespace Api.Controllers
         }
 
         [HttpPost("RevokeToken")]
-        public async Task<IActionResult> RevokeToken()
+        public async Task<IActionResult> RevokeToken([FromHeader] string token)
         {
-            var token = Request.Cookies["refreshToken"];
+      //    var token = Request.Headers["refreshToken"].FirstOrDefault();
 
             if (string.IsNullOrEmpty(token))
                 return BadRequest("Invalid Token");
@@ -257,6 +258,7 @@ namespace Api.Controllers
 
 
             Response.Cookies.Append("refreshToken", refreshToken, cookieOptions);
+            Response.Headers.Append("refreshToken", refreshToken); 
             var temp = Response.Cookies;
 
         }

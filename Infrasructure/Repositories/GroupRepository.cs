@@ -5,20 +5,36 @@ using Domain.Models;
 using Infrastructure.Common;
 using InfraStructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-	public class GroupRepository : BaseRepository<Group>, IGroupRepository
+	public class GroupRepository : BaseRepository<Domain.Models.Group>, IGroupRepository
 	{
 		public GroupRepository(AppDbContext _appDbContext) : base(_appDbContext)
 		{
 		}
 
+        public async Task<IEnumerable<Message>> GetGroupChat(int GroupId) {
+            try
+            {
+                var messages = await _appDbContext.Set<Message>()
+                                      .Where(m => m.GroupId == GroupId)
+                                      .ToListAsync();
+
+                return messages;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<AcadimicYear> GetAcadimicYearHasSpecificGroup(int groupId)
         {
             try

@@ -26,6 +26,25 @@ namespace Api.Controllers
         }
 
         [HttpPost]
+        [Route("GetLectureComments")] //CreateLectureCommand
+        public async Task<ActionResult> GetLectureComments([FromBody]  int LectureId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            try
+            {
+                var query = new GetLectureCommentsQuery { LectureId = LectureId };
+                var result = await mediator.Send(query);
+
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
         [Route("CreateLecture")] //CreateLectureCommand
         public async Task<ActionResult> CreateLecture([FromBody] LectureDto lectureDto)
         {
