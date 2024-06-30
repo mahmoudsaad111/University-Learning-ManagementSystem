@@ -25,9 +25,9 @@ namespace Api.Controllers
             this.userManager = userManager;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetLectureComments")] //CreateLectureCommand
-        public async Task<ActionResult> GetLectureComments([FromBody]  int LectureId)
+        public async Task<ActionResult> GetLectureComments([FromHeader]  int LectureId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

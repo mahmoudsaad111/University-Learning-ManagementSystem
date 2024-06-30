@@ -28,15 +28,15 @@ namespace Api.Controllers
 
 
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetSectionPosts")] 
-        public async Task<ActionResult> GetSectionPostsWithComments([FromBody] GetSectionPostsDTO sectionDtO) {
+        public async Task<ActionResult> GetSectionPostsWithComments([FromHeader] int SectionId) {
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                var query = new GetSectionPostsQuery { SectionId = sectionDtO.SectionId };
+                var query = new GetSectionPostsQuery { SectionId = SectionId };
                 var result = await mediator.Send(query);
 
                 return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
@@ -47,15 +47,15 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetCourseCyclePosts")] //CreatePostCommand
-        public async Task<ActionResult> GetCourseCyclepostsWithComments([FromBody] GetCourseCyclePostsDTO courseCyclePostsDTO)
+        public async Task<ActionResult> GetCourseCyclepostsWithComments([FromHeader] int CourseCycleId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                var query = new GetCourseCyclePostsQuery {  CourseCycleId= courseCyclePostsDTO.CourseCycleId };
+                var query = new GetCourseCyclePostsQuery {  CourseCycleId= CourseCycleId };
                 var result = await mediator.Send(query);
 
                 return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);

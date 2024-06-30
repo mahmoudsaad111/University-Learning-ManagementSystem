@@ -23,9 +23,9 @@ namespace Api.Controllers
 			this.mediator = mediator;
 		}
 
-        [HttpPost]
+        [HttpGet]
         [Route("GetGroupChat")] //CreateGroupCommand
-        public async Task<ActionResult> GetGroupChat([FromBody] int GroupId)
+        public async Task<ActionResult> GetGroupChat([FromHeader] int GroupId)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
