@@ -36,5 +36,31 @@ namespace Infrastructure.Repositories
                 return Enumerable.Empty<Comment>();
             }
         }
+
+        public async Task<IEnumerable<Lecture>> GetLecturesOfCourseCycle(int CourseCycleId)
+        {
+            try
+            {
+                var Lectures = await _appDbContext.Lectures.Where(l => l.CourseCycleId == CourseCycleId).ToListAsync();
+                return Lectures;    
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<Lecture>();
+            }
+        }
+
+        public async Task<IEnumerable<Lecture>> GetLecturesOfSection(int SectionId)
+        {
+            try
+            {
+                var Lectures = await _appDbContext.Lectures.Where(l => l.SectionId == SectionId).ToListAsync();
+                return Lectures;
+            }
+            catch (Exception ex)
+            {
+                return Enumerable.Empty<Lecture>();
+            }
+        }
     }
 }

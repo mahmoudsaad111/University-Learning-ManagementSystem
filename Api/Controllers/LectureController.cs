@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Authorize]
+  //  [Authorize]
 
     [Route("api/[controller]")]
     [ApiController]
@@ -26,7 +26,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetLectureComments")] //CreateLectureCommand
+        [Route("GetLectureComments")] 
         public async Task<ActionResult> GetLectureComments([FromHeader]  int LectureId)
         {
             if (!ModelState.IsValid)
@@ -44,18 +44,18 @@ namespace Api.Controllers
             }
         }
 
-        [HttpPost]
+        [ HttpPost]
         [Route("CreateLecture")] //CreateLectureCommand
-        public async Task<ActionResult> CreateLecture([FromBody] LectureDto lectureDto)
+        public async Task<ActionResult> CreateLecture([FromBody] LectureDto lectureDto , bool IsProfessor , string CreatorUserNanme)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             try
             {
-                var command = new CreateLectureCommand { LectureDto = lectureDto };
-                Result result = await mediator.Send(command);
-
-                return result.IsSuccess ? Ok("Lecture Added Sucessfully") : BadRequest(result.Error);
+                var command = new CreateLectureCommand { LectureDto = lectureDto, CreatorUserName = CreatorUserNanme, IsProfessor = IsProfessor };
+                Result<Lecture> result = await mediator.Send(command);
+                 
+                return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Error);
             }
             catch (Exception ex)
             {
@@ -65,11 +65,20 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("GetLectures")]
-        public async Task<ActionResult> GetALlLectures()
+        public async Task<ActionResult> GetALlLectures(bool IsProfessor, int CourseCycleId , string CreatorUserName , int SectionId) 
         {
             try
             {
-                var result = await mediator.Send(new GetAllLecturesQuery());
+                var result = await mediator.Send(
+                    new GetAllLecturesQuery { 
+                        GetLectureDto = new GetLectureDto
+                        {
+                            CourseCycleId = CourseCycleId,
+                            SectionId = SectionId,
+                            CreatorUserName = CreatorUserName,
+                            IsProfessor = IsProfessor
+                        }
+                });
                 if (result.IsSuccess)
                     return Ok(result.Value);
                 return BadRequest(result.Error);

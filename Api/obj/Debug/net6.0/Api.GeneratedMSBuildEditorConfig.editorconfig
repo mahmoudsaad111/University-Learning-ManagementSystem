@@ -9,23 +9,23 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Api
 build_property.RootNamespace = Api
-build_property.ProjectDir = C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Api\
+build_property.ProjectDir = C:\Users\lenovo\Desktop\ll_version\OnlineLearningModelSystemPlatform\Api\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\mahmo\OneDrive\Desktop\New Version\OnlineLearningModelSystemPlatform\Api
+build_property.MSBuildProjectDirectory = C:\Users\lenovo\Desktop\ll_version\OnlineLearningModelSystemPlatform\Api
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/mahmo/OneDrive/Desktop/New Version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/AssignmentsNotificationTemplate.cshtml]
+[C:/Users/lenovo/Desktop/ll_version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/AssignmentsNotificationTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXEFzc2lnbm1lbnRzTm90aWZpY2F0aW9uVGVtcGxhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahmo/OneDrive/Desktop/New Version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/EmailResetPasswordTemplate.cshtml]
+[C:/Users/lenovo/Desktop/ll_version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/EmailResetPasswordTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXEVtYWlsUmVzZXRQYXNzd29yZFRlbXBsYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/mahmo/OneDrive/Desktop/New Version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/ExamNotificationTemplate.cshtml]
+[C:/Users/lenovo/Desktop/ll_version/OnlineLearningModelSystemPlatform/Api/Pages/Shared/ExamNotificationTemplate.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXEV4YW1Ob3RpZmljYXRpb25UZW1wbGF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

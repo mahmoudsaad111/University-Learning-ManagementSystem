@@ -25,7 +25,7 @@ namespace Infrastructure.Common
 		public ICourseRepository CourseRepository { get; private set; }
         public ICourseCategoryRepository CourseCategoryRepository { get; private set; }
         public ICourseCycle CourseCycleRepository { get; private set; }
-        public IBaseRepository<Lecture> LectureRepository { get; private set; }
+        public ILectureRepository LectureRepository { get; private set; }
         public IAssignementRepository AssignementRepository { get; private set; }
         public IAssignementAnswerRepository AssignementAnswerRepository { get; private set; }
         public ILectureResourceRepository LectureResourceRepository { get; private set; }
@@ -53,7 +53,7 @@ namespace Infrastructure.Common
 
         IPostRepository IUnitOfwork.PostRepository => throw new NotImplementedException();
 
-        ILectureRepository IUnitOfwork.LectureRepository => throw new NotImplementedException();
+   //     ILectureRepository IUnitOfwork.LectureRepository => throw new NotImplementedException();
 
         public UnitOfwork(AppDbContext context)
         {

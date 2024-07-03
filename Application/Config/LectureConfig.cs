@@ -18,7 +18,7 @@ namespace Application.Config
             builder.ToTable("Lectures");
             // properties 
             builder.Property(l => l.Name).IsRequired(true).HasMaxLength(50);
-      
+            builder.Property(l => l.VedioUrl).IsRequired(true).HasMaxLength(150);     
 
             //keys
             builder.HasKey(l => l.LectureId);
@@ -27,6 +27,8 @@ namespace Application.Config
             builder.HasMany(l => l.Comments).WithOne(c => c.lecture).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(l => l.StudentNotes).WithOne(sn => sn.Lecture).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(l => l.Student_Lectures).WithOne(sl => sl.lecture).OnDelete(DeleteBehavior.Cascade);
+
+
             //& the next line is commented because we make the relation between Section and assignment not between lecture and assignments
             //builder.HasMany(l => l.Assignments).WithOne(a => a.lecture).OnDelete(DeleteBehavior.Cascade);
             builder.HasOne(l=>l.Section).WithMany(s=>s.Lectures).HasForeignKey(l => l.LectureId);

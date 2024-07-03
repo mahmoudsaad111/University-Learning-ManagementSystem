@@ -10,6 +10,8 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 {
     public interface ILectureRepository :IBaseRepository<Lecture>
     {
-        public Task<IEnumerable<Comment>> GetLectureComments(int LectureId); 
+        public Task<IEnumerable<Comment>> GetLectureComments(int LectureId);
+        public Task<IEnumerable<Lecture>> GetLecturesOfCourseCycle(int CourseCycleId);
+        public Task<IEnumerable<Lecture>> GetLecturesOfSection (int SectionId); 
     }
 }

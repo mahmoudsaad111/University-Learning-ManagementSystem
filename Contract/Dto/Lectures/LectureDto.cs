@@ -14,6 +14,7 @@ namespace Contract.Dto.Lectures
         public bool HavingAssignment { get; set; }
         public int? SectionId { get; set; }
         public int? CourseCycleId { get; set; }
+        public string VideoUrl { get; set; }
 
         public Lecture GetLecture()
         {
@@ -28,7 +29,8 @@ namespace Contract.Dto.Lectures
                     {
                         Name = Name,
                         HavingAssignment = HavingAssignment,         
-                        CourseCycleId = CourseCycleId
+                        CourseCycleId = CourseCycleId , 
+                        VedioUrl = VideoUrl 
                     };
 
             // this lecture belongs to Section not CourseCycle
@@ -36,7 +38,8 @@ namespace Contract.Dto.Lectures
             {
                 Name = Name,
                 HavingAssignment = HavingAssignment,
-                SectionId = SectionId
+                SectionId = SectionId,
+                VedioUrl= VideoUrl
             };
         }
     }

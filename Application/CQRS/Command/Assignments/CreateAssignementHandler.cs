@@ -20,8 +20,6 @@ namespace Application.CQRS.Command.Assignements
             this.unitOfwork = unitOfwork;
         }
 
-
-
         public async Task<Result<Assignment>> Handle(CreateAssignementCommand request, CancellationToken cancellationToken)
         {
             try

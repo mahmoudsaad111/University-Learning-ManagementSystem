@@ -20,19 +20,35 @@ namespace Application.CQRS.Command.Lectures
 				Lecture lecture = unitOfwork.LectureRepository.Find(f => f.LectureId == request.Id);
 				if (lecture is null)
 					return Result.Failure<Lecture>(new Error(code: "Update Lecture", message: "No Lecture exist by this Id"));
-				
-				if(
-					(request.LectureDto.SectionId==0 && request.LectureDto.CourseCycleId==0) || 
-					(request.LectureDto.SectionId!=0 && request.LectureDto.CourseCycleId!=0)
-				   )
-					return Result.Failure<Lecture>(new Error(code:"Update Lecture" , message :"Lecture should be belongs to only one CourseCycle or only one Section"));
 
-				var GetLectureFromLectureDto = request.LectureDto.GetLecture();
+				if ( 
+					 (lecture.CourseCycleId!=null && request.LectureDto.CourseCycleId!=lecture.CourseCycleId)	 || 
+					 (lecture.SectionId!=null && request.LectureDto.SectionId!=lecture.SectionId)
+					)
+                    return Result.Failure<Lecture>(new Error(code: "Update Lecture", message: "not valid data"));
+
+
+                User user = await unitOfwork.UserRepository.GetUserByUserName(request.CreatorUserName);
+                if (user is null)
+                    return Result.Failure<Lecture>(new Error(code: "Update Lecture", message: "Not valid data"));
+
+
+                bool ifUserHasAcsses = false;
+                if (lecture.CourseCycleId != null)
+                    ifUserHasAcsses = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: user.Id, CourseCycleId: (int)lecture.CourseCycleId);
+                if (lecture.SectionId != null)
+                    ifUserHasAcsses = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: user.Id, SectionId: (int)lecture.SectionId);
+
+
+                if (!ifUserHasAcsses)
+                    return Result.Failure<Lecture>(new Error(code: "Update Lecture", message: "not valid data"));
+
+                var GetLectureFromLectureDto = request.LectureDto.GetLecture();
 				lecture.Name = GetLectureFromLectureDto.Name;
-				lecture.SectionId = GetLectureFromLectureDto.SectionId;
-				lecture.CourseCycleId = GetLectureFromLectureDto.CourseCycleId;
+			//	lecture.SectionId = GetLectureFromLectureDto.SectionId;
+			//	lecture.CourseCycleId = GetLectureFromLectureDto.CourseCycleId;
 				lecture.HavingAssignment = GetLectureFromLectureDto.HavingAssignment;
-				 
+				lecture.VedioUrl = request.LectureDto.VideoUrl;
 				int NumOfTasks  = await unitOfwork.SaveChangesAsync();
 				return Result.Success<Lecture>(lecture);
 			}

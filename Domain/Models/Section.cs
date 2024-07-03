@@ -14,6 +14,7 @@ namespace Domain.Models
         [JsonIgnore]
 
         public ICollection<StudentSection> StudentsInSection { get; set; }
+		[JsonIgnore]
 		public ICollection<Lecture> Lectures{ get; set; }
 		[JsonIgnore]
         public ICollection<Assignment> Assignments { get; set; }

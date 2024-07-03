@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Models
@@ -12,6 +13,7 @@ namespace Domain.Models
 
         public string Name { get; set; } = null!; 
         public bool HavingAssignment { get; set; } 
+        public string VedioUrl {  get; set; }   
 
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
@@ -22,7 +24,7 @@ namespace Domain.Models
         public ICollection<StudentNote> StudentNotes { get; set; }
         public ICollection<Comment>Comments { get; set; }    
         public int? SectionId { get; set; }
-
+        [JsonIgnore]
         public Section? Section { get; set; }
         public int? CourseCycleId { get; set; }
         public CourseCycle? CourseCycle { get; set; }

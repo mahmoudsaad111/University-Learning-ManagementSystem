@@ -24,8 +24,38 @@ namespace Application.CQRS.Query.Lectures
         {
             try
             {
-                var Lectures = await unitOfwork.LectureRepository.FindAllAsyncInclude();
-                return Result.Create<IEnumerable<Lecture>>(Lectures);
+                if ((request.GetLectureDto.IsProfessor && request.GetLectureDto.CourseCycleId == 0) ||
+                    (!request.GetLectureDto.IsProfessor && request.GetLectureDto.SectionId == 0))
+                {
+                    return Result.Failure<IEnumerable<Lecture>>(new Error(code: "GetAllLecturesHandler", message: "Wrong data"));
+                }
+
+                bool IfUSerHasAccess = false; 
+                User user=await unitOfwork.UserRepository.GetUserByUserName(request.GetLectureDto.CreatorUserName);
+                if(user is null)
+                    return Result.Failure<IEnumerable<Lecture>>(new Error(code: "GetAllLecturesHandler", message: "Not valid data"));
+
+                if (request.GetLectureDto.IsProfessor)
+                {
+                    IfUSerHasAccess = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId:user.Id , CourseCycleId: request.GetLectureDto.CourseCycleId);
+                }
+                else
+                {
+                    IfUSerHasAccess = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: user.Id, SectionId: request.GetLectureDto.SectionId);
+                }
+
+                IEnumerable<Lecture> Lectures = new List<Lecture>();
+                if(IfUSerHasAccess)
+                {
+                    if (request.GetLectureDto.IsProfessor)
+                        Lectures = await unitOfwork.LectureRepository.GetLecturesOfCourseCycle(CourseCycleId: request.GetLectureDto.CourseCycleId);
+                    else Lectures =await unitOfwork.LectureRepository.GetLecturesOfSection(SectionId:request.GetLectureDto.SectionId);
+
+                    return Result.Create<IEnumerable<Lecture>>(Lectures);
+                }
+
+                return Result.Failure<IEnumerable<Lecture>>(new Error(code: "GetAllLecturesHandler", message: "User Has no access"));
+
             }
             catch (Exception ex)
             {

@@ -24,19 +24,23 @@ namespace Application.CQRS.Command.Lectures
 				if (lecture == null)
 					return Result.Failure<int>(new Error(code: "Delete Lecture", message: "No lecture has this Id")) ;
 
-				//var GetLectureFromLectureDto = request.LectureDto.GetLecture();
 
-    //            if (
-				//	(lecture.CourseCycleId != GetLectureFromLectureDto.CourseCycleId) || 
-				//	 (lecture.SectionId != GetLectureFromLectureDto.SectionId) ||
-				//	 (lecture.Name != GetLectureFromLectureDto.Name) ||
-				//	 (lecture.HavingAssignment!=GetLectureFromLectureDto.HavingAssignment)
-				//	) 
-				//{
-				//	return Result.Failure<int>(new Error(code: "Delete Lecture", message: "Data of the lecture is not the same in database"));
-				//}
+                User user = await unitOfwork.UserRepository.GetUserByUserName(request.CreatorUserName);
+                if (user is null)
+                    return Result.Failure<int>(new Error(code: "Delete Lecture", message: "Not valid data"));
 
-				bool IsDeleted = await unitOfwork.LectureRepository.DeleteAsync(request.Id);
+                bool ifUserHasAcsses = false;
+                if (lecture.CourseCycleId != null)
+                    ifUserHasAcsses = await unitOfwork.CourseCycleRepository.CheckIfProfInCourseCycle(ProfId: user.Id, CourseCycleId: (int)lecture.CourseCycleId);
+                if (lecture.SectionId != null)
+                    ifUserHasAcsses = await unitOfwork.SectionRepository.CheckIfInstructorInSection(InstrucotrId: user.Id, SectionId: (int)lecture.SectionId);
+
+
+                if (!ifUserHasAcsses)
+                    return Result.Failure<int>(new Error(code: "Delete Lecture", message: "not valid data"));
+
+
+                bool IsDeleted = await unitOfwork.LectureRepository.DeleteAsync(request.Id);
 
 				if (IsDeleted) 
 				{
