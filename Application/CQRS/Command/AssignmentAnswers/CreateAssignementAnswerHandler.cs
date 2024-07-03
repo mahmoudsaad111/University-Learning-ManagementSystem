@@ -24,7 +24,7 @@ namespace Application.CQRS.Command.AssignementAnswers
             try
             {
                 User user = await unitOfwork.UserRepository.GetUserByUserName(request.StudentUserName);
-                if (user is null || user.Id !=request.AssignementAnswerDto.StudentId)
+                if (user is null )
                     return Result.Failure<AssignmentAnswer>(new Error(code: "Create AssignementAnswer", message: "not valid data"));
 
                 Assignment assignment = await unitOfwork.AssignementRepository.GetByIdAsync(request.AssignementAnswerDto.AssignementId);
