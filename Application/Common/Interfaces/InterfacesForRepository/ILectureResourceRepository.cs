@@ -10,6 +10,6 @@ namespace Application.Common.Interfaces.InterfacesForRepository
 {
     public interface ILectureResourceRepository : IBaseRepository<LectureResource>
     {
-        Task<IEnumerable<string>> GetAllFilesUrlForLectureAsync(int LectureId);
+        Task<IEnumerable<LectureResource>> GetAllFilesUrlForLectureAsync(int LectureId);
     }
 }

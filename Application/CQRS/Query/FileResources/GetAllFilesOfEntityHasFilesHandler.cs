@@ -25,15 +25,12 @@ namespace Application.CQRS.Query.FileResources
             try
             {
                 IEnumerable<IFileResourceModel> result = new List<IFileResourceModel>();
-                //if (request.TypeOfEntity == enums.EntitiesHasFiles.Lecture)
-                //    result = await unitOfwork.LectureResourceRepository.GetAllFilesUrlForLectureAsync(request.LectureId);
-                if (request.TypeOfEntity == enums.EntitiesHasFiles.Assignement)
-                {
-                    //result = new List<AssignmentResource>();
+                if (request.TypeOfEntity == enums.EntitiesHasFiles.Lecture)
+                    result = await unitOfwork.LectureResourceRepository.GetAllFilesUrlForLectureAsync(request.LectureId);
+                else if (request.TypeOfEntity == enums.EntitiesHasFiles.Assignement)
                     result = await  unitOfwork.AssignementResourceRepository.GetAllFilesUrlForAssignementAsync(request.AssignmentId);
-                }
-                //else if(request.TypeOfEntity==enums.EntitiesHasFiles.AssignementAnswer)
-                //    result=await unitOfwork.AssignementAnswerResouceRepository.GetAllFilesUrlForAssignementAnswerAsync(request.AssignmentAnswerId);
+                else if(request.TypeOfEntity==enums.EntitiesHasFiles.AssignementAnswer)
+                   result=await unitOfwork.AssignementAnswerResourceRepository.GetAllFilesUrlForAssignementAnswerAsync(request.AssignmentAnswerId);
                     
                 return Result.Success<IEnumerable<IFileResourceModel>>(result); 
             }

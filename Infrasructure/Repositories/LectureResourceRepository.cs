@@ -17,15 +17,15 @@ namespace Infrastructure.Repositories
         {
         }
 
-        public async Task<IEnumerable<string>> GetAllFilesUrlForLectureAsync(int LectureId)
+        public async Task<IEnumerable<LectureResource>> GetAllFilesUrlForLectureAsync(int LectureId)
         {
             try
             {
-                return await _appDbContext.LectureResources.Where(lr => lr.LectureId == LectureId).Select(lr => lr.Url).ToListAsync();
+                return await _appDbContext.LectureResources.Where(lr => lr.LectureId == LectureId).ToListAsync();
             }
             catch (Exception ex)
             {
-                return new List<string>();
+                return new List<LectureResource>();
             }
         }
     }

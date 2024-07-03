@@ -1,5 +1,6 @@
 ﻿using Application.CQRS.Command.FileResources;
 using Application.CQRS.Command.FilesProcessing;
+using Application.CQRS.Query.AssignementAnswers;
 using Application.CQRS.Query.FileResources;
 using Application.enums;
 using Contract.Dto.FileResources;
@@ -11,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Authorize]
+ //   [Authorize]
 
     [Route("api/[controller]")]
     [ApiController]
@@ -64,16 +65,22 @@ namespace Api.Controllers
         }
 
         [HttpGet("GetAssignementAnswerFiles")]
-        public async Task<ActionResult> GetFilesOfAssignementAnswer([FromHeader] int AssignementAnswerId)
+        public async Task<ActionResult> GetFilesOfAssignementAnswer([FromHeader] int AssignmentId ,  string StudentUserName)
         {
             try
             {
-                if (AssignementAnswerId == 0)
+                if (AssignmentId == 0 || StudentUserName=="")
                     return BadRequest("Enter valid AssignementAnswerId");
+
+                var ResultOfAssignmnetAnswer= await mediator.Send(new  GetAssignmentAnswerIdQuery { AssessmentId=AssignmentId,StudentUserName=StudentUserName});
+                if (ResultOfAssignmnetAnswer is null || ResultOfAssignmnetAnswer.IsFailure)
+                    return BadRequest("Invalid data");
+
+                
                 var resultOfFilesUrlOfAssignementAnswer = await mediator.Send(new GetAllFilesOfEntityHasFilesQuery
                 {
                     TypeOfEntity = EntitiesHasFiles.AssignementAnswer,
-                    AssignmentId = AssignementAnswerId
+                    AssignmentAnswerId = ResultOfAssignmnetAnswer.Value
                 });
                 if (resultOfFilesUrlOfAssignementAnswer is not null && resultOfFilesUrlOfAssignementAnswer.IsSuccess)
                     return Ok(resultOfFilesUrlOfAssignementAnswer.Value);
