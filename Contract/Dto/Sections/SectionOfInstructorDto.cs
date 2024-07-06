@@ -21,6 +21,8 @@ namespace Contract.Dto.Sections
         public int GroupId { get; set; }
         public string GroupName { get; set; }
 
+        public int CourseCycleId {  get; set; } 
+
         public int AcadimicYearId { get; set; } 
         public int Year { get; set; }
     }

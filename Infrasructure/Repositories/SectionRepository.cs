@@ -117,7 +117,8 @@ namespace Infrastructure.Repositories
                                                     GroupId = _group.GroupId,
                                                     GroupName = _group.Name,
                                                     AcadimicYearId = acadimicYear.AcadimicYearId,
-                                                    Year = acadimicYear.Year
+                                                    Year = acadimicYear.Year,
+                                                    CourseCycleId=courseCycle.CourseCycleId    
                                                 }
 
                                               ).ToListAsync();
