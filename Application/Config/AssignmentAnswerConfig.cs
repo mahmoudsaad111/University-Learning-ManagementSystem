@@ -30,7 +30,7 @@ namespace Application.Config
             builder.HasOne(x => x.Student).WithMany(y => y.AssignmentAnswers).HasForeignKey(x => x.StudentId);
 
             //
-            builder.HasMany(x => x.AssignmentAnswerResources).WithOne(y => y.AssignmentAnswer).HasForeignKey(y => y.AssignmentAnswerId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.AssignmentAnswerResources).WithOne(y => y.AssignmentAnswer).HasForeignKey(y => y.AssignmentAnswerId).OnDelete(DeleteBehavior.NoAction);
             // Indexes
             builder.HasIndex(x => new { x.StudentId, x.AssignmentId }).IsUnique(true);
         }

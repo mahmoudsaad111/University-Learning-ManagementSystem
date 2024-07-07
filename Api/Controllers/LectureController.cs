@@ -63,15 +63,44 @@ namespace Api.Controllers
             }
         }
 
+
         [HttpGet]
-        [Route("GetLectures")]
+        [Route("GetLecturesForStudent")]
+        public async Task<ActionResult> GetALlLectures( int CourseCycleId, string StudentUserName, int SectionId) 
+        {
+            try
+            {
+                var result = await mediator.Send(
+                    new GetAllLecturesForStudentQuery
+                    {
+                        getLectureForStudentDto = new GetLectureForStudentDto
+                        {
+                            CourseCycleId = CourseCycleId,
+                            SectionId = SectionId,
+                            StudentUserName = StudentUserName
+                        }
+                    });
+                if (result.IsSuccess)
+                    return Ok(result.Value);
+                return BadRequest(result.Error);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
+
+        [HttpGet]
+        [Route("GetLecturesForCreator")]
         public async Task<ActionResult> GetALlLectures(bool IsProfessor, int CourseCycleId , string CreatorUserName , int SectionId) 
         {
             try
             {
                 var result = await mediator.Send(
-                    new GetAllLecturesQuery { 
-                        GetLectureDto = new GetLectureDto
+                    new GetAllLecturesForCreatroQuery { 
+                        GetLectureDto = new GetLectureForCreatorDto
                         {
                             CourseCycleId = CourseCycleId,
                             SectionId = SectionId,
@@ -109,7 +138,7 @@ namespace Api.Controllers
 
         [HttpDelete]
         [Route("DeleteLecture")]
-        public async Task<ActionResult> DeleteLecture([FromHeader] int Id )
+        public async Task<ActionResult> DeleteLecture([FromHeader] int Id , string CreatorUserName)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -117,7 +146,7 @@ namespace Api.Controllers
                 return BadRequest("Enter valid ID");
             try
             {
-                Result<int> resultOfDeleted = await mediator.Send(new DeleteLectureCommand { Id = Id });
+                Result<int> resultOfDeleted = await mediator.Send(new DeleteLectureCommand { Id = Id, CreatorUserName = CreatorUserName });
                 return resultOfDeleted.IsSuccess ? Ok(resultOfDeleted.Value) : BadRequest("un valid data");
             }
             catch

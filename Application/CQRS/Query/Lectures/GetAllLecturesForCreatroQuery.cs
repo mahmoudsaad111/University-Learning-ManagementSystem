@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Query.Lectures
 {
-    public class GetAllLecturesQuery :IQuery<IEnumerable<Lecture>>
+    public class GetAllLecturesForCreatroQuery :IQuery<IEnumerable<Lecture>>
     {
-       public GetLectureDto GetLectureDto { get; set; }   
+       public GetLectureForCreatorDto GetLectureDto { get; set; }   
     }
 }

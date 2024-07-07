@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contract.Dto.Lectures
 {
-    public class GetLectureDto
+    public class GetLectureForCreatorDto
     {
         public bool IsProfessor { get; set; }
         public int CourseCycleId { get; set; }

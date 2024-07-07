@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace Application.CQRS.Query.Lectures
 {
-    public class GetAllLecturesHandler : IQueryHandler<GetAllLecturesQuery , IEnumerable<Lecture>>
+    public class GetAllLecturesForCreatorHandler : IQueryHandler<GetAllLecturesForCreatroQuery , IEnumerable<Lecture>>
     {
         private readonly IUnitOfwork unitOfwork;
 
-        public GetAllLecturesHandler(IUnitOfwork unitOfwork)
+        public GetAllLecturesForCreatorHandler(IUnitOfwork unitOfwork)
         {
             this.unitOfwork = unitOfwork;
         }
 
-        public async Task<Result<IEnumerable<Lecture>>> Handle(GetAllLecturesQuery request, CancellationToken cancellationToken)
+        public async Task<Result<IEnumerable<Lecture>>> Handle(GetAllLecturesForCreatroQuery request, CancellationToken cancellationToken)
         {
             try
             {
